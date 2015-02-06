@@ -47,9 +47,27 @@
 
 \documentclass{sig-alternate}
 
+\usepackage{cite}
+\usepackage{times}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{balance}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+\newcommand{\tion}[1]{\S\ref{sect:#1}}
+\newcommand{\fig}[1]{Figure~\ref{fig:#1}}
+\setlist{nolistsep,leftmargin=5mm}
+%\usepackage[pdftex]{graphicx}
+\newcommand{\Sample}{{\bf SAMPLE}}
+\newcommand{\Slope}{{\bf SLOPE}}
+\usepackage{picture}
 \usepackage{colortbl}
 \usepackage[table]{xcolor}
-\usepackage[margin=1in]{geometry}
+\usepackage{listings}
+%\usepackage[margin=1in]{geometry}
 
 \definecolor{lightgray}{gray}{0.8}
 \definecolor{darkgray}{gray}{0.6}
@@ -94,23 +112,37 @@
 
 
 
+%\usepackage[small]{titlesec}
+\def\baselinestretch{0.97}
+
+
+ \usepackage[font={small}]{caption, subfig}
+
+
+\setlength{\abovecaptionskip}{1ex}
+ \setlength{\belowcaptionskip}{1ex}
+ \setlength{\floatsep}{1ex}
+ \setlength{\textfloatsep}{1ex}
+\setlist{nosep}
+
 \begin{document}
 %
 % --- Author Metadata here ---
-\conferenceinfo{WOODSTOCK}{'97 El Paso, Texas USA}
+\conferenceinfo{FSE}{'15 Bergamo, Italy}
 %\CopyrightYear{2007} % Allows default copyright year (20XX) to be over-ridden - IF NEED BE.
 %\crdata{0-12345-67-8/90/01}  % Allows default copyright data (0-89791-88-6/97/05) to be over-ridden - IF NEED BE.
 % --- End of Author Metadata ---
 
-\title{Alternate {\ttlit ACM} SIG Proceedings Paper in LaTeX
-Format\titlenote{(Produces the permission block, and
-copyright information). For use with
-SIG-ALTERNATE.CLS. Supported by ACM.}}
-\subtitle{[Extended Abstract]
-\titlenote{A full version of this paper is available as
-\textit{Author's Guide to Preparing ACM SIG Proceedings Using
-\LaTeX$2_\epsilon$\ and BibTeX} at
-\texttt{www.acm.org/eaddress.htm}}}
+
+\title{40 Years of Parametric Effort Estimation:\\A Report Card on COCOMO-style Research\titlenote{
+The research described in this paper was carried out, in part, at the Jet
+Propulsion Laboratory, California Institute of Technology,
+under a contract with the US National Aeronautics and
+Space Administration. Reference herein to any specific
+commercial product, process, or service by trade name,
+trademark, manufacturer, or otherwise does not constitute
+or imply its endorsement by the US Government.}}
+
 %
 % You need the command \numberofauthors to handle the 'placement
 % and alignment' of the authors beneath the title.
@@ -136,11 +168,11 @@ SIG-ALTERNATE.CLS. Supported by ACM.}}
 % without further effort on your part as the last section in
 % the body of your article BEFORE References or any Appendices.
 
-\numberofauthors{8} %  in this sample file, there are a *total*
+\numberofauthors{4} %  in this sample file, there are a *total*
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting
 % reasons) and the remaining two appear in the \additionalauthors section.
 %
-\author{
+{\tiny\author{
 % You can go ahead and credit any number of authors here,
 % e.g. one 'row of three' or two rows (consisting of one row of three
 % and a second row of one, two or three).
@@ -153,46 +185,28 @@ SIG-ALTERNATE.CLS. Supported by ACM.}}
 %
 % 1st. author
 \alignauthor
-Ben Trovato\titlenote{Dr.~Trovato insisted his name be first.}\\
-       \affaddr{Institute for Clarity in Documentation}\\
-       \affaddr{1932 Wallamaloo Lane}\\
-       \affaddr{Wallamaloo, New Zealand}\\
-       \email{trovato@corporation.com}
+Tim Menzies, \\
+       \affaddr{NcState, USA}\\
+       \email{tim@menzies.us}
 % 2nd. author
 \alignauthor
-G.K.M. Tobin\titlenote{The secretary disavows
-any knowledge of this author's actions.}\\
-       \affaddr{Institute for Clarity in Documentation}\\
-       \affaddr{P.O. Box 1212}\\
-       \affaddr{Dublin, Ohio 43017-6221}\\
-       \email{webmaster@marysville-ohio.com}
+Barry Boehm\\
+       \affaddr{USC, USA}\\
+       \email{barryboehm@gmail.com}
 % 3rd. author
-\alignauthor Lars Th{\o}rv{\"a}ld\titlenote{This author is the
-one who did all the really hard work.}\\
-       \affaddr{The Th{\o}rv{\"a}ld Group}\\
-       \affaddr{1 Th{\o}rv{\"a}ld Circle}\\
-       \affaddr{Hekla, Iceland}\\
-       \email{larst@affiliation.org}
-\and  % use '\and' if you need 'another row' of author names
+\alignauthor Ye Yang\\
+       \affaddr{Stevens Inst, USA}\\
+       \email{yangye@gmail.com}
+ % use '\and' if you need 'another row' of author names
 % 4th. author
-\alignauthor Lawrence P. Leipuner\\
-       \affaddr{Brookhaven Laboratories}\\
-       \affaddr{Brookhaven National Lab}\\
-       \affaddr{P.O. Box 5000}\\
-       \email{lleipuner@researchlabs.org}
-% 5th. author
-\alignauthor Sean Fogarty\\
-       \affaddr{NASA Ames Research Center}\\
-       \affaddr{Moffett Field}\\
-       \affaddr{California 94035}\\
-       \email{fogartys@amesres.org}
-% 6th. author
-\alignauthor Charles Palmer\\
-       \affaddr{Palmer Research Laboratories}\\
-       \affaddr{8600 Datapoint Drive}\\
-       \affaddr{San Antonio, Texas 78229}\\
-       \email{cpalmer@prl.com}
-}
+\and
+\alignauthor Jairus Hihn\\
+       \affaddr{JPL, Caltech, USA}\\
+       \email{ jairus.hihn@jpl.nasa.gov}    
+\alignauthor Naveen Lekkalapudi\\
+       \affaddr{WVU, USA}\\
+       \email{nalekkalapudi@mix.wvu.edu}
+}}
 % There's nothing stopping you putting the seventh, eighth, etc.
 % author on the opening page (as the 'third row') but we ask,
 % for aesthetic reasons that you place these 'additional authors'
@@ -207,40 +221,1814 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 
 \maketitle
 \begin{abstract}
-This paper provides a sample of a \LaTeX\ document which conforms,
-somewhat loosely, to the formatting guidelines for
-ACM SIG Proceedings. It is an {\em alternate} style which produces
-a {\em tighter-looking} paper and was designed in response to
-concerns expressed, by authors, over page-budgets.
-It complements the document \textit{Author's (Alternate) Guide to
-Preparing ACM SIG Proceedings Using \LaTeX$2_\epsilon$\ and Bib\TeX}.
-This source file has been written with the intention of being
-compiled under \LaTeX$2_\epsilon$\ and BibTeX.
+%\boldmath
 
-The developers have tried to include every imaginable sort
-of ``bells and whistles", such as a subtitle, footnotes on
-title, subtitle and authors, as well as in the text, and
-every optional component (e.g. Acknowledgments, Additional
-Authors, Appendices), not to mention examples of
-equations, theorems, tables and figures.
+The longevity of parametric effort estimation     is remarkable.
+Decades after their invention, these methods are still
+both 
+widely used and widely useful.
 
-To make best use of this sample document, run it through \LaTeX\
-and BibTeX, and compare this source code with the printed
-output produced by the dvi file. A compiled PDF version
-is available on the web page to help you with the
-`look and feel'.
+This paper
+reviews the standard criticisms of this approach.
+We find that, contrary to common criticisms,  
+(1)~parametric
+estimation has not been superseded by more recent estimation methods;
+(2)~it is not true that parametric estimation is no better
+than simplistic lines of code counts;
+(3)~the old parametric calibration
+data is still relevant to more recent projects; 
+%XXX check if this list is still current
+ (4)~parametric estimation need not be expensive to deploy  at some new site
+since these these methods can be tuned on
+very small sample sizes (in our experiments,
+a mere eight projects is enough);
+ and 
+ (5)~compared to other methods,
+ parametric estimation is not unduly sensitive to errors in the size estimates.
+
+Hence we conclude that,  in 2015, is still valid and recommended practice to try parametric estimation
+before exploring other, more innovative methods. Also, it  can be useful
+to augment parametric estimation with (a)~some local calibration 
+and (b)~some column pruning (examples of those techniques are discussed in this paper).
 \end{abstract}
 
+
+
+\section{Introduction}
+Accurately estimating software development
+effort  is of vital
+importance. 
+Under-estimation leads to schedule and budget
+overruns and, perhaps, project
+cancellation~\cite{CLCS03}.  Over-estimation slows
+the deployment of promising ideas and
+organizational competitiveness~\cite{koc11a}.
+%XXX history of parametric models learned via regression
+It is hence not surprising that there is long history
+of researchers exploring software effort estimation, dating back to the 1970s; e.g. \cite{wol74,frei79,putnam76,black77,herd77,watson77,jensen83,park88,boehm81,Walkerden1999,shepperd97,jorgensen05,me06d,burgess01}.
+In 2007, Jorgensen and Shepperd
+reported on hundreds of research papers devoted to
+the topic, over half of which propose some innovation
+for developing new estimation
+models~\cite{jorgensen05}. Since then,
+many more such papers have been published;
+e.g. \cite{lokan06,cora10,minku14,Li2007,Li2009a,keung2008a,keung2008b,keung2008c,koc11b,me12a,me13a,kocaguneli2014transfer}.
+
+
+In the 1970s and 1980s, this kind of research was focused on
+{\em parametric estimation} as done 
+by Putnam and
+others~\cite{wol74,frei79,black77,herd77,watson77,boehm81}. For example, Boehm's
+COnstructive COst MOdel (COCOMO)
+model~\cite{boehm81} 
+ assumes  that effort varies exponentially on size as seen in this parametric form:
+$\mathit{effort} \propto \mathit{a \times KLOC}^b$. To deploy this equation in an organization,
+local project data is used to tune the  $(a,b)$ parameter values, If local
+data is unavailable, new projects can reuse prior tunings, perhaps with some minor
+tweaks~\cite{me04h}. 
+
+
+%XXX what if not in cocomo format. answer : then use something else. caution:
+%XXX the results thos this paper suggest that if possible, better estimates might be obtained from
+%XXX starting with cocomo- but this is uaully a domain descision (sometimes local experts
+%just prefer using their local in-house descriptors.
+
+Since the early work on parametric estimation, other researchers
+have innovated other estimation methods based on
+regression
+trees~\cite{shepperd97}
+case-based-reasoning~\cite{shepperd97}, spectral
+clustering~\cite{me12d}, genetic
+algorithms~\cite{cordero97,burgess01}, etc.  These methods
+can be augmented with  ``meta-level'' techniques like tabu search~\cite{cora10}, feature selection~\cite{chen05}, instance selection~\cite{koc11b},
+feature synthesis~\cite{me12a}, active learning~\cite{me13a}, transfer learning~\cite{kocaguneli2014transfer}.
+temporal learning~\cite{lokan09,minku14}, and many more besides.
+
+%% This paper comments on a curious disconnect between the academic research and the commercial effort estimation industry.
+
+%% in the software effort
+%% estimation is one of the oldest, most enduring,
+%% research themes in SE
+%% Effort estimation is still the focus
+%% of much research activity.  
+%% Since the 1970s, one of us (Boehm) has lead an large consortium
+%% of researchers building and revising the
+%% COnstructive COst
+%% MOdel (COCOMO) model. First published in 1981~\cite{boehm81},
+%% the model was updated to COCOMO-II~\cite{boehm00b}. A newer COCOMO-III model is also
+%% currently
+%% under development~\cite{rosa14}. 
+
+
+In her keynote address to ICSE'01, Mary Shaw~\cite{shaw01} noted that it can take up to a
+decade  for  research innovations
+to become stable and then another decade after that to become
+widely popular\footnote{See slide3 of her slides at goo.gl/tfi3D6.}. Given that, it would be reasonable
+to expect commercial adoption of  the 1990s estimation work
+on  regression trees~\cite{shepperd97} or case-based-reasoning~\cite{shepperd97}.
+This has not happened:
+\bi
+\item
+Based on our knowledge of the Chinese and United States software industry,
+we assert that  industry, government labs, or professional societies
+make almost exclusive
+use  parametric estimation tools such as those offered by 
+Price Systems (pricesystems.com) and  Galorath (galorath.com).
+\item
+Parametric estimation is
+widely-used, especially across the aerospace
+industry and various U.S. government agencies. For example,
+NASA routinely checks  software estimates 
+in  COCOMO~\cite{dabney07}.  
+\item
+Professional societies, handbooks and
+certification programs have developed around the use
+of these parametric estimation methods and tools such as ICEAA
+(the
+International Cost Estimation and Analysis Society: 
+iceaaonline.com), along with workshops such as the
+NASA Cost Symposium (goo.gl/8jxPrb) and the
+International Forum on COCOMO and Systems/Software
+Cost Modeling (goo.gl/O01Pc6).
+\ei
+To explain this puzzling lack of adoption of more innovative
+effort estimation methods, we make the following conjecture:
+the case has not been made that \#1~parametric estimation {\em is no longer useful} 
+and that 
+\#2~the supposedly more
+innovation methods are {\em comparatively  more useful}.
+Since the case for \#1 and \#2 is missing in the literature,
+we choose to  explore these two issues.
+
+For that task,
+we used COCOMO since its
+internal details have been fully
+published~\cite{boehm00b}. Also, several COCOMO data
+sets are readily available
+which we used to   answer five research questions:
+
+{\bf RQ1: Is parametric estimation no better than
+  just using simple Lines of Code measures?}  
+This is an often heard, but rarely tested,
+criticism.
+
+{\bf RQ2: Has parametric estimation been superseded
+ by more recent estimation methods?}  We 
+ apply our ``best-of-breed''
+learner, published in recent IEEE TSE paper, to some
+recent NASA data. We also comparatively assess
+case-based reasoning and regression trees.
+
+
+
+{\bf RQ3: Are the old parametric tunings irrelevant
+  to more recent projects?}  We apply the old
+COCOMO-II tunings from 2000, with and without local
+tweaking, to a wide range of projects dating from
+1970 to 2010.
+
+{\bf RQ4: Is parametric estimation expensive to deploy  at some new site?}
+We experiment with tuning estimation models on very small training sets 
+as well as simplifying the specification of local projects.
+
+{\bf RQ5: Are parametric estimates unduly sensitive to errors in the size estimate?}
+In the context of RQ4, when we are using very small training sets, we check what happens
+if there are large errors in the KLOC estimate.
+
+The answer to all of these research questions was
+``no''; i.e.   this paper fails to prove \#1 and \#2.
+Instead, we showed that
+the continued
+use of parametric estimation can still be endorsed.
+%% These new model  are of many types.
+%% Older approaches
+%% used a fixed set of parameters (e.g
+%%  COCOMO, FPA~\cite{albrecht79},
+%% SLIM~\cite{putnam80}).
+%% More recent work has applied methods
+%% that can accept a wider range  parameters including
+%% analogy-based methods~\cite{shepperd97} and 
+%% combination methods that take advantage of
+%% multiple simpler methods. For example, Corazza
+%% et al.~\cite{cora10} uses tabu search to configure support vector
+%% machines for effort estimation.
+%% Other approaches  combine
+%% hundreds of different methods-- see
+%%  Menzies et al.~\cite{me06d} or 
+%% Kocaguneli~\cite{me11a}.
+%% Yet other approaches use
+%% temporal learning methods  incrementally modify past
+%% models or data to make estimates on new projects (see the 
+%% pioneering work of Lokan and Mendes~\cite{lokan06}, or more recent
+%% work by Minku and Yao~\cite{minku14})).
+%% XXX implications for more researh
+%% {\scriptsize
+%% \Tree [.Projects\ can\\have\ COCOMO\\attributes? 
+%%            [.yes [.Dozens\ of\\examples? 
+%%                      [.yes COCOMO ]
+%%                      [.no  COCOMO-II\\+\ COCOUUT\\+\ Column\ prune ] ] ] 
+%%            [.no  [.Dozens\ of\\examples? 
+%%                       [.yes Try\ parametric\\methods\ first ]
+%%                       [.no  Case-based\\reasoning ] ] ] ]
+%% }
+
+We believe this result has strong implications for current practice
+in effort estimation research. 
+Specifically: it must be asked to what extent we
+can count on newer innovative techniques for effort estimation.  
+Small training sets are very common in software estimation studies\footnote{
+For example, five recent  effort estimation
+publications~\cite{Mendes2003,Auer2006,baker07,koc11a,Li2009} used tables of data with
+13,15,31,33,52 rows (respectively).}.
+This small quantity,
+ as well as the unique and highly variable characteristics of SE
+project data place great limitation on the results
+obtained by naively applying some brand-new
+algorithm.  What COCOMO, or other parametric
+estimation models, can offer largely contains the
+backbone structure for making estimation decisions
+from expert-delphi, as well as well calibrated
+tuning factors from over 40 years of
+industrial data. Perhaps the best future direction is to
+investigate how innovative new techniques can extend
+(rather than replace) existing and successful
+estimation methods.  Some experiments in this paper
+are a starting point for that investigation.
+
+
+\section{Background}
+
+\subsection{Delpi- vs Model-based Estimation}
+
+There are two broad classes of software effort
+estimation: {\em delphi-based methods}  use
+human experts while {\em model-based  methods} such as parametric estimation
+(a)~build a model using old data then (b)~use the
+model to generate estimates for new projects. 
+
+Once a
+large software project has been divided into
+multiple small stories, Delphi-based methods can be
+remarkably accurate~\cite{molokk08}. However, for {\em initial} large-scale
+estimates, the Delphi approach has some problems.
+Passos et al. show that many
+commercial software engineers generalize from their
+first few projects to all future
+projects~\cite{passos11}.
+Also, Jorgensen \& Gruschke document how
+  commercial estimation ``gurus'' rarely use lessons
+  from past projects to improve their future estimates~\cite{jorgensen09}. 
+When engineers
+  fail to revise their beliefs, this leads to poor
+  Delphi-based estimates  (see examples in~\cite{jorgensen09}).
+
+\subsection{COCOMO: Origins and Development}
+These concerns with  Delphi  date
+back many decades and were the genesis for  COCOMO. In 1976, Robert Walquist (a TRW division general manager)
+told  Boehm: \begin{quote}{\em ``Over the last three
+weeks, I've had to sign proposals that committed us
+to budgets of over \$50 million to develop the
+software.  In each case, nobody had a good
+explanation for why the cost was \$50M vs. \$30M or
+\$100M, but the estimates were the consensus of the
+best available experts on the proposal team.  We
+need to do better. Feel free to call on experts
+\& projects with data on previous software cost.''}\end{quote}
+
+
+
+ \begin{figure*}[!t]
+{\scriptsize
+\begin{center}
+\begin{tabular}{|p{0.5in}|p{1.4in}|p{1.3in}|p{1.3in}|p{1.3in}|}\hline
+
+ & Definition & Low-end = \{1,2\}
+ &Medium =\{3,4\} &High-end= \{5,6\} \\\hline
+
+
+\multicolumn{5}{l}{Scale factors:}\\\hline
+Flex   &  development flexibility   & development process
+rigorously defined & some guidelines, which can be relaxed & only
+general goals defined\\\hline
+
+Pmat    & process maturity  &  CMM level 1 &   CMM level 3  &  CMM level 5 \\\hline
+
+Prec & precedentedness  &  we have never built this kind
+of software before &    somewhat new &
+thoroughly familiar \\\hline
+
+Resl &  architecture or risk resolution  &  few interfaces
+defined or few risks eliminated  &  most interfaces defined or most
+risks eliminated   & all interfaces defined or all risks
+eliminated\\\hline
+
+Team  &   team cohesion  &  very difficult interactions &
+basically co-operative  &  seamless interactions\\\hline
+
+
+\multicolumn{5}{l}{Effort multipliers}\\\hline
+acap  &  analyst capability  &  worst 35\% &   35\% - 90\% &  best 10\% \\\hline
+
+aexp   &  applications experience  &  2 months &   1 year  &  6 years\\\hline
+
+cplx   &  product complexity   & e.g. simple read/write
+statements & e.g. use of simple interface widgets  &  e.g.
+performance-critical embedded systems\\\hline
+
+data   &  database size 
+(DB bytes/SLOC) &
+10 & 100 &    1000 \\\hline
+
+docu   &  documentation   & many life-cycle phases not
+documented      & &  extensive reporting for each life-cycle phase\\\hline
+
+ltex   &  language and tool-set experience   & 2 months  &  1
+year & 6 years \\\hline
+
+pcap   &  programmer capability  &  worst 15\%   & 55\%  &  best 10\% \\\hline
+
+
+pcon   &  personnel continuity \newline
+(\% turnover per year) &
+    48\% &    12\%  & 3\% \\\hline
+
+plex   &  platform experience  &  2 months  &  1 year  &  6 years\\\hline
+
+
+pvol   &  platform volatility  ($\frac{frequency~of~major~changes}{frequency~of~minor~changes}$) &
+$\frac{12~months}{1~month}$   & $\frac{6~months}{2~weeks}$ &
+$\frac{2~weeks}{2~days}$\\\hline
+
+
+
+rely   &  required
+reliability &   errors are slight inconvenience  &  errors are easily
+recoverable   & errors can risk human life\\\hline
+
+
+
+
+ruse   &  required
+reuse &   none &    multiple program  & multiple product lines\\\hline
+
+sced  &   dictated development\newline schedule &    deadlines moved to
+75\% of the original estimate &  no change
+&  deadlines moved back to  160\% of original estimate\\\hline
+
+site   &  multi-site development   & some contact: phone, mail&
+some email  &  interactive multi-media\\\hline
+
+stor  &   required \% of available
+RAM & N/A
+ &   50\% &  95\% \\\hline
+
+
+time  &   required \% of available CPU &
+N/A&     50\%
+   &  95\% \\\hline
+
+
+tool   &  use of software tools  &  edit,code,debug &&
+integrated with life cycle\\\hline
+\end{tabular}
+\end{center}
+} \caption{COCOMO-II attributes.}
+\label{fig:cparems}
+\end{figure*}
+
+
+
+TRW had a previous model that worked well for a part
+of TRW’s software business~\cite{wol74}, but it
+did not relate well to the full range of embedded
+software, command and control software, and
+engineering and scientific software involved in
+TRW’s business base.  Having access to experts and
+data was a rare opportunity, and a team involving
+Ray Wolverton, Kurt Fischer, and Boehm conducted a
+series of meetings and Delphi exercises to determine
+the relative significance of various software cost
+drivers. Using combining local expertise  and data, plus some prior results 
+such as~\cite{putnam76,black77,herd77,watson77},  and early versions of the RCA
+PRICE S model~\cite{frei79}, a model called SCEP was created (Software Cost
+Estimation Program).
+Except for
+one explainable outlier, the model’s estimates for
+the 20 projects with solid data were within 30\% of
+the actuals, with most within 15\% of the actuals.
+
+
+%%  and worked with projects to gather uniform
+%% software cost driver and effort data on its 1970s
+%% large software projects.  The data definitions were
+%% based on TRW’s waterfall-model based software
+%% development policies and standards. They also
+%% benefited from a concurrent surge in publications
+%% describing software cost estimation models such as~\cite{putnam76,black77,herd77,watson77} and early versions of the RCA
+%% PRICE S model~\cite{frei79}.
+%% SCEP  became standard practice for
+%% large TRW projects; and a TRW Office of Software
+%% Cost Estimation was established to provide its usage
+%% support, training, data collection and analysis, and
+%% evolution, which continues to this day.
+
+
+%% The conclusion for that work
+%% was that a reasonably accurate model could
+%% be developed, but that proposals and projects should
+%% complement its results with expert-judgment based
+%% estimates, and reconcile their results where
+%% necessary.  
+%% It was given the name SCEP, for Software Cost
+%% Estimation Program; its use along with expert
+%% judgment estimates became standard practice for
+%% large TRW projects; and a TRW Office of Software
+%% Cost Estimation was established to provide its usage
+%% support, training, data collection and analysis, and
+%% evolution, which continues to this day.
+
+%% SCEP was highly successful in proposal and
+%% management use, but it was proprietary to TRW and
+%% could not be used by customers to evaluate other
+%% companies' cost estimates.  Thus, TRW became
+%% receptive to having a version that generalized
+%% beyond TRW experience but was still accurate for
+%% TRW.  
+
+After  gathering some further data from subsequent
+TRW projects and about 35 projects from teaching
+software engineering courses at UCLA and USC along
+with commercial short courses on software cost
+estimation, Boehm was able to gather 63 data points
+that could be published and to extend the model to
+include alternative development modes that covered
+other types of software such as business data
+processing.  The resulting model was called the
+COnstructive COst MOdel, or COCOMO, and was
+published along with the data in the book Software
+Engineering Economics~\cite{boehm81}. 
+In COCOMO-I, project attributes
+were scored using just a few coarse-grained values (very low,
+low, nominal, high, very high). These attributes
+are {\em effort multipliers} where
+a off-nominal value changes the estimate by some number
+greater or smaller than one.
+In COCOMO-I, all attributes (except KLOC)
+influence effort in a linear manner.
+
+Following the release of COCOMO-I Boehm created a consortium for
+industrial organizations using COCOMO .
+The consortium
+collected information on 161 projects from commercial,
+aerospace, government, and non-profit organizations.
+Based on an analysis of those 161 projects, Boehm
+ added  new attributes called {\em scale factors}
+that had an {\em exponential impact}
+on effort (e.g. one such attribute was process maturity).
+ For a full description of the COCOMO-II attributes,
+see \fig{cparems}.
+
+Using that new data, Boehm and his colleagues developed
+the  {\em tunings} shown in \fig{coc2} that
+map the project descriptors (very low, low, etc)
+into the specific values used in the COCOMO-II model
+(released in 2000~\cite{boehm00b}):
+\begin{equation}\label{eq:cocII}
+\mathit{effort}=a\prod_i EM_i *\mathit{KLOC}^{b+0.01\sum_j SF_j}
+\end{equation}
+Here, {\em EM,SF} denote the effort multipliers and scale
+factors and
+ $a,b$ are the {\em local calibration} parameters (which in COCOMO-II
+have default values of 2.94 and 0.91).
+Also, {\em effort}
+measures ``development months'' where one month
+is 152 hours work by one developer (and includes development and management hours).
+For example, if {\em effort}=100, then according to COCOMO,
+five developers would finish
+the project in 20 months.
+
+
+\begin{figure}[!t]
+\begin{lstlisting}
+_  = None;  Coc2tunings = [[
+#              vlow  low   nom   high  vhigh  xhigh   
+# scale factors:
+'Flex',        5.07, 4.05, 3.04, 2.03, 1.01,     _],[
+'Pmat',        7.80, 6.24, 4.68, 3.12, 1.56,     _],[
+'Prec',        6.20, 4.96, 3.72, 2.48, 1.24,     _],[
+'Resl',        7.07, 5.65, 4.24, 2.83, 1.41,     _],[
+'Team',        5.48, 4.38, 3.29, 2.19, 1.01,     _],[
+# effort multipliers:        
+'acap',        1.42, 1.19, 1.00, 0.85, 0.71,    _],[
+'aexp',        1.22, 1.10, 1.00, 0.88, 0.81,    _],[
+'cplx',        0.73, 0.87, 1.00, 1.17, 1.34, 1.74],[
+'data',           _, 0.90, 1.00, 1.14, 1.28,    _],[
+'docu',        0.81, 0.91, 1.00, 1.11, 1.23,    _],[
+'ltex',        1.20, 1.09, 1.00, 0.91, 0.84,    _],[
+'pcap',        1.34, 1.15, 1.00, 0.88, 0.76,    _],[ 
+'pcon',        1.29, 1.12, 1.00, 0.90, 0.81,    _],[
+'plex',        1.19, 1.09, 1.00, 0.91, 0.85,    _],[ 
+'pvol',           _, 0.87, 1.00, 1.15, 1.30,    _],[
+'rely',        0.82, 0.92, 1.00, 1.10, 1.26,    _],[
+'ruse',           _, 0.95, 1.00, 1.07, 1.15, 1.24],[
+'sced',        1.43, 1.14, 1.00, 1.00, 1.00,    _],[ 
+'site',        1.22, 1.09, 1.00, 0.93, 0.86, 0.80],[ 
+'stor',           _,    _, 1.00, 1.05, 1.17, 1.46],[
+'time',           _,    _, 1.00, 1.11, 1.29, 1.63],[
+'tool',        1.17, 1.09, 1.00, 0.90, 0.78,    _]]
+
+def COCOMO2(project, 
+            a = 2.94, b = 0.91, # defaults
+            tunes= Coc2tunings):# defaults, see above
+  sfs  = 0
+  ems  = 1 
+  kloc = 22
+  scaleFactors = 5 
+  effortMultipliers = 17
+  for i in range(scaleFactors):
+    sfs += tunes[i][project[i]]
+  for i in range(effortMultipliers):
+    j = i + scaleFactors
+    ems *= tunes[j][project[j]] 
+  return a * ems * project[kloc] ** (b + 0.01*sfs) 
+\end{lstlisting}
+\caption{COCOMO-II: effort estimates from a {\em project}.
+Here, {\em project} has up to 24 attributes  (5 scale
+factors plus 17 effort multipliers plus KLOC plus. in the training data, the actual effort).
+Each attribute except KLOC and effort is scored
+using the scale very low = 1, low=2, etc.
+For an explanation of the attributes shown in
+green, see \fig{cparems}.}\label{fig:coc2}
+\end{figure}
+
+Recent changes in the software industry
+suggest  it is time  to revise COCOMO-II.
+The rise of agile methods, web
+services, cloud services, parallelized software on
+multicore chips, field-programmable-gate-array
+(FPGA) software, apps, widgets, and net-centric
+systems of systems (NCSOS) have caused the COCOMO II
+developers and users to begin addressing an upgrade
+to the 14-year-old COCOMO II. 
+Current discussions
+of a potential COCOMO III have led to a
+reconsideration of the old COCOMO 1981 development
+modes, as different development phenomena appear to
+drive the costs and schedules of web-services,
+business data processing, real-time embedded
+software, command and control, and engineering and
+scientific applications\footnote{
+Efforts to characterize
+these modes and to gather data to calibrate models
+for dealing with them are underway, and contributors
+to the definition and calibration are welcome.}.  
+
+
+\subsection{COCOMO and Local Calibration}\label{sect:coconut}
+When there is insufficient 
+data to generate the exact tunings of \fig{coc2}, 
+a {\em local calibration} procedure can be used.
+Local calibration adjusts the impact of the scale factors and effort
+multipliers by tuning the  $a,b$ values of Equation~\ref{eq:cocII}
+(while keeping constant the other values of the tuning matrix
+shown in \fig{coc2}).
+
+Menzies' preferred local calibration procedure is the COCONUT
+procedure of \fig{coconut} (first written in 2002
+and first published in 2005~\cite{me04h}). 
+For some number of {\em repeats},
+COCONUT will {\em ASSESS} some {\em GUESSES} 
+ for $(a,b)$ by applying them to some
+{\em training} data. If any of these guesses prove to
+be {\em useful} (i.e. reduce the estimation error) then COCONUT will recurse after
+{\em constricting} the guess range for $(a,b)$ by some amount (say, by $2/3$rds). COCONUT terminates
+when (a)~nothing better is found at the current level of recursion
+or (b)~after 10 recursive calls-- at which point the guess range
+has been constricted to  $(2/3)^{10}\approx 1$\% of the initial range.
+
+
+\begin{figure}[!t]
+\begin{lstlisting}
+def COCONUT(training,          # list of projects
+            a=10, b=1,         # initial  (a,b) guess
+            deltaA    = 10,    # range of "a" guesses 
+            deltaB    = 0.5,   # range of "b" guesses
+            depth     = 10     # max recursive calls
+            constricting=0.66):# next time,guess less
+  if depth > 0:
+    useful,a1,b1= GUESSES(training,a,b,deltaA,deltaB)
+    if useful: # only continue if something useful
+      return COCONUT(training, 
+                     a1, b1,  # our new next guess
+                     deltaA * constricting,
+                     deltaB * constricting,
+                     depth - 1)
+  return a,b
+
+def GUESSES(training, a,b, deltaA, deltaB,
+           repeats=20): # number of guesses
+  useful, a1,b1,least,n = False, a,b, 10**32, 0
+  while n < repeats:
+    n += 1
+    aGuess = a - deltaA + 2 * deltaA * rand()
+    bGuess = b - deltaB + 2 * deltaB * rand()
+    error  = ASSESS(training, aGuess, bGuess)
+    if error < least: # found a new best guess
+      useful,a1,b1,least = True,aGuess,bGuess,error
+  return useful,a1,b1
+
+def ASSESS(training, aGuess, bGuess):
+   error = 0.0
+   for project in training: # find error on training
+     predicted = COCOMO2(project, aGuess, bGuess)
+     actual    = effort(project)
+     error    += abs(predicted - actual) / actual
+   return error / len(training) # mean training error
+\end{lstlisting}
+\caption{COCONUT: tuning the $a,b$ local calibration variables
+used in COCOMO's effort equation of $a*\prod EM *\mathit{KLOC}^{b+0.01\sum SF}$.
+Uses the COCOMO2 function of \fig{coc2}.}\label{fig:coconut}
+\end{figure}
+
+
+\begin{figure}[!t]
+\begin{center}
+
+~\\~\\~\\
+
+{\scriptsize
+\begin{tabular}{r|@{~}r|@{~}r|@{~}r|@{~}l}
+
+Types of projects& COC81 & NASA93& COC05 &NASA10\\\hline\hline
+Avionics&     &26&10&17\\\hline
+Banking&       &      &13&     \\\hline
+Business apps/data processing&7&4&31&  \\\hline   
+Control&9&18&13&     \\\hline
+Human-machine interaction&12&       &       &     \\\hline
+Military, ground&       &       &8&     \\\hline
+Misc&5&4&5&     \\\hline
+Mission Planning&      &16&       &     \\\hline
+SCI scientific application&16&21&11&     \\\hline
+Support (tools, utilities, etc)&7&        &       &   \\\hline  
+Sys (OS, compilers, sensors,etc)&7&3&2&     
+
+
+%% NASA10& COC05 & NASA93& COC81 & Types of projects\\\hline\hline
+%%      &     5 &4      &       & Misc\\\hline
+%%      &       &        &  7   &  Support (tools, utilities, etc)\\\hline
+%%      &      8&       &       & Military, ground\\\hline
+%%      &      13&      &       & Banking\\\hline
+%%      &      2&3      & 7     & Sys (OS, compilers, sensors,etc)\\\hline
+%%      &      31&4     &  7    & Business apps/data processing\\\hline
+%%      &       &16      &      & Mission Planning\\\hline
+%%      &     13  &18     &   9 & Control\\\hline
+%%      &       &       & 12    & Human=machine interaction\\\hline
+%%      &      11& 21     & 16   & SCI scientific application\\\hline
+%%  17  &     10 &26      &     & Avionics Monitoring
+\end{tabular}}
+
+~\\~\\
+
+\includegraphics[width=2.3in]{yearLOC.pdf}
+\noindent
+\end{center}
+\caption{Projects in this study. \fig{cparems}
+shows project attributes.}\label{fig:types}
+\end{figure}
+
+
+
+%Local calibration
+%can dramatically improve the effort estimates
+%from COCOMO. For example, in one result shown below, 
+%COCONUT reduced the variance in the
+%estimates  by a factor of seven
+%(from 214\% to 34\%).
+
+
+
+
+\section{Experimental Methods}
+This section offers some
+notes on the experimental methods used later in this paper.
+%% \begin{figure*}
+%% {\scriptsize
+%% \begin{verbatim}
+%% vl=1; l=2; n=3; h=4; vh=5; xh=6
+
+%% def nasa93():  
+%%   return dict( 
+%%     names= [ 
+%%      'Prec','Flex','Resl','Team','Pmat',  # scale factors
+%%      'rely','data','cplx','ruse','docu',  # effort multipliers
+%%      'time','stor','pvol','acap','pcap',  # effort multipliers
+%%      'pcon','aexp','plex','ltex','tool',  # effort multipliers
+%%      'site', 'sced',                      # effort multipliers
+%%      'kloc','effort],
+
+%%     projects=[                                      
+%%      #Scale        
+%%      #factors    Effort multipliers                Kloc   Effort
+%%      #---------- --------------------------------- -----  ------
+%%      [h,h,h,vh,h,h,l,h,n,n,n,n,l,n,n,n,n,n,h,n,n,l, 25.9, 117.6],
+%%      [h,h,h,vh,h,h,l,h,n,n,n,n,l,n,n,n,n,n,h,n,n,l, 24.6, 117.6],
+%%      [h,h,h,vh,h,h,l,h,n,n,n,n,l,n,n,n,n,n,h,n,n,l,  7.7,  31.2],
+%%      [h,h,h,vh,h,h,l,h,n,n,n,n,l,n,n,n,n,n,h,n,n,l,  8.2,  36  ],
+%%      # ... 
+%%     ])
+%% \end{verbatim}}
+%% \caption{Sample data used in this project (first four rows of NASA93).}\label{fig:data1}
+%% \end{figure*}
+
+\subsection{Choice of Data}\label{sect:data}
+For this study we used all the COCOMO data available to the authors
+(see \fig{types}).
+The COC81 and NASA93 data comes
+from the PROMISE repository\footnote{https://promisedata.googlecode.com/svn/trunk/effort/}:
+\bi
+\item COC81 is the original data from 1981 COCOMO book;
+\item NASA93 is data collected at  NASA  in the early 1990s
+ about software that supported  the planning activities for the International
+Space Station.
+\ei
+The other data
+sets come from more recent data collections by the COCOMO team (COC05) or by NASA's
+effort estimation team (NASA10).  These COC05 and NASA10 data sets are proprietary and, as such,
+cannot be released to the rest of the research community. For information on the kinds
+of projects included in these two data sets, see \fig{types}.
+
+As shown in \fig{types}, the data tables of NASA10, COC81, NASA93, and COC05
+contain information on 17, 63, 93, and 95  projects, respectively.
+As to the attributes of that data, all the projects contain the COCOMO attributes of 
+\fig{cparems}.
+
+
+
+
+\subsection{Choice of Experimental Rig}
+
+
+``Ecology inference''
+is the conceit 
+that what holds for all, also holds for parts 
+of the population~\cite{posnet11,me12d}.
+For the purposes of avoid ecological inference,
+our  rig runs separately for each data set (see Figure~\ref{fig:rig}).
+
+For the purposes of repeatability, we use
+leave-one-out experiments 
+i.e. for every project, the learner is offered a training
+set containing all other projects. For a justification of leave-one-out
+vs other methods (e.g. n-way cross-validation), see~\cite{koc13a}.
+
+
+
+Since some of our methods include a stochastic
+algorithm (the COCONUT algorithm of \fig{coconut}),
+we repeat the leave-one-out experiments $N=10$ times
+(10 was selected since, after experimentation, we
+found our results looked the same at $N=8$ and
+$N=16$).
+
+The performance of the estimate for each project was
+assessed via the magnitude of the relative error; i.e. 
+\mbox{$ \mathit{MRE}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{actual}}$}. 
+Shepperd \& MacConnell~\cite{shepperd12a} propose
+another measure that reports the performance as a
+ratio of some other, much
+simpler, ``straw man'' approach (they recommend the
+mean effort value of $N>100$ random samples of the
+training data). At first, we used the Shepperd \&
+MacDonnel approach for this work but found that
+their straw man had orders of magnitude larger error
+than all the results shown here. Hence, we adopt the
+spirit, but not the letter, of their proposal and
+compare all our results against the LOC(n) ``straw
+man'' method discussed below.
+
+
+
+\begin{figure}[!t]
+\begin{lstlisting}
+def RIG():
+ DATA = { COC81, NASA83, COC05, NASA10 }
+ for data in DATA # e.g. data = COC81
+     mres= {}
+     for learner in LEARNERS # e.g. learner = COCONUT
+       n = 0
+       10 times repeat: 
+         for project in DATA #  e.g.  one project
+           training = data - project # leave-one-out
+           model    = learn(training)
+           estimate = guess(model, project)
+           actual   = effort(project)
+           mre      = abs(actual - estimate)/actual
+           mres[learner][n++] = mre
+     print rank(mres) # some statistical tests
+\end{lstlisting}
+\caption{The experimental rig used in this paper.}\label{fig:rig}
+\end{figure}
+
+
+
+\subsection{Choice of Learners}\label{sect:whatlearn}
+
+ Our LOC(n) ``straw man'' 
+estimators ignore all attributes except for lines of code
+in the $n$ nearest projects\footnote{For distance,
+we use the standard Euclidean measure recommended for
+instance-based reasoning by Aha et al.~\cite{aha91};
+i.e. $\sqrt{\sum_i(x_i-y_i)^2}$ where $x_i,y_i$ 
+are values normalized 0..1 for the range min..max}. For $n>1$,
+we weight estimates via the triangle 
+function of  Walkerden
+and Jeffery~\cite{Walkerden1999}; 
+e.g.. for $loc(3)$, the  estimate
+from the first, second, third closest neighbor with estimates
+$a,b,c$ is 
+
+{\footnotesize
+\begin{equation}\label{eq:tri}
+\mathit{effort} = (50a + 33b + 17c)/100
+\end{equation}}
+Apart from the LOC ``straw man'',
+we also compare COCOMO-II and COCONUT with CART
+and Knear(n). 
+CART is an {\em iterative dichotomization} algorithm
+that finds the attribute that most divides the data such that
+the variance of the goal variable in each division is minimized.
+The algorithm then recurses on each division. 
+Finally, the cost data in the leaf divisions
+is averaged to generate the estimate. 
+
+Knear(n) estimates a new project's effort
+by a nearest neighbor  method~\cite{shepperd97}. Unlike LOC(n),
+a Knear(n) method uses all attributes
+(all scale factors and effort multipliers as well as lines of code)
+to find the {\em n-th} nearest projects in the training data. 
+Knear(3) combines efforts from three nearest neighbors using
+Equation~\ref{eq:tri}.
+Knear(n) is an example of CBR; i.e.  {\em case-based reasoning}.
+CBR for effort estimation was 
+first pioneered by Shepperd \& Schofield
+in 1997~\cite{shepperd97}.
+  Since then, it 
+has been used extensively in software effort
+estimation~\cite{Auer2006,Walkerden1999,%
+  Kirsopp2002,shepperd97,kadoda00,Li2008,Li2006,Li2007,Li2009a,
+  keung2008a,keung2008b,keung2008c}.  
+There are several reasons  for this. Firstly, 
+it works even if the domain data is sparse~\cite{Myrtveit}.
+Secondly, 
+unlike other predictors, it makes no assumptions about data
+distributions or some  underlying parametric model. 
+
+In defense of our selection of CART and case-based
+reasoners like Knear(n):
+\bi
+\item 
+Recall Shaw's comments listed in the introduction. 
+If it takes decades before research work becomes popular
+in industry, then it makes most sense for this study to
+explore innovative effort estimation methods that at least
+a decade old, or more. Two such methods are CART and Knear(n).
+\item
+Several papers have concluded
+that CART and Knear(n)
+are useful comparison algorithms for effort
+estimation-- see Figure~\ref{fig:kcart}.
+\ei
+\begin{figure}[!t]
+{\small
+\begin{tabular}{|p{.95\linewidth}|}\hline
+Recent studies published in IEEE
+TSE~\cite{keung2008b,me13a,dejaeger12}
+endorse
+CART as a state-of-the-art effort estimation method.  These
+studies assert that in terms of assessing new effort
+estimation methods, existing methods such as CART's
+regression tree generation may be more than
+adequate, e.g.~ Dejaeger et al. found little
+evidence that learners more elaborate than CART
+offer a significant value-added~\cite{dejaeger12}.
+
+Our own results endorse the conclusions of
+Dejaeger et al. 
+Recently we studied 90
+effort estimators. These were  combinations of 10
+pre-processors and 9 learners to build ensemble
+methods~\cite{koc11a}).  As it might have been
+predicted by Myrtveit et al.~\cite{myrtveit05}, the
+ranking of the estimators varied greatly.
+However, we found a small group of 13 estimators
+(all variants of CART and Knear(n) aided with
+pre-processors) that were consistently the best
+performing methods across a range of experimental rigs.
+\\\hline
+\end{tabular}}
+\caption{Studies concluding that CART and Kmeans(n)
+are useful as comparison methods in effort estimation.}
+\label{fig:kcart}
+\end{figure}
+
+%% Finally, one more learner is explored, just to handle
+%% a possible criticism of this work. This paper
+%% reports that a COCOMO method works best on four data sets
+%% that were all collected using the COCOMO ontology.
+%% ``Of course COCOMO does best,'' says this particular
+%% criticism, ``since all the test cases are already
+%% written in COCOMO''.  To test this, we need a rather
+%% particular experimental method: (1)~a data set where
+%% projects are expressed
+%% in {\em both} the COCOMO attributes of \fig{cparems}
+%% as well as other attributes; and (2)~our best COCOMO
+%% learner applied to our best
+
+
+%XX threats to validity
+
+%% Our final experiment 
+%% check if the results of this paper are just due
+%% to COCOMO-based learners being applied to COCOMO data
+%% (see \tion{other}). Hence, we 
+%% needed one more learner that was more representative
+%% of recent work than CART or Knear(n). 
+%% Such a learner is the 
+%% SLOPE algorithm of Papakroni~\cite{papa13}.
+%% SLOPE
+%% is a non-parametric response surface method that generates estimates for a project by
+%%  interpolating between
+%% the two nearest centroids found by a clustering algorithm.
+%%  This interpolation is weighted by the
+%% distance to each centroid (and the estimate from
+%% the closer centroid has more weight, see \fig{slope}).
+%% That is,  SLOPE is any example of a {\em prototype learner}~\cite{chang74}
+%%  that replaces $N$ examples with $M \ll N$ most informative ``prototypes'' (in this case,
+%% the cluster centroids).
+%% Prototype learners mitigate for data outliers since 
+%% noisy outliers disappear from the prototypes~\cite{chang74}.
+%% In an extensive study,
+%% Papakroni~\cite{papa13} found that SLOPE's predictions where (1)~ competitive
+%% with random forests and  Naive Bayes (for defect prediction)
+%% and (2)~regression trees and linear regression (for effort estimation).
+
+
+
+
+%% \begin{figure}[!t]
+%% \begin{lstlisting}
+%% def SLOPE(data,project):
+%%    prototypes= WHERE(data)
+%%    neighbors = distances(project,prototypes) 
+%%    one, two  = neighbors[0],neighbors[1] #two closest
+%%    d1, d2    = dist(one,project), dist(two,project)
+%%    w1, w2    = 1 /d1,  1 /d2 #closest has most weight
+%%    est1, est2= effort(one), effort(two)
+%%    return (w1*est1 + w2*est2) / (w1 + w2) 
+%% \end{lstlisting}
+%% \caption{SLOPE: a non-parametric response surface method that 
+%% generates estimates from a  set of piecewise linear approximations.
+%% SLOPE builds its clusters using the WHERE spectral clusterer~\cite{me11m}
+%% that
+%% recursively divides projects
+%% synthesized by a 
+%% principle component analysis to filters out irrelevant attributes. For reasons of efficiency, WHERE
+%%   uses the $O(2N)$ FASTMAP
+%%   method~\cite{platt05,Faloutsos1995} rather than
+%%   the standard $O(N^2)$ method to find these
+%%   principle components~\cite{Du2008}.
+%% }\label{fig:slope}
+%% \end{figure}
+
+
+\subsection{Choice of Statistical Ranking Methods}
+The last line of our experimental rig shown in
+\fig{rig} {\em rank}s multiple methods for learning
+effort estimators.
+This study ranks methods using the Scott-Knott
+procedure recommended by Mittas \& Angelis in their 2013
+IEEE TSE paper~\cite{mittas13}.  This method
+sorts a list of $l$ treatments with $ls$ measurements by their median
+score. It then
+splits $l$ into sub-lists $m,n$ in order to maximize the expected value of
+ differences  in the observed performances
+before and after divisions. E.g. for lists $l,m,n$ of size $ls,ms,ns$ where $l=m\cup n$:
+
+
+{\footnotesize
+\[E(\Delta)=\frac{ms}{ls}abs(m.\mu - l.\mu)^2 + \frac{ns}{ls}abs(n.\mu - l.\mu)^2\]}
+Scott-Knott then applies some statistical hypothesis test $H$ to check
+if $m,n$ are significantly different. If so, Scott-Knott then recurses on each division.
+For example, consider the following data collected under different treatments {\em rx}:
+
+
+{\scriptsize \begin{verbatim}
+        rx1 = [0.34, 0.49, 0.51, 0.6]
+        rx2 = [0.6,  0.7,  0.8,  0.9]
+        rx3 = [0.15, 0.25, 0.4,  0.35]
+        rx4=  [0.6,  0.7,  0.8,  0.9]
+        rx5=  [0.1,  0.2,  0.3,  0.4]
+\end{verbatim}}
+\noindent
+After sorting and division, Scott-Knott declares:
+\bi
+\item Ranked \#1 is rx5 with median= 0.25
+\item Ranked \#1 is rx3 with median= 0.3
+\item Ranked \#2 is rx1 with median= 0.5
+\item Ranked \#3 is rx2 with median= 0.75
+\item Ranked \#3 is rx4 with median= 0.75
+\ei
+Note that Scott-Knott found  little
+difference between rx5 and rx3. Hence,
+they have the same rank, even though their medians differ.
+
+Scott-Knott is preferred to, say, hypothesis testing
+over all-pairs of methods\footnote{e.g. Six treatments
+can be compared $(6^2-6)/2=15$ ways.
+A 95\% confidence test run 15 times total confidence 
+$0.95^{15} = 46$\%.}.
+To avoid an all-pairs comparison, Scott-Knott only calls on hypothesis
+tests {\em after} it has found splits that maximize the perfromance differences.
+ 
+For this study, our hypothesis test $H$ was a
+conjunction of the A12 effect size test of  and
+non-parametric bootstrap sampling; i.e. our
+Scott-Knott divided the data if {\em both}
+bootstrapping and an effect size test agreed that
+the division was statistically significant (99\%
+confidence) and not a ``small'' effect ($A12 \ge
+0.6$).
+
+For a justification of the use of non-parametric
+bootstrapping, see Efron \&
+Tibshirani~\cite[p220-223]{efron93}.
+For a justification of the use of effect size tests
+see Shepperd\&MacDonell~\cite{shepperd12a}; Arcuri\&Briand~\cite{arcuri11}; Kampenes~\cite{kampenes07}. These researchers
+warn that even if an
+hypothesis test declares two populations to be
+``significantly'' different, then that result is
+misleading if the ``effect size'' is very small\footnote{For
+example, Kocaguenli et al.~\cite{kocharm13} report on the misleading
+results of such hypothesis tests in software defect
+prediction (due to small size of the effect being
+explored).}.
+Hence, to assess 
+the performance differences 
+we first must rule out small effects.
+Vargha and Delaney's
+non-parametric 
+A12 effect size test 
+explores
+two lists $M$ and $N$ of size $m$ and $n$:
+
+{\footnotesize \[A12 = \left(\sum_{x\in M, y \in N} 
+\begin{cases} 
+1   & \mathit{if}\; x > y\\
+0.5 & \mathit{if}\; x == y
+\end{cases}\right) / (mn)
+\]}
+This expression computes the probability that numbers in one sample are bigger than in another.
+This test was recently 
+endorsed by Arcuri and Briand
+at ICSE'11~\cite{arcuri11}.
+
+\section{Results}
+\subsection{COCOMO vs Just Lines of Code}\label{sect:justloc}
+This section explores {\bf RQ1:
+is parametric estimation no better than 
+using simple lines of code measures?}
+
+An often heard, but not often tested, criticism of parametric
+estimation methods is that they are no
+better than just using simple lines of code measures.
+As shown in \fig{loc}, this is not necessarily true.
+This figure is a comparative ranking for LOC(1)
+LOC(3), COCOMO-II and COCONUT.
+The rows of \fig{loc} are sorted by the median MRE figure.
+These rows are divided according to their 
+ {\em rank}, shown in the left column: better methods
+have {\em lower rank} since they have {\em lower MRE} error values.
+The right-hand-side column displays the median error (as a black dot)
+inside the inter-quartile range
+(25th to 75th percentile, show as a horizontal line).
+
+The key observation in \fig{loc}
+is that it is {\em not} the case that just using lines of
+code does better than parametric estimation.
+Also, when LOC(n) goes wrong, it goes very
+wrong indeed (as seen in the COC81 results, over
+double the median MRE error generated by COCOMO-II).
+
+Another observation from \fig{loc} is that,
+measured in terms of median MRE, COCONUT's local
+calibration is not  better
+than  untuned COCOMO. In only one data set
+(NASA93) did COCONUT have a lower median MRE than
+COCOMO-II but even in that case, Scott-Knott
+declared there was no significant difference between
+the COCOMO-II and COCONUT results.
+
+On the other hand, sometimes the local calibration
+results exhibited far less variance than those of
+COCOMO-II. For example, in \fig{loc}'s COC05
+results, the IQR ranges for
+COCOMO-II and COCONUT were 146 and 34 respectively.
+This result (that local calibration reduces
+variance) repeats enough times in the subsequent
+experiments to make us recommend local calibration
+as a method for taming high variance in effort
+estimation.
+
+
+\begin{figure}[!t]
+
+{\scriptsize
+{\bf NASA10 (new NASA data up to 2010):}
+
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & 
+%min= 20, max= 117
+\\
+  1 &      COCOMO-II &    42  &  35 & \quart{4}{36}{22}{82} \\
+\hline  2 &      COCONUT &    47  &  34 & \quart{19}{35}{27}{82} \\
+\hline  3 &       loc(3) &    49  &  97 & \quart{0}{99}{29}{82} \\
+  3 &       loc(1) &    67  &  44 & \quart{12}{45}{48}{82} \\
+\end{tabular}}
+
+% :learn 4.64 :analyze 1.69 :boots 3 effects 5 :conf 0.970299
+
+~\\
+
+{\bf COC05 (new COCOMO data up to 2005):}
+
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 166\\
+  1 &      COCOMO-II &    46  &  146 & \quart{0}{99}{17}{54} \\
+  1 &       loc(1) &    55  &  114 & \quart{6}{78}{23}{54} \\
+  1 &       loc(3) &    65  &  99 & \quart{2}{67}{30}{54} \\
+  1 &      COCONUT &    65  &  34 & \quart{17}{24}{30}{54} \\
+\end{tabular}}
+
+% :learn 763.316602 :analyze 6.61469 :boots 1 effects 1 :conf 0.99
+%\subsection{xyz14deTune}
+
+
+% :learn 13.41 :analyze 2.49 :boots 2 effects 2 :conf 0.9801
+
+~\\
+
+{\bf NASA93 (NASA data up to 1993):}
+
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & 
+%min= 15, max= 129
+\\
+  1 &      COCONUT &    35  &  38 & \quart{0}{33}{17}{74} \\
+  1 &      COCOMO-II &    38  &  39 & \quart{4}{34}{20}{74} \\
+\hline  2 &       loc(1) &    62  &  54 & \quart{15}{48}{41}{74} \\
+  2 &       loc(3) &    75  &  102 & \quart{10}{89}{52}{74} \\
+\end{tabular}}
+
+ %:learn 142.78 :analyze 10.13 :boots 3 effects 11 :conf 0.970299
+
+~\\
+
+{\bf COC81 (original data from the 1981 COCOMO book):}
+
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 14, max= 291
+\\
+  1 &      COCOMO-II &    33  &  35 & \quart{2}{12}{6}{31} \\
+  1 &      COCONUT &    37  &  42 & \quart{0}{15}{8}{31} \\
+\hline  2 &       loc(3) &    80  &  237 & \quart{14}{85}{23}{31} \\
+  2 &       loc(1) &    84  &  100 & \quart{16}{36}{25}{31} \\
+\end{tabular}}
+
+% :learn 63.13 :analyze 6.36 :boots 3 effects 8 :conf 0.970299
+
+
+}
+\caption{COCOMO vs just lines
+of code. MRE values seen in 
+leave-one-studies, repeated ten times.
+For each of the four tables in this figure,
+{\em better} methods appear {\em higher} in the tables.
+In these tables,
+median and IQR are the 50th and the 
+(75-25)th percentiles. The IQR range is
+shown  in the right column
+with black dot at the median. Horizontal lines
+divide the ``ranks'' found by Scott-Knott  (shown in  left column).
+}\label{fig:loc}
+\end{figure}
+
+
+
+\subsection{COCOMO vs Other Methods}\label{sect:othermethods}
+This section explores {\bf RQ2: 
+has parametric estimation been superseded
+by more recent estimation methods?}
+Also explored is {\bf R3: Are the old parametric tunings irrelevant to
+more recent projects?}
+
+\fig{standard} shows a comparison of more standard effort estimation methods.
+(this figure is in the same format as \fig{loc}).
+Many of the results of \fig{standard} repeat observations seen previously.
+For example,  nothing was ever ranked better than COCOMO-II
+(sometimes
+CART or COCONUT had a slightly lower median MRE but that difference was small: $\le 4$\%).
+From this result,
+we recommend that effort estimation researchers take care to benchmark
+their new method against older ones.
+
+As to COCONUT, this method
+was usually ranked equaled to COCOMO-II.  
+In once case (NASA10), COCOMO-II and COCONUT were ranked first and second but
+the median difference in their scores is very small (42 vs 47).
+Also,
+many other methods often had much larger variances. 
+Hence,  we can recommend some form of local calibration as a variance reduction tool.  
+
+From this data, we conclude that it is not
+always true the parametric estimation has been
+superseded by more recent innovations such
+as CART and Knear(n). Also, the COCOMO-II tunings from 2000
+are useful not just for the projects used to make those tunings
+(all of COC81, plus some of NASA93)
+but also for projects completed up to a decade after
+those tunings (in NASA10).
+
+
+
+\begin{figure}[!t]
+{\scriptsize
+
+\noindent {\bf NASA10: (new NASA data up to 2010):}
+
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 24, max= 104\\
+  1 &      COCOMO-II &    42  &  35 & \quart{0}{43}{22}{94} \\
+\hline  2 &      COCONUT &    46  &  33 & \quart{19}{42}{27}{94} \\
+\hline  3 &     Knear(3) &    50  &  77 & \quart{3}{96}{32}{94} \\
+  3 &     Knear(1) &    57  &  49 & \quart{0}{61}{41}{94} \\
+  3 &         CART &    61  &  32 & \quart{21}{40}{46}{94} \\
+\end{tabular}}
+
+~\\
+
+%\subsection{newCIIdataDeTune}
+% 0 1 2 3 4 5 6 7 8 9=
+
+\noindent
+{\bf COC05: (new COCOMO data up to 2005):}
+
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 18, max= 166\\
+\\
+  1 &         CART &    42  &  61 & \quart{0}{41}{16}{55} \\
+  1 &      COCOMO-II &    46  &  146 & \quart{1}{98}{18}{55} \\
+  1 &     Knear(1) &    55  &  70 & \quart{0}{47}{24}{55} \\
+  1 &     Knear(3) &    63  &  99 & \quart{5}{67}{30}{55} \\
+  1 &      COCONUT &    66  &  34 & \quart{18}{23}{32}{55} 
+\end{tabular}}
+
+% :learn 815.741004 :analyze 25.107361 :boots 2 effects 2 :conf 0.9801
+% basicRun
+
+
+
+~\\
+
+\noindent {\bf NASA93: (NASA data up to 1993):}
+
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 15, max= 110\\
+  1 &      COCONUT &    36  &  38 & \quart{0}{39}{22}{89} \\
+  1 &      COCOMO-II &    38  &  39 & \quart{5}{41}{24}{89} \\
+\hline  2 &         CART &    40  &  55 & \quart{1}{57}{26}{89} \\
+\hline  3 &     Knear(3) &    54  &  66 & \quart{9}{69}{41}{89} \\
+  3 &     Knear(1) &    56  &  77 & \quart{1}{81}{43}{89} 
+\end{tabular}}
+
+~\\
+
+% 0 1 2 3 4 5 6 7 8 9=
+\noindent {\bf COC81: (original data from the 1981 COCOMO book):}
+
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 14, max= 306\\
+  1 &      COCOMO-II &    33  &  35 & \quart{2}{12}{6}{29} \\
+  1 &      COCONUT &    36  &  42 & \quart{0}{14}{7}{29} \\
+\hline  2 &         CART &    66  &  95 & \quart{8}{33}{17}{29} \\
+\hline  3 &     Knear(3) &    85  &  260 & \quart{10}{89}{24}{29} \\
+  3 &     Knear(1) &    87  &  236 & \quart{10}{81}{24}{29}
+\end{tabular}}
+
+% :learn 367.497208 :analyze 17.554273 :boots 4 effects 9 :conf 0.96059601
+
+}
+\caption{COCOMO vs standard methods.
+Displayed as per \fig{loc}. }\label{fig:standard}
+\end{figure}
+
+
+
+\subsection{COCOMO vs Simpler COCOMO}\label{sect:simpler}
+This section explores {\bf RQ4:
+is parametric estimation expensive to deploy
+at some new site?}. To that end,
+we assess the impact
+a certain simplifications imposed onto COCOMO-II. 
+
+
+
+
+\subsubsection{Range Reductions}
+One cost with deploying COCOMO in a new
+organization is the training effort required to generate consistent project
+rankings from different analysts. If we could reduce 
+the current six
+point scoring scale (very low, low, nominal, high, very high and extremely high)
+then there would be less scope 
+for disagree about projects. 
+Accordingly, for this experiment, 
+we reduced the  six point scale to just three:
+\bi
+\item {\em Nominal}: same as before;
+\item {\em Above}: anything above nominal;
+\item {\em Below}: anything below nominal.
+\ei
+To do  this, the tunings table of
+\fig{coc2} was altered. For each row, all values
+below nominal were replaced with their mean (and
+similarly with above-nominal values).  For example,
+here are the tunings for {\em time} before and after
+being reduced to {\em below, nominal, above}:
+
+{\scriptsize   \begin{center}
+\begin{tabular}{r|ll|l|lll|}
+
+      range      & vlow&  low&{\em nominal}&high&vhigh&xhigh\\\hline
+     before & 1.22& 1.09& 1.00& 0.93& 0.86& 0.80\\
+     reduced&1.15& 1.15& 1.00&  0.863& 0.863&0.863\\\cline{2-3}\cline{5-7}
+                 & \multicolumn{2}{c|}{{\em below}} &&\multicolumn{3}{c|}{{\em above}}
+\end{tabular}
+\end{center}}
+
+
+\subsubsection{Row Reductions}
+New COCOMO models are tuned only after collecting
+100s of new examples. If that was not necessary, we could look forward to multiple
+COCOMO models, each tuned to different specialized (and small) samples of projects.
+Accordingly, we explore tuning COCOMO
+on very small data sets.
+
+To implement this row reduction, training data was
+shuffled at random and training was conducted on
+all rows or on just the first four or eight rows rows
+(denoted {\em r4,r8} respectively). Note that, given  the positive
+results obtained with {\em r8} we did not explore larger training sets.
+
+\subsubsection{Column Reduction}
+
+Prior results tell us that row reduction should be
+accompanied by column reduction.  A study by Chen et
+al.~\cite{chen05a} combines column reduction (that
+discards noisy or correlated attributes) with row
+reduction. Their results are very clear: as the
+number of rows shrink, {\em better} estimates come
+from using {\em fewer}
+columns. Miller~\cite{miller02} explains  why this is so:  the variance of a
+linear model learned by minimizing least-squares error decreases as the number of columns in the model
+decreases. That is, as the number of columns decrease,
+prediction reliability can increase (caveat: 
+if you remove too much,
+there is no information left for predictions).
+
+Accordingly, this experiment sorts the attributes in the training set according
+to how well they select for specific effort values. 
+Let $x\in a_i$ denote the list of unique values seen for attribute $a_i$. Further,
+let there be $N$ rows in the training data; 
+let  $r(x)$ denote the $n$ rows containing $x$; and let $v(r(x))$ be the variance
+of the effort value in those rows. The values of ``good'' attributes
+select most for specific efforts; i.e. those attributes minimize:
+
+{\small \begin{equation}\label{eq:fss} E(\sigma,a_i) =\sum_{x\in a_i} \frac{n}{N}v(r(x))\end{equation}}
+This experiment sorted all training data attributes by $E(\sigma,a_i)$ then kept
+the data in the {\em lower quarter} or  {\em half} or {\em all} of  the columns
+(denoted {\em c0.25} or {\em c0.5} or {\em c1} respectively).
+Note that, due to the results of \fig{loc}, LOC was excluded from column reduction.
+
+
+
+\begin{figure}[!t]
+{\scriptsize
+{\bf NASA10 (new NASA data up to 2010):}
+
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 15, max= 77\\
+\\
+  1 &      COCOMO-II &    42  &  35 & \quart{14}{56}{43}{137} \\
+  1 & COCONUT:c0.5,r8 &    43  &  35 & \quart{11}{56}{45}{137} \\
+\hline 
+  2 &      COCONUT &    46  &  34 & \quart{38}{55}{49}{137} \\
+\hline  3 & COCONUT:c1,r4 &    48  &  41 & \quart{33}{66}{53}{137} \\
+  3 & COCONUT:c1,r8 &    50  &  33 & \quart{27}{53}{56}{137} \\
+  3 & COCONUT:c0.25,r8 &    51  &  35 & \quart{24}{56}{58}{137} \\
+  3 & COCONUT:c0.5,r4 &    53  &  38 & \quart{29}{61}{61}{137} \\
+  3 & COCONUT:c0.25,r4 &    57  &  41 & \quart{27}{66}{67}{137} \\
+\end{tabular}}
+
+~\\
+
+{\bf COC05 (new COCOMO data up to 2005):}
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 166\\
+  1 &      COCOMO-II &    46  &  146 & \quart{0}{99}{17}{54} \\
+  1 & COCONUT:c0.5,r8 &    51  &  58 & \quart{6}{39}{21}{54} \\
+  1 & COCONUT:c0.25,r8 &    61  &  56 & \quart{8}{39}{28}{54} \\
+  1 & COCONUT:c0.5,r4 &    61  &  58 & \quart{12}{40}{28}{54} \\
+  1 &      COCONUT &    68  &  34 & \quart{17}{24}{32}{54} \\
+  1 & COCONUT:c1,r4 &    64  &  60 & \quart{8}{41}{30}{54} \\
+  1 & COCONUT:c1,r8 &    74  &  45 & \quart{17}{31}{36}{54} \\
+  1 & COCONUT:c0.25,r4 &    80  &  58 & \quart{13}{40}{41}{54} \\
+\end{tabular}}
+
+% :learn 70.71 :analyze 4.04 :boots 2 effects 2 :conf 0.9801
+
+~\\
+
+
+{\bf NASA93 (NASA data up to 1993):}
+
+
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 12, max= 91\\
+\\
+  1 &      COCONUT &    36  &  38 & \quart{3}{48}{30}{111} \\
+  1 &      COCOMO-II &    38  &  39 & \quart{10}{49}{32}{111} \\
+  1 & COCONUT:c0.5,r8 &    44  &  53 & \quart{5}{67}{40}{111} \\
+  1 & COCONUT:c0.5,r4 &    49  &  61 & \quart{16}{77}{46}{111} \\
+  1 & COCONUT:c0.25,r4 &    52  &  67 & \quart{10}{84}{50}{111} \\
+\hline  2 & COCONUT:c1,r8 &    52  &  61 & \quart{8}{78}{50}{111} \\
+  2 & COCONUT:c1,r4 &    54  &  70 & \quart{11}{88}{53}{111} \\
+  2 & COCONUT:c0.25,r8 &    55  &  52 & \quart{26}{66}{54}{111} \\
+\end{tabular}}
+
+% :learn 548.2 :analyze 7.81 :boots 3 effects 14 :conf 0.970299
+
+
+
+% :learn 37.86 :analyze 3.84 :boots 3 effects 5 :conf 0.970299
+%\subsection{coc81}
+
+
+~\\
+
+{\bf COC81 (original data from the 1981 COCOMO book):}
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 14, max= 117\\
+\\
+  1 &      COCOMO-II &    33  &  35 & \quart{5}{34}{18}{83} \\
+  1 &      COCONUT &    37  &  42 & \quart{0}{40}{22}{83} \\
+\hline  2 & COCONUT:c1,r8 &    45  &  44 & \quart{8}{43}{30}{83} \\
+\hline  
+  3 & COCONUT:c0.5,r8 &    59  &  43 & \quart{23}{42}{43}{83} \\
+  3 & COCONUT:c0.25,r8 &    61  &  51 & \quart{19}{49}{45}{83} \\
+\hline  4 & COCONUT:c1,r4 &    76  &  60 & \quart{22}{58}{60}{83} \\
+  4 & COCONUT:c0.5,r4 &    78  &  30 & \quart{50}{29}{62}{83} \\
+  4 & COCONUT:c0.25,r4 &    82  &  65 & \quart{36}{63}{66}{83} \\
+\end{tabular}}
+
+% :learn 260.57 :analyze 8.89 :boots 6 effects 11 :conf 0.941480149401
+
+}
+\caption{COCOMO vs simpler COCOMO. MRE values. 
+Displayed as per \fig{loc}.}\label{fig:fss}
+\end{figure}
+
+
+
+\subsubsection{Results}
+
+\fig{fss} compares results found when use either
+{\em all} or some {\em reduce} set of ranges, rows,
+and columns. Note our nomenclature:  the
+COCONUT:c0.5,r8  results are those
+seen after training on eight randomly selected
+training examples reduced to {\em below, nominal,
+above}, while ignoring 50\% of the columns. 
+
+In \fig{fss}, all the {\em r4} results are ranked
+comparatively worse than the other treatments.  That
+is, thse results do not condone learning from just
+four projects.
+
+On the other hand \fig{fss} suggests that it is defensible
+to learn a COCOMO model from eight projects. All the
+{\em r8} results are top-ranked with the exception
+of the COC81 results (but even there, the absolutely
+difference between the top {\em r8} results are
+standard COCOMO is very small).
+
+Overall, \fig{fss} suggests that the modeling
+effort associated with COCOMO-II could be reduced. Hence,
+it need not be expensive to deploy parametric estimation
+at some new site.
+Projects attributes
+do not need to be specified in great detail:
+a simple three point scale will suffice:
+ {\em below, nominal, above}. As to how much data is
+required for modeling, 
+the results
+from COCONUT:c0.5,r8 are ranked either the same as
+COCOMO-II or (in the case of COC81) fall very close
+to the median and IQR seen for COCOMO-II.
+That is, 
+a mere eight projects can
+suffice for calibration.
+Hence, it
+should be possible to quickly build many COCOMO-like
+models for various specialized sub-groups using just
+a three-point scale
+
+That said, some column pruning should be employed
+when working with very small training sets (e.g.
+the eight rows used in \fig{fss}. 
+Note that
+in all data sets that generated multiple rankings,
+the {\em c1} results (that used all the attributes)
+were not top-ranked. That is, in a result that might
+have been predicted by Miller or Chen et al., when
+working with just a few rows it is useful to
+reflect on what columns might be ignored.
+
+
+
+
+\subsection{COCOMO with Incorrect Size Estimates}\label{sect:nonoise}
+
+This section explores
+{\bf RQ5: Are parametric estimates unduly sensitive to
+errors in the size estimate?}
+
+
+Before endorsing an KLOC-based estimation method,
+it is important to understand the effects of noise
+within the KLOC samples. 
+Test projects to be estimated may have noisy KLOC values if
+the development team incorrectly guesstimated the size of
+the code.
+Training data may have noisy KLOC
+for many reasons such as
+\bi
+\item How was reused code accounted
+for in the KLOC?
+\item Or were LOC counts based on end-statement
+or end-of-line symbols?
+\item Or how were lines of comments handled?
+\ei
+Another factor that introduces noise into training and test
+data are systems built from multiple languages. 
+To make estimates from  those kind
+of systems, KLOC in one language needs to be translated (in a possibly incorrect way) to KLOC in another language.
+
+In theory, the  problem of noisy KLOC measures seem particularly acute in our work.
+The core of COCOMO  is an estimate that is exponential on KLOC.
+This means that 
+ KLOC will be magnified in a non-linear way). 
+Also, if we train on just eight rows, as proposed above,
+then any noise in that small training data could be highly
+detrimental to the estimation process.
+
+On the other hand, the coefficients on the exponential term in  COCOMO equation are not
+large: \mbox{$e=b+0.01*\sum_iSF_i$}
+where the default value for $b$ is less than one (0.91) and the nominal values for $SF_i$ sum to less than 20.
+In that default
+case \mbox{$e=0.91+0.01*20= 0.912$} so KLOC errors may not be unduly magnified. However, for other non-default values,
+the coefficient is larger ($e_{max}=1.22$) so it is important to check the effects of noise using real-world data.
+
+To check the effects of noise, we repeated the reduction
+experiments of the last section while also injecting
+noise into the KLOC values.
+That is, as above, 
+(1)~the ranges were reduced to three;
+(2)~half the columns were reduced;
+(3)~we trained on only eight randomly selected projects; and 
+(4)~prior to train and test, all KLOC values were adjusted
+to
+\[\mathit{KLOC} = \mathit{KLOC}*((1- n) + (2*n*r))\]
+where $n \in \{0.25,0.5\}$ is the level of noise we are exploring and $r$ is a random number
+$0 \le r \le 1$.
+
+The results are shown in \fig{noise}. Any result
+marked with {\em n/2} or {\em n/4} shows what happens
+when the KLOCs were varied by 50\% or 25\% respectively.
+In only one case (COC81) were the noisy results statistically
+different from using data without noise. That is,
+the parametric estimation method being recommended here is
+not unduly effected by noise where the KLOC values
+vary up to 50\% of their original value.
+
+
+\input{noise}
+
+\section{Threats to Validity}
+
+The above results were based with certain settings for some experiments on some data. 
+For example, in the previous section, we used noise at levels 25\% and 50\%.
+Clearly, these results may not hold if a wider range of settings for (e.g.) noise are explored.
+
+
+%% In the future, we plaIt is reasonable to require
+%% that these results be repeated on a 
+%% XXX more parametric estiamtion that COCOMO.
+%% COCOMO more simialrt to SEER etc than others
+
+%% there are other biases as the analogy guys will point out.  you are only using cocomo parameters.   
+%% XXX but that might be the point- that estiamtion is easy is the right data is collected, that
+%% effective effort estiaton is a metter of good data colelction rather than in the subsequent analtysis.
+
+
+
+Another source of bias in this study
+are the learners used for the defect prediction
+studies. Data mining is a large and active field and
+any single study can only use a small subset of the
+known data mining algorithms. The case for the
+learners used in this study was made in \tion{whatlearn}.
+
+Questions of validity also arise in terms of how the
+projects (data-sets) are chosen for our experiments.
+While we used all the data sets that could be shared
+between our team, it is not clear if our results
+would generalize to other as yet unstudied
+data-sets. One the other hand, in terms of the
+parametric estimation literature, this is one of the most extensive
+and elaborate studies yet published.
+
+On the matter of our data- there is a clear bias in
+our sample: all these projects are described in terms of
+the COCOMO attributes.  Clearly, when more data
+becomes available, collected by different teams, we
+plan to repeat this study.% on data from other
+
+
+That said, it is not clear that the data sets used in this study
+were   somehow simplistic or unchallenging. We saw
+that (e.g.) the COCOMO-II exhibited very large
+variances when applied to the COCO05 data. Further,
+supposedly state-of-the art methods had difficulty
+with generating good predictions with some of these
+data sets (recall the poor CART result for COC81 and
+NASA10).  We therefore believe that these data sets
+are complex enough to serve as a stress test for
+different effort estimation methods.
+
+
+\section{Conclusion}
+The past few decades have seen a long line of innovative  methods
+applied to effort estimation. This paper has compared a sample of those methods
+to a decades-old parametric estimation method. 
+
+We found that:
+\bi
+\item {\bf RQ1}: parametric estimation is indeed
+better just using LOC (see \tion{justloc}); 
+\item {\bf RQ2}: new innovations in effort estimation have not superseded parametric estimation (see \tion{othermethods});
+\item {\bf RQ3}: Old parametric tunings are not out-da<ted (see \tion{othermethods});
+\item {\bf RQ4}: It is possible to simplify parametric estimation with some range, row and column pruning to reduce the cost
+of deploying those methods at a new site (see \tion{simpler});
+\item {\bf RQ5}: Parametric estimation methods like COCOMO that assume effort is exponential on lines of code are {\em not} unduly
+sensitive to errors in the LOC measure (see \tion{nonoise});.
+\ei
+Hence, we conclude that in 2015 is still valid and recommended practice to {\em first} try parametric estimation,
+perhaps  augmented with a local calibration method like COCONUT
+and Equation~\ref{eq:fss}'s  column pruner.
+
+
+Having made that case, we need to add that in 
+practice, approaches like expert judgment~\cite{jorgensen09}  and
+playing-poker for agile estimation~\cite{molokk08} have their home
+ground, but that is not enough of a reason to reject decades of research into parametric estimation
+and 
+COCOMO. Best practices and empirical studies
+show that different methods can work together to
+reduce biases~\cite{yang08aa}. What we hope we have shown here is that it would be useful for those best practices
+to {\em include}, and not {\em replace}, parametric estimation.
+
+%%  We hasten to add that these results should not be read
+%% as a repudiation of all other research into effort estimation.  
+%% The caveat on all our results is that
+%% projects are described in terms of the COCOMO
+%% parameters.  Where this is not possible, then
+%% non-COCOMO methods should be employed. 
+%% For example, this paper is a side-effect of a study
+%% (funded by NASA)
+%% to build a non-COCOMO effort model. 
+%% For example, at NASA, 
+%% projects are discussed in terms of their development language
+%% and mission type (one of ``observatory'', ``rover'', ``deep space satellite'', etc)
+%% rather than the standard COCOMO attributes. That projects used numerous state-of-the-art innovations:
+%% Spectral learning, principle component analysis, prototype learning,
+%% non-parametric response surface methods, and Monte Carlo simulation~\cite{papa13,me12d}.
+
+%% With those innovations, it was possible
+%% to build a model performed as well as COCOMO but did not use the COCOMO attributes.
+%% On the other hand, that new model {\em did no better} than
+%% COCOMO's parametric estimation-- a result that motivated this current paper.
+%% The conclusion from that study must be that if 
+
+
+%% Experience with COCOMO
+%% By the mid-1990’s, it was clear that some of the
+%% 1981 COCOMO assumptions (waterfall model, fixed
+%% diseconomies of scale exponents relating size to
+%% effort, aging cost drivers and rating scales) were
+%% becoming increasingly invalid.  The USC Center for
+%% Software Engineering and its industry and government
+%% affiliates established an effort in 1995 to define
+%% and calibrate a new model that would address the
+%% software cost estimation needs of 21st century
+%% projects.  It took 5 years to develop; the resulting
+%% 23-parameter model was calibrated to 161
+%% well-defined project data points and was published
+%% as COCOMO II~\cite{boehm00b}; although its
+%% calibration data remained proprietary.  But even
+%% during the 5-year development period, the software
+%% field was moving sufficiently rapidly to require
+%% alternative models to account for such changes as
+%% commercial-off-the-shelf (COTS)-intensive systems
+%% (COCOTS), schedule-optimized rapid application
+%% development (RAD) projects (CORADMO), and
+%% incremental development, that were published as
+%% emerging extensions in the book.
+
+%% The results of this paper show 
+%% that COCOMO-II is still comparatively as good as many other methods
+%% for effort estimation. 
+%% While some of the
+%% post-2000 COCOMO II project data points are not
+%% well-estimated by the standard COCOMO II model and
+%% its coefficients, this problem  can be addressed by
+%% local calibration (plus column reduction). 
+%% Our best guess is that the current COCOMO-II model (augmented with local calibration)
+%% will
+%% have a ``half-life'' of a decade or two.
+
+%% That said,
+%% recent changes in the software industry, and the above results,
+%% suggest  it is time  to revise COCOMO-II.
+%% The rise of agile methods, web
+%% services, cloud services, parallelized software on
+%% multicore chips, field-programmable-gate-array
+%% (FPGA) software, apps, widgets, and net-centric
+%% systems of systems (NCSOS) have caused the COCOMO II
+%% developers and users to begin addressing an upgrade
+%% to the 14-year-old COCOMO II. 
+
+%% Current discussions
+%% of a potential COCOMO III have led to a
+%% reconsideration of the old COCOMO 1981 development
+%% modes, as different development phenomena appear to
+%% drive the costs and schedules of web-services,
+%% business data processing, real-time embedded
+%% software, command and control, and engineering and
+%% scientific applications.  
+%% The above column
+%% reduction results suggest that it should not be too difficult to calibrate
+%% COCOMO-III to various specialized areas.
+  
+
 % A category with the (minimum) three required fields
-\category{H.4}{Information Systems Applications}{Miscellaneous}
-%A category including the fourth, optional field follows...
-\category{D.2.8}{Software Engineering}{Metrics}[complexity measures, performance measures]
+\vspace{1mm}
+\noindent
+{\bf Categories and Subject Descriptors:} H.4 Information Systems Applications, Miscellaneous.
+D.2.8, Software Engineering, Metrics,complexity measures, performance measures
 
-\terms{Theory}
-
-\keywords{ACM proceedings, \LaTeX, text tagging}
 
 
 % That's all folks!
+\vspace*{0.5mm}
+\scriptsize
+\bibliographystyle{plain}
+
 \bibliography{refs,refs1}
+\balance
 \end{document}
