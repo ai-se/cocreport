@@ -1,4 +1,4 @@
-Src=cocreport-v8
+Src=sig-alternate
 Name=15cocreport
 Bib=refs.bib refs1.bib
 
