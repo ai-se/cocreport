@@ -85,6 +85,23 @@
   % \DeclareGraphicsExtensions{.eps}
 \fi
 
+%%%% needed %%%
+\usepackage{picture}
+\newcommand{\quart}[3]{\begin{picture}(100,6)%1
+{\color{black}\put(#3,3){\circle*{4}}\put(#1,3){\line(1,0){#2}}}\end{picture}}
+
+\usepackage{times}
+\def\baselinestretch{0.95}
+\usepackage[font={small}]{caption, subfig}
+ \renewcommand{\figurename}{Fig.}
+ \renewcommand{\tablename}{Tab.}
+\setlength{\abovecaptionskip}{1ex}
+ \setlength{\belowcaptionskip}{1ex}
+ \setlength{\floatsep}{1ex}
+ \setlength{\textfloatsep}{1ex}
+\setlist{nosep}
+\newcommand{\bibfont}{\tiny}
+ 
 \begin{document}
 \title{40 Years of Parametric Effort Estimation:\\A Report Card on COCOMO-style Research }
 \author{\IEEEauthorblockN{Tim Menzies\IEEEauthorrefmark{1},
