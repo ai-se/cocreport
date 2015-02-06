@@ -1,0 +1,107 @@
+% noise
+
+\begin{figure}[!t]
+{\scriptsize
+{\bf NASA10 (new NASA data up to 2010):}
+c
+% 0 1 2 3 4 5 6 7 8 9=
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 24, max= 141\\
+  1 &      COCOMO-II &    42  &  35 & \quart{0}{29}{15}{64} \\
+  1 & COCONUT:c*0.5r=8n/4 &    46  &  36 & \quart{5}{31}{18}{64} \\
+  1 &   COCOMO-IIn/2 &    50  &  47 & \quart{0}{40}{22}{64} \\
+\hline  
+  2 & COCONUT:c*0.5,r=8 &    54  &  34 & \quart{11}{30}{25}{64} \\
+  2 & COCONUT:c*0.5,r=8n/2 &    55  &  45 & \quart{0}{39}{26}{64} \\
+%  2 &     knear(1) &    57  &  49 & \quart{0}{41}{28}{64} \\
+  2 &   COCOMO-IIn/4 &    58  &  45 & \quart{6}{39}{29}{64} \\
+%\hline  3 &       cart/4 &    62  &  74 & \quart{10}{63}{32}{64} \\
+ % 3 &         cart &    64  &  35 & \quart{19}{30}{34}{64} \\
+ % 3 &       cart/2 &    64  &  105 & \quart{10}{89}{34}{64} \\
+\end{tabular}}
+
+ %:learn 29.972693 :analyze 3.610701 :boots 5 effects 9 :conf 0.9509900499
+% noise
+
+
+~\\
+
+{\bf COC05 (new COCOMO data up to 2005):}
+
+
+% 0 1 2 3 4 5 6 7 8 9=
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 16, max= 421\\
+ % 1 &         cart &    42  &  57 & \quart{0}{14}{6}{20} \\
+%\hline  
+1 &      COCOMO-II &    46  &  146 & \quart{0}{37}{7}{20} \\
+%  1 &     knear(1) &    55  &  70 & \quart{0}{18}{9}{20} \\
+  1 & COCONUT:c*0.5,r=8n/2 &    60  &  53 & \quart{5}{14}{10}{20} \\
+  1 &   COCOMO-IIn/2 &    63  &  203 & \quart{2}{50}{11}{20} \\
+  1 & COCONUT:c*0.5r=8n/4 &    65  &  42 & \quart{8}{10}{12}{20} \\
+ % 1 &       cart/2 &    68  &  55 & \quart{5}{14}{12}{20} \\
+  1 & COCONUT:c*0.5,r=8 &    77  &  51 & \quart{6}{12}{15}{20} \\
+\hline % 3 &       cart/4 &    82  &  376 & \quart{7}{92}{16}{20} \\
+  2 &   COCOMO-IIn/4 &    110  &  280 & \quart{5}{69}{23}{20} \\
+\end{tabular}}
+
+ %:learn 366.038237 :analyze 14.041803 :boots 4 effects 4 :conf 0.96059601
+% noise
+
+~\\
+
+
+{\bf NASA93 (NASA data up to 1993):}
+
+
+% 0 1 2 3 4 5 6 7 8 9=
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 14, max= 137\\
+  1 &      COCOMO-II &    38  &  39 & \quart{4}{32}{19}{69} \\
+  1 &   COCOMO-IIn/2 &    41  &  43 & \quart{8}{35}{21}{69} \\
+  1 &   COCOMO-IIn/4 &    47  &  45 & \quart{9}{37}{26}{69} \\
+%  1 &         cart &    49  &  57 & \quart{0}{46}{28}{69} \\
+  1 & COCONUT:c*0.5,r=8n/2 &    54  &  50 & \quart{11}{41}{32}{69} \\
+%  1 &     knear(1) &    56  &  77 & \quart{1}{63}{34}{69} \\
+  1 & COCONUT:c*0.5,r=8 &    57  &  57 & \quart{8}{46}{34}{69} \\
+  1 & COCONUT:c*0.5r=8n/4 &    58  &  45 & \quart{21}{37}{35}{69} \\
+%  1 &       cart/2 &    65  &  112 & \quart{8}{91}{41}{69} \\
+%  1 &       cart/4 &    68  &  74 & \quart{23}{60}{43}{69} \\
+\end{tabular}}
+
+% :learn 358.87023 :analyze 5.615541 :boots 1 effects 15 :conf 0.99
+
+~\\
+
+{\bf COC81 (original data from the 1981 COCOMO book):}
+
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 281\\
+  1 &      COCOMO-II &    33  &  35 & \quart{0}{13}{4}{30} \\
+\hline  2 &   COCOMO-IIn/2 &    47  &  46 & \quart{2}{18}{10}{30} \\
+  2 &   COCOMO-IIn/4 &    48  &  44 & \quart{3}{17}{10}{30} \\
+  2 & COCONUT:c*0.5,r=8n/2 &    53  &  45 & \quart{5}{17}{12}{30} \\
+  2 & COCONUT:c*0.5r=8n/4 &    57  &  44 & \quart{5}{17}{14}{30} \\
+  2 & COCONUT:c*0.5,r=8 &    65  &  51 & \quart{4}{20}{17}{30} \\
+%\hline  3 &         cart &    72  &  102 & \quart{9}{39}{19}{30} \\
+%\hline  4 &       cart/4 &    75  &  214 & \quart{5}{82}{21}{30} \\
+%  4 &       cart/2 &    80  &  151 & \quart{7}{58}{22}{30} \\
+%  4 &     knear(1) &    87  &  236 & \quart{9}{90}{25}{30} \\
+\end{tabular}}
+
+ %:learn 173.557093 :analyze 9.017862 :boots 5 effects 14 :conf 0.9509900499
+% noise
+
+
+}
+\caption{LOC noise results. MRE values. 
+Displayed as per \fig{loc}.}\label{fig:noise}
+\end{figure}
