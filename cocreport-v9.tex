@@ -47,8 +47,8 @@
 
 \documentclass{sig-alternate}
 
+\usepackage{comment}
 \usepackage{cite}
-\usepackage{times}
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{url}
@@ -111,21 +111,27 @@
 {\color{black}\put(#3,3){\circle*{4}}\put(#1,3){\line(1,0){#2}}}\end{picture}}
 
 
+\usepackage{times}
 
-%\usepackage[small]{titlesec}
-\def\baselinestretch{0.97}
+\def\baselinestretch{0.95}
 
+
+\setlist{nosep}
 
  \usepackage[font={small}]{caption, subfig}
 
 
+
 \setlength{\abovecaptionskip}{1ex}
  \setlength{\belowcaptionskip}{1ex}
+ 
  \setlength{\floatsep}{1ex}
  \setlength{\textfloatsep}{1ex}
-\setlist{nosep}
+ 
+\usepackage[compact,small]{titlesec}
 
-\begin{document}
+ 
+\begin{document} 
 %
 % --- Author Metadata here ---
 \conferenceinfo{FSE}{'15 Bergamo, Italy}
