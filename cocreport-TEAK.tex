@@ -289,7 +289,53 @@ local project data is used to tune the  $(a,b)$ parameter values, If local
 data is unavailable, new projects can reuse prior tunings,  with  minor
 tweaks~\cite{me04h}. 
 
- 
+
+\begin{figure}[!t]
+\begin{center}
+
+~\\~\\~\\
+
+{\scriptsize
+\begin{tabular}{r|@{~}r|@{~}r|@{~}r|@{~}l}
+
+Types of projects& COC81 & NASA93& COC05 &NASA10\\\hline\hline
+Avionics&     &26&10&17\\\hline
+Banking&       &      &13&     \\\hline
+Business apps/data processing&7&4&31&  \\\hline   
+Control&9&18&13&     \\\hline
+Human-machine interaction&12&       &       &     \\\hline
+Military, ground&       &       &8&     \\\hline
+Misc&5&4&5&     \\\hline
+Mission Planning&      &16&       &     \\\hline
+SCI scientific application&16&21&11&     \\\hline
+Support (tools, utilities, etc)&7&        &       &   \\\hline  
+Sys (OS, compilers, sensors,etc)&7&3&2&     
+
+
+%% NASA10& COC05 & NASA93& COC81 & Types of projects\\\hline\hline
+%%      &     5 &4      &       & Misc\\\hline
+%%      &       &        &  7   &  Support (tools, utilities, etc)\\\hline
+%%      &      8&       &       & Military, ground\\\hline
+%%      &      13&      &       & Banking\\\hline
+%%      &      2&3      & 7     & Sys (OS, compilers, sensors,etc)\\\hline
+%%      &      31&4     &  7    & Business apps/data processing\\\hline
+%%      &       &16      &      & Mission Planning\\\hline
+%%      &     13  &18     &   9 & Control\\\hline
+%%      &       &       & 12    & Human=machine interaction\\\hline
+%%      &      11& 21     & 16   & SCI scientific application\\\hline
+%%  17  &     10 &26      &     & Avionics Monitoring
+\end{tabular}}
+
+~\\~\\
+
+\includegraphics[width=2.3in]{yearLOC.pdf}
+\noindent
+\end{center}
+\caption{Projects in this study. \fig{cparems}
+shows project attributes.}\label{fig:types}
+\end{figure}
+
+
 
 
 %XXX what if not in cocomo format. answer : then use something else. caution:
@@ -394,8 +440,8 @@ as well as simplifying the specification of local projects.
 In the context of RQ4, we check what happens
 if there are large errors in the KLOC estimate.
 
-The answer to all of these research questions was
-``no'' which means that
+After extensive experimentation (described below), we can report that the answer to all of these research questions was
+``no'' which, in turn, means that
 the continued
 use of parametric estimation can still be endorsed.
 %% These new model  are of many types.
@@ -429,10 +475,15 @@ use of parametric estimation can still be endorsed.
 %%                       [.yes Try\ parametric\\methods\ first ]
 %%                       [.no  Case-based\\reasoning ] ] ] ]
 %% }
-This result has strong implications for current research practice. 
+This result has major implications for current research in this field. 
 Specifically: it must be asked to what extent we
 can count on newer innovative techniques for effort estimation.  
-The unique and highly variable characteristics of SE
+Small training sets are very common in software estimation studies\footnote{
+For example, five recent  effort estimation
+publications~\cite{Mendes2003,Auer2006,baker07,koc11a,Li2009} used tables of data with
+13,15,31,33,52 rows (respectively).}.
+This small quantity,
+ as well as the unique and highly variable characteristics of SE
 project data place great limitation on the results
 obtained by naively applying some brand-new
 algorithm.  What COCOMO, or other parametric
@@ -441,103 +492,41 @@ backbone structure for making estimation decisions
 from expert-delphi, as well as well calibrated
 tuning factors from over 40 years of
 industrial data. Perhaps the best future direction is to
-investigate how innovative new techniques can extend
+investigate how new innovations can extend
 (rather than replace) existing and successful
 estimation methods.  Some experiments in this paper
 are a starting point for that investigation.
 
-\section{Overall Structure of These Experiments}
+\section{Design Principles for this Design}
 
-When designing a data mining experiment, it is vitally
-important {\em not} to  evaluate the learned model using the data used to learn that model.
-Accordingly, for this study, we (1)~separated out the available COCOMO-style data into five
-sets then (2)~used a model learned from one of the sets as ``the'' COCOMO model applied to the other four.
-Note that while all of these data sets could be called ``COCOMO'' models (since they all use the
-same column names), their rows come from very different projects:
 
-To be  specific, the canonical  model used as ``the'' COCOMO model in this study was
-trained from  161 projects in the period 1982 to 1997 from commercial, aerospace,government, and non-profit organizations. Our other four data sets, used  for testing,  are:
+The following experiments were carefully designed to avoid a set of common pitfalls\footnote{This section is a reply to reviewers of a previous draft 
+of this paper who raised the following issues.
+\#1: the evaluation was made on the same dataset used to define the model and tailor
+model parameters; \#2: the model has a high number of parameters and a posteriori it can be used to
+fit almost anything;
+\#3: a more realistic evaluation would imply using COCOMO on a new dataset NOT
+used to define the model and not used to tailor parameters moreover WITHOUT
+knowing the effort thus estimate the parameter with no bias;
+\#4: it is quite troubling as if a large error on the input causes only small
+variation of the output either there is magic involved or the parameters are
+set to reduce the input variability.
+}.
+
+Firstly, the surprising success of a COCOMO parametric model (tuned in 2000)
+cannot be explained by its overlap with our test data.
+This  baseline COCOMO models was generated in 2000 by Boehm et al.~\cite{boehm00b}
+using data 
+collected in the period 1985 to 1998 from 161 projects  (from commercial,
+aerospace, government, and non-profit organizations). 
+Our models were based on very different data: 
 \bi
-\item COC81 is the original data from 1981 COCOMO book~\cite{boehm81}. 
-This comes from projects dating 1970 to 1980.
-\item NASA93 is NASA data collected  in the early 1990s
- about software that supported  the planning activities for the International
-Space Station. This
-data is very different to COC81 (e.g.  median development effort for NASA93
-is $2.57*$COC81's median).
-\item 
-Our two other data serts are COC05 and NASA10. These data sets
-are proprietary and, as such,
-cannot be released to the rest of the research community. That said,
-we assert that these projects have minimal overlap
-to each other other,
-as well as COC81 and NASA93 (see \fig{types}).  
-\ei
-To download our public data, see http://openscience.us/repo/effort.
-\begin{figure}[!t]
-\begin{center}
+\item COC81 was tuned using 63 projects dating from the 1970s;
+\item NASA93 describes some NASAS projects dating COC05 is new data collected 2000 to 2005 and NASA
 
-~\\~\\~\\
+TThe specific tunings of the  COCOMO-2000 model~\cite{boehm00a}
 
-{\scriptsize
-\begin{tabular}{r|@{~}r|@{~}r|@{~}r|@{~}l}
-
-Types of projects& COC81 & NASA93& COC05 &NASA10\\\hline\hline
-Avionics&     &26&10&17\\\hline
-Banking&       &      &13&     \\\hline
-Business apps/data processing&7&4&31&  \\\hline   
-Control&9&18&13&     \\\hline
-Human-machine interaction&12&       &       &     \\\hline
-Military, ground&       &       &8&     \\\hline
-Misc&5&4&5&     \\\hline
-Mission Planning&      &16&       &     \\\hline
-SCI scientific application&16&21&11&     \\\hline
-Support (tools, utilities, etc)&7&        &       &   \\\hline  
-Sys (OS, compilers, sensors,etc)&7&3&2&     
-     
-
-%% NASA10& COC05 & NASA93& COC81 & Types of projects\\\hline\hline
-%%      &     5 &4      &       & Misc\\\hline
-%%      &       &        &  7   &  Support (tools, utilities, etc)\\\hline
-%%      &      8&       &       & Military, ground\\\hline
-%%      &      13&      &       & Banking\\\hline
-%%      &      2&3      & 7     & Sys (OS, compilers, sensors,etc)\\\hline
-%%      &      31&4     &  7    & Business apps/data processing\\\hline
-%%      &       &16      &      & Mission Planning\\\hline
-%%      &     13  &18     &   9 & Control\\\hline
-%%      &       &       & 12    & Human=machine interaction\\\hline
-%%      &      11& 21     & 16   & SCI scientific application\\\hline
-%%  17  &     10 &26      &     & Avionics Monitoring
-\end{tabular}}
-
-~\\~\\
-
-\includegraphics[width=2.3in]{yearLOC.pdf}
-\noindent
-\end{center}
-\caption{Projects in this study. \fig{cparems}
-shows project attributes.}\label{fig:types}
-\end{figure}
-\input{cocomoParams}
-
-
-Another concern  is that the number of model parameters
-relative to the number of projects being analyzed.
-The 24 parameters of the standard COCOMO model is shown in \fig{cparems}
-and, as shown in \fig{types}, the data tables of NASA10, COC81, NASA93, and COC05
-contain information on 17, 63, 93, and 95  projects, respectively. The concern 
-here is that  this is not enough data to constrain the learning of a 24 parameter
-model-- which means that that data could be fitted to almost anything.
-
-It is not possible to solve this problem
-with more extensive data collection since small data sets are the norm in effort estimation research\footnote{
-For example, five recent  effort estimation
-publications~\cite{Mendes2003,Auer2006,baker07,koc11a,Li2009} used tables of data with
-13,15,31,33,52 rows (respectively).}.
-Hence, it is important to compare standard methods
-with {\em dimensionality reduction methods} that first ``trim'' the data and hence the number of the parameters in the model. This study explores two such ``trimming'' methods (the COCONUT and TEAK tools, described below). Surprisingly, in a result that strengthens the case for ``the'' canonical COCOMO  model, we show below that trimming
-does not out-perform standard COCOMO, suggesting that the COCOMO description of projects
-successfully constrains the description space for software projects.
+The following experiments were carefully designed 
 
 \section{Background}
 
@@ -599,58 +588,6 @@ one explainable outlier, the model’s estimates for
 the 20 projects with solid data were within 30\% of
 the actuals, with most within 15\% of the actuals.
 
-\begin{figure}[!t]
-\begin{lstlisting}
-_  = None;  Coc2tunings = [[
-#              vlow  low   nom   high  vhigh  xhigh   
-# scale factors:
-'Flex',        5.07, 4.05, 3.04, 2.03, 1.01,     _],[
-'Pmat',        7.80, 6.24, 4.68, 3.12, 1.56,     _],[
-'Prec',        6.20, 4.96, 3.72, 2.48, 1.24,     _],[
-'Resl',        7.07, 5.65, 4.24, 2.83, 1.41,     _],[
-'Team',        5.48, 4.38, 3.29, 2.19, 1.01,     _],[
-# effort multipliers:        
-'acap',        1.42, 1.19, 1.00, 0.85, 0.71,    _],[
-'aexp',        1.22, 1.10, 1.00, 0.88, 0.81,    _],[
-'cplx',        0.73, 0.87, 1.00, 1.17, 1.34, 1.74],[
-'data',           _, 0.90, 1.00, 1.14, 1.28,    _],[
-'docu',        0.81, 0.91, 1.00, 1.11, 1.23,    _],[
-'ltex',        1.20, 1.09, 1.00, 0.91, 0.84,    _],[
-'pcap',        1.34, 1.15, 1.00, 0.88, 0.76,    _],[ 
-'pcon',        1.29, 1.12, 1.00, 0.90, 0.81,    _],[
-'plex',        1.19, 1.09, 1.00, 0.91, 0.85,    _],[ 
-'pvol',           _, 0.87, 1.00, 1.15, 1.30,    _],[
-'rely',        0.82, 0.92, 1.00, 1.10, 1.26,    _],[
-'ruse',           _, 0.95, 1.00, 1.07, 1.15, 1.24],[
-'sced',        1.43, 1.14, 1.00, 1.00, 1.00,    _],[ 
-'site',        1.22, 1.09, 1.00, 0.93, 0.86, 0.80],[ 
-'stor',           _,    _, 1.00, 1.05, 1.17, 1.46],[
-'time',           _,    _, 1.00, 1.11, 1.29, 1.63],[
-'tool',        1.17, 1.09, 1.00, 0.90, 0.78,    _]]
-
-def COCOMO2(project, 
-            a = 2.94, b = 0.91, # defaults
-            tunes= Coc2tunings):# defaults, see above
-  sfs  = 0
-  ems  = 1 
-  kloc = 22
-  scaleFactors = 5 
-  effortMultipliers = 17
-  for i in range(scaleFactors):
-    sfs += tunes[i][project[i]]
-  for i in range(effortMultipliers):
-    j = i + scaleFactors
-    ems *= tunes[j][project[j]] 
-  return a * ems * project[kloc] ** (b + 0.01*sfs) 
-\end{lstlisting}
-\caption{COCOMO-II: effort estimates from a {\em project}.
-Here, {\em project} has up to 24 attributes  (5 scale
-factors plus 17 effort multipliers plus KLOC plus. in the training data, the actual effort).
-Each attribute except KLOC and effort is scored
-using the scale very low = 1, low=2, etc.
-For an explanation of the attributes shown in
-green, see \fig{cparems}.}\label{fig:coc2}
-\end{figure}
 
 %%  and worked with projects to gather uniform
 %% software cost driver and effort data on its 1970s
@@ -712,10 +649,7 @@ influence effort in a linear manner.
 
 Following the release of COCOMO-I Boehm created a consortium for
 industrial organizations using COCOMO .
-The consortium
-collected information on 161 projects from commercial,
-aerospace, government, and non-profit organizations.
-Based on an analysis of those 161 projects, Boehm
+Based on an analysis of  161 projects from that consortium, Boehm
  added  new attributes called {\em scale factors}
 that had an {\em exponential impact}
 on effort (e.g. one such attribute was process maturity).
@@ -742,7 +676,58 @@ five developers would finish
 the project in 20 months.
 
 
+\begin{figure}[!t]
+\begin{lstlisting}
+_  = None;  Coc2tunings = [[
+#              vlow  low   nom   high  vhigh  xhigh   
+# scale factors:
+'Flex',        5.07, 4.05, 3.04, 2.03, 1.01,     _],[
+'Pmat',        7.80, 6.24, 4.68, 3.12, 1.56,     _],[
+'Prec',        6.20, 4.96, 3.72, 2.48, 1.24,     _],[
+'Resl',        7.07, 5.65, 4.24, 2.83, 1.41,     _],[
+'Team',        5.48, 4.38, 3.29, 2.19, 1.01,     _],[
+# effort multipliers:        
+'acap',        1.42, 1.19, 1.00, 0.85, 0.71,    _],[
+'aexp',        1.22, 1.10, 1.00, 0.88, 0.81,    _],[
+'cplx',        0.73, 0.87, 1.00, 1.17, 1.34, 1.74],[
+'data',           _, 0.90, 1.00, 1.14, 1.28,    _],[
+'docu',        0.81, 0.91, 1.00, 1.11, 1.23,    _],[
+'ltex',        1.20, 1.09, 1.00, 0.91, 0.84,    _],[
+'pcap',        1.34, 1.15, 1.00, 0.88, 0.76,    _],[ 
+'pcon',        1.29, 1.12, 1.00, 0.90, 0.81,    _],[
+'plex',        1.19, 1.09, 1.00, 0.91, 0.85,    _],[ 
+'pvol',           _, 0.87, 1.00, 1.15, 1.30,    _],[
+'rely',        0.82, 0.92, 1.00, 1.10, 1.26,    _],[
+'ruse',           _, 0.95, 1.00, 1.07, 1.15, 1.24],[
+'sced',        1.43, 1.14, 1.00, 1.00, 1.00,    _],[ 
+'site',        1.22, 1.09, 1.00, 0.93, 0.86, 0.80],[ 
+'stor',           _,    _, 1.00, 1.05, 1.17, 1.46],[
+'time',           _,    _, 1.00, 1.11, 1.29, 1.63],[
+'tool',        1.17, 1.09, 1.00, 0.90, 0.78,    _]]
 
+def COCOMO2(project, 
+            a = 2.94, b = 0.91, # defaults
+            tunes= Coc2tunings):# defaults, see above
+  sfs  = 0
+  ems  = 1 
+  kloc = 22
+  scaleFactors = 5 
+  effortMultipliers = 17
+  for i in range(scaleFactors):
+    sfs += tunes[i][project[i]]
+  for i in range(effortMultipliers):
+    j = i + scaleFactors
+    ems *= tunes[j][project[j]] 
+  return a * ems * project[kloc] ** (b + 0.01*sfs) 
+\end{lstlisting}
+\caption{COCOMO-II: effort estimates from a {\em project}.
+Here, {\em project} has up to 24 attributes  (5 scale
+factors plus 17 effort multipliers plus KLOC plus. in the training data, the actual effort).
+Each attribute except KLOC and effort is scored
+using the scale very low = 1, low=2, etc.
+For an explanation of the attributes shown in
+green, see \fig{cparems}.}\label{fig:coc2}
+\end{figure}
 
 Recent changes in the software industry
 suggest  it is time  to revise COCOMO-II.
@@ -766,9 +751,6 @@ these modes and to gather data to calibrate models
 for dealing with them are underway, and contributors
 to the definition and calibration are welcome.}.  
 
-Before going on, we offer one more equation that will be required in our
-external validity section. For a fixed KLOC (say, KLOC=100), the effort
-can change according the minimum and maximum values of 
 
 \subsection{COCOMO and Local Calibration}\label{sect:coconut}
 When there is insufficient 
@@ -881,6 +863,28 @@ notes on the experimental methods used later in this paper.
 %% \end{verbatim}}
 %% \caption{Sample data used in this project (first four rows of NASA93).}\label{fig:data1}
 %% \end{figure*}
+
+\subsection{Choice of Data}\label{sect:data}
+For this study we used all the COCOMO data available to the authors
+(see \fig{types}).
+The COC81 and NASA93 data comes
+from the PROMISE repository\footnote{https://promisedata.googlecode.com/svn/trunk/effort/}:
+\bi
+\item COC81 is the original data from 1981 COCOMO book;
+\item NASA93 is data collected at  NASA  in the early 1990s
+ about software that supported  the planning activities for the International
+Space Station.
+\ei
+The other data
+sets come from more recent data collections by the COCOMO team (COC05) or by NASA's
+effort estimation team (NASA10).  These COC05 and NASA10 data sets are proprietary and, as such,
+cannot be released to the rest of the research community. For information on the kinds
+of projects included in these two data sets, see \fig{types}.
+
+As shown in \fig{types}, the data tables of NASA10, COC81, NASA93, and COC05
+contain information on 17, 63, 93, and 95  projects, respectively.
+As to the attributes of that data, all the projects contain the COCOMO attributes of 
+\fig{cparems}.
 
 
 
@@ -1832,6 +1836,87 @@ We found that:
 \item {\bf RQ1}: parametric estimation is indeed
 better just using LOC (see \tion{justloc}); 
 \item {\bf RQ2}: new innovations in effort estimation have not superseded parametric estimation (see \tion{othermethods});
+
+\begin{figure}[!t]
+{\scriptsize
+{\bf NASA10 (new NASA data up to 2010):}
+
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 15, max= 185\\
+\\
+  1 &      COCONUT &    34  &  14 & \quart{6}{14}{34}{29} \\
+  1 &   COCOMO-II &    43  &  35 & \quart{25}{35}{43}{29} \\
+\hline 
+  2 &      TEAK &    73  &  80 & \quart{53}{80}{73}{29} \\
+\hline  3 & Linear Regression &    83  &  142 & \quart{34}{142}{83}{29} \\
+\end{tabular}}
+
+~\\
+
+{\bf COC05 (new COCOMO data up to 2005):}
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 166\\
+  1 &      COCOMO-II &    46  &  134 & \quart{20}{134}{46}{54} \\
+  1 & COCONUT &    62  &  38 & \quart{38}{38}{62}{54} \\
+  2 &      TEAK &    84  &  110 & \quart{48}{110}{84}{54} \\
+\hline 
+  3 & Linear Regression &    117  &  253 & \quart{46}{253}{117}{54} \\
+\end{tabular}}
+
+% :learn 70.71 :analyze 4.04 :boots 2 effects 2 :conf 0.9801
+
+~\\
+
+
+{\bf NASA93 (NASA data up to 1993):}
+
+
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 12, max= 91\\
+\\
+  1 &      COCONUT &    36  &  38 & \quart{15}{38}{36}{111} \\
+  1 &      COCOMO-II &    39  &  39 & \quart{21}{39}{39}{111} \\
+\hline  
+  2 & TEAK &    50  &  81 & \quart{15}{81}{50}{111} \\
+\hline
+  3 & Linear Regression &    65  &  221 & \quart{23}{221}{65}{111} \\
+\end{tabular}}
+
+% :learn 548.2 :analyze 7.81 :boots 3 effects 14 :conf 0.970299
+
+
+
+% :learn 37.86 :analyze 3.84 :boots 3 effects 5 :conf 0.970299
+%\subsection{coc81}
+
+
+~\\
+
+{\bf COC81 (original data from the 1981 COCOMO book):}
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 14, max= 117\\
+\\
+  1 &      COCOMO-II &    32  &  33 & \quart{21}{33}{32}{83} \\
+  1 &      COCONUT &    33  &  42 & \quart{12}{42}{33}{83} \\
+\hline  2 & TEAK &    93  &  128 & \quart{56}{128}{93}{83} \\
+\hline  
+  3 & Linear Regression &    351  &  1539 & \quart{80}{1539}{351}{83} \\
+\end{tabular}}
+
+% :learn 260.57 :analyze 8.89 :boots 6 effects 11 :conf 0.941480149401
+
+}
+\caption{COCOMO vs COCONUT vs TEAK vs Linear Regression}\label{fig:fss}
+\end{figure}
+
 \item {\bf RQ3}: Old parametric tunings are not out-da<ted (see \tion{othermethods});
 \item {\bf RQ4}: It is possible to simplify parametric estimation with some range, row and column pruning to reduce the cost
 of deploying those methods at a new site (see \tion{simpler});
