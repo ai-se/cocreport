@@ -49,11 +49,11 @@
 
 \usepackage{comment}
 \usepackage{cite}
-\usepackage{enumitem}
+\usepackage[shortlabels]{enumitem} 
 \usepackage{amsmath}
 \usepackage{url}
 \usepackage{balance}
-\newcommand{\bi}{\begin{itemize}}
+\newcommand{\bi}{\begin{itemize}[leftmargin=0.4cm]}
 \newcommand{\ei}{\end{itemize}}
 \newcommand{\be}{\begin{enumerate}}
 \newcommand{\ee}{\end{enumerate}}
@@ -130,8 +130,8 @@
  
 \usepackage[compact,small]{titlesec}
 
- 
-\begin{document} 
+\pagenumbering{arabic}
+\begin{document}  
 %
 % --- Author Metadata here ---
 \conferenceinfo{FSE}{'15 Bergamo, Italy}
@@ -140,7 +140,7 @@
 % --- End of Author Metadata ---
 
 
-\title{40 Years of Parametric Effort Estimation:\\A Report Card on COCOMO-style Research\titlenote{
+\title{Software Effort Estimation: A Progress Report\titlenote{
 The research described in this paper was carried out, in part, at the Jet
 Propulsion Laboratory, California Institute of Technology,
 under a contract with the US National Aeronautics and
@@ -192,16 +192,16 @@ or imply its endorsement by the US Government.}}
 % 1st. author
 \alignauthor
 Tim Menzies, \\
-       \affaddr{NcState, USA}\\
+       \affaddr{CS, NcState, USA}\\
        \email{tim@menzies.us}
 % 2nd. author
 \alignauthor
 Barry Boehm\\
-       \affaddr{USC, USA}\\
+       \affaddr{CS, USC, USA}\\
        \email{barryboehm@gmail.com}
 % 3rd. author
 \alignauthor Ye Yang\\
-       \affaddr{Stevens Inst, USA}\\
+       \affaddr{Systems Eng., Stevens, USA}\\
        \email{yangye@gmail.com}
  % use '\and' if you need 'another row' of author names
 % 4th. author
@@ -210,7 +210,7 @@ Barry Boehm\\
        \affaddr{JPL, Caltech, USA}\\
        \email{ jairus.hihn@jpl.nasa.gov}    
 \alignauthor Naveen Lekkalapudi\\
-       \affaddr{WVU, USA}\\
+       \affaddr{CS, WVU, USA}\\
        \email{nalekkalapudi@mix.wvu.edu}
 }}
 % There's nothing stopping you putting the seventh, eighth, etc.
@@ -228,52 +228,51 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 \maketitle
 \begin{abstract}
 %\boldmath
+Despite decades of research into software effort estimation,
+ industry  still makes most use of 
+parametric methods  developed in the 1970s.
+This  lack of adoption of   innovative  estimation methods
+could be explained by the absence of papers demonstrating that
+(1) parametric estimation is no longer useful and that
+(2) supposedly more innovation methods 
+are comparatively better. 
 
-The longevity of parametric effort estimation     is remarkable.
-Decades after their invention, these methods are still
-both 
-widely used and widely useful.
-
-This paper
-reviews the standard criticisms of this approach.
-We find that, contrary to common criticisms,  
-(1)~parametric
-estimation has not been superseded by more recent estimation methods;
-(2)~it is not true that parametric estimation is no better
-than simplistic lines of code counts;
-(3)~the old parametric calibration
-data is still relevant to more recent projects; 
-%XXX check if this list is still current
- (4)~parametric estimation need not be expensive to deploy  at some new site
-since these these methods can be tuned on
-very small sample sizes (in our experiments,
-a mere eight projects is enough);
- and 
- (5)~compared to other methods,
- parametric estimation is not unduly sensitive to errors in the size estimates.
-
-Hence we conclude that,  in 2015, is still valid and recommended practice to try parametric estimation
-before exploring other, more innovative methods. Also, it  can be useful
+Accordingly, this paper tries unsuccessfully
+to demonstrate these two points. After extensive experimentation,
+we  conclude that,  in 2015, is still valid and recommended practice to try parametric estimation
+before exploring other, more innovative methods. 
+We conjecture 
+the size of software estimation data sets is usually very small,
+then the {\em details of data collection} are far more important than
+{\em the subsequent data mining}.  
+Also, it  can be useful
 to augment parametric estimation with (a)~some local calibration 
-and (b)~some column pruning (examples of those techniques are discussed in this paper).
+and (b)~some column pruning (which are techniques  discussed in this paper).
 \end{abstract}
 
 
+% A category with the (minimum) three required fields
+\vspace{1mm}
+\noindent
+{\bf Categories/Subject Descriptors:} 
+D.2.9 [Software Engineering]: Time Estimation;
+K.6.3 [Software Management]: Software Process
+ 
 
 \section{Introduction}
 Accurately estimating software development
 effort  is of vital
 importance. 
-Under-estimation leads to schedule and budget
-overruns and, perhaps, project
-cancellation~\cite{CLCS03}.  Over-estimation slows
-the deployment of promising ideas and
+Under-estimation can cause schedule and budget
+overruns as well as project
+cancellation~\cite{CLCS03}.  Over-estimation delays
+funding to other promising ideas and
 organizational competitiveness~\cite{koc11a}.
 %XXX history of parametric models learned via regression
-It is hence not surprising that there is long history
-of researchers exploring software effort estimation, dating back to the 1970s; e.g. \cite{wol74,frei79,putnam76,black77,herd77,watson77,jensen83,park88,boehm81,Walkerden1999,shepperd97,jorgensen05,me06d,burgess01}.
+Hence, there is a long history
+of researchers exploring software effort estimation; e.g. \cite{wol74,frei79,putnam76,black77,herd77,watson77,jensen83,park88,boehm81,Walkerden1999,shepperd97,jorgensen05,me06d,burgess01}.
 In 2007, Jorgensen and Shepperd
-reported on hundreds of research papers devoted to
+reported on hundreds of research papers dating back to the 1970s devoted to
 the topic, over half of which propose some innovation
 for developing new estimation
 models~\cite{jorgensen05}. Since then,
@@ -290,7 +289,7 @@ model~\cite{boehm81}
  assumes  that effort varies exponentially on size as seen in this parametric form:
 $\mathit{effort} \propto \mathit{a \times KLOC}^b$. To deploy this equation in an organization,
 local project data is used to tune the  $(a,b)$ parameter values, If local
-data is unavailable, new projects can reuse prior tunings, perhaps with some minor
+data is unavailable, new projects can reuse prior tunings,  with  minor
 tweaks~\cite{me04h}. 
 
 
@@ -402,8 +401,8 @@ integrated with life cycle\\\hline
 %XXX starting with cocomo- but this is uaully a domain descision (sometimes local experts
 %just prefer using their local in-house descriptors.
 
-Since the early work on parametric estimation, other researchers
-have innovated other estimation methods based on
+Since that    work on parametric estimation, other researchers
+have innovated other  methods based on
 regression
 trees~\cite{shepperd97}
 case-based-reasoning~\cite{shepperd97}, spectral
@@ -460,14 +459,13 @@ NASA Cost Symposium (goo.gl/8jxPrb) and the
 International Forum on COCOMO and Systems/Software
 Cost Modeling (goo.gl/O01Pc6).
 \ei
-To explain this puzzling lack of adoption of more innovative
-effort estimation methods, we make the following conjecture:
-the case has not been made that \#1~parametric estimation {\em is no longer useful} 
-and that 
-\#2~the supposedly more
-innovation methods are {\em comparatively  more useful}.
-Since the case for \#1 and \#2 is missing in the literature,
-we choose to  explore these two issues.
+This  lack of adoption of   innovative  estimation methods
+could be explained by the absence of papers demonstrating that
+(1) parametric estimation is no longer useful and that
+(2) supposedly more innovation methods 
+are comparatively better. 
+Since the case for (1) and (2) are  missing in the literature,
+we choose to  explore these  issues.
 
 For that task,
 we used COCOMO since its
@@ -477,36 +475,31 @@ sets are readily available
 which we used to   answer five research questions:
 
 {\bf RQ1: Is parametric estimation no better than
-  just using simple Lines of Code measures?}  
-This is an often heard, but rarely tested,
-criticism.
+   using just Lines of Code measures?} 
+  (an   often heard, but rarely tested, comment).
 
 {\bf RQ2: Has parametric estimation been superseded
  by more recent estimation methods?}  We 
- apply our ``best-of-breed''
+ apply our ``best''
 learner, published in recent IEEE TSE paper, to some
 recent NASA data. We also comparatively assess
 case-based reasoning and regression trees.
 
-
-
 {\bf RQ3: Are the old parametric tunings irrelevant
   to more recent projects?}  We apply the old
-COCOMO-II tunings from 2000, with and without local
-tweaking, to a wide range of projects dating from
+COCOMO-II tunings from 2000 to a wide range of projects dating from
 1970 to 2010.
 
 {\bf RQ4: Is parametric estimation expensive to deploy  at some new site?}
-We experiment with tuning estimation models on very small training sets 
+We try   tuning estimation models on very small training sets 
 as well as simplifying the specification of local projects.
 
 {\bf RQ5: Are parametric estimates unduly sensitive to errors in the size estimate?}
-In the context of RQ4, when we are using very small training sets, we check what happens
+In the context of RQ4, we check what happens
 if there are large errors in the KLOC estimate.
 
 The answer to all of these research questions was
-``no''; i.e.   this paper fails to prove \#1 and \#2.
-Instead, we showed that
+``no'' which means that
 the continued
 use of parametric estimation can still be endorsed.
 %% These new model  are of many types.
@@ -540,9 +533,7 @@ use of parametric estimation can still be endorsed.
 %%                       [.yes Try\ parametric\\methods\ first ]
 %%                       [.no  Case-based\\reasoning ] ] ] ]
 %% }
-
-We believe this result has strong implications for current practice
-in effort estimation research. 
+This result has strong implications for current research practice. 
 Specifically: it must be asked to what extent we
 can count on newer innovative techniques for effort estimation.  
 Small training sets are very common in software estimation studies\footnote{
@@ -564,6 +555,20 @@ investigate how innovative new techniques can extend
 estimation methods.  Some experiments in this paper
 are a starting point for that investigation.
 
+\section{Frequently Asked Questions}
+
+\footnote{This section is a reply to reviewers of a previous draft 
+of this paper. See the headings Q1,Q2,Q3,Q4 for our replies to their comments
+(Q1) the evaluation was made on the same dataset used to define the model and tailor
+model parameters; (Q2) the model has a high number of parameters and a posteriori it can be used to
+fit almost anything;
+(Q3) a more realistic evaluation would imply using COCOMO on a new dataset NOT
+used to define the model and not used to tailor parameters moreover WITHOUT
+knowing the effort thus estimate the parameter with no bias;
+(Q4)  it is quite troubling as if a large error on the input causes only small
+variation of the output either there is magic involved or the parameters are
+set to reduce the input variability.
+}
 
 \section{Background}
 
@@ -2024,17 +2029,12 @@ to {\em include}, and not {\em replace}, parametric estimation.
 %% COCOMO-III to various specialized areas.
   
 
-% A category with the (minimum) three required fields
-\vspace{1mm}
-\noindent
-{\bf Categories and Subject Descriptors:} H.4 Information Systems Applications, Miscellaneous.
-D.2.8, Software Engineering, Metrics,complexity measures, performance measures
-
 
 
 % That's all folks!
 \vspace*{0.5mm}
 \scriptsize
+
 \bibliographystyle{plain}
 
 \bibliography{refs,refs1}
