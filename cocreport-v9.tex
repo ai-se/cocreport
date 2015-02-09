@@ -107,8 +107,8 @@
 \newcommand{\Y}{\cellcolor{yellow}}
 
 
-\newcommand{\quart}[4]{\begin{picture}(100,6)%1
-{\color{black}\put(#3,3){\circle*{4}}\put(#1,3){\line(1,0){#2}}}\end{picture}}
+\newcommand{\quart}[4]{\begin{picture}(100,4)%1
+{\color{black}\put(#3,2){\circle*{4}}\put(#1,2){\line(1,0){#2}}}\end{picture}}
 
 
 \usepackage{times}
@@ -185,43 +185,43 @@
 %
 % 1st. author
 \alignauthor
-Tim Menzies, \\
+Tim Menzies\\
        \affaddr{CS, NcState, USA}\\
-       {\scritpsize tim@menzies.us}
+       {tim@menzies.us}
 % 2nd. author
 \alignauthor
 Barry Boehm\\
        \affaddr{CS, USC, USA}\\
-       {\scritpsize barryboehm@gmail.com}
+       {barryboehm@gmail.com}
 % 3rd. author
 \alignauthor Ye Yang\\
        \affaddr{Systems Eng., Stevens, USA}\\
-       {\scritpsize yangye@gmail.com}
+       {yangye@gmail.com}
  % use '\and' if you need 'another row' of author names
 % 4th. author
 \and
 \alignauthor Jairus Hihn\\
        \affaddr{JPL, Caltech, USA}\\
-       {\scritpsize  jairus.hihn@jpl.nasa.gov}    
+       {jairus.hihn@jpl.nasa.gov}    
+\alignauthor George Mathew \\
+       \affaddr{CS, NcState, USA}\\
+       {george.meg91@gmail.com}
 \alignauthor Naveen Lekkalapudi\\
        \affaddr{CS, WVU, USA}\\
-       {\scritpsize nalekkalapudi@mix.wvu.edu}
-\alignauthor George Mathew, \\
-       \affaddr{CS, NcState, USA}\\
-       {\scritpsize  george.meg91@gmail.com}
+       {nalekkalapudi@mix.wvu.edu}
 }
 % There's nothing stopping you putting the seventh, eighth, etc.
 % author on the opening page (as the 'third row') but we ask,
 % for aesthetic reasons that you place these 'additional authors'
 % in the \additional authors block, viz.
-\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
-email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
-(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
-\date{30 July 1999}
+%\additionalauthors{Additional authors: John Smith (The Th{\o}rv{\"a}ld Group,
+%email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
+%(The Kumquat Consortium, email: {\texttt{jpkumquat@consortium.net}}).}
+%\date{30 July 1999}
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
-
+\setlength{\columnsep}{7mm}
 \maketitle
 \begin{abstract}
 %\boldmath
@@ -394,10 +394,24 @@ as well as simplifying the specification of local projects.
 In the context of RQ4, we check what happens
 if there are large errors in the KLOC estimate.
 
-The answer to all of these research questions was
-``no'' which means that
+The experiments of this paper conclude that
+the answer to all  these research questions is
+``no''. It turns out that RQ1 and RQ5 are connected.
+As discussed later in this paper, there is more to effort estimation than merely
+consider KLOC estimates. Hence,  just as estimation using merely
+KLOC is not recommended (see RQ1), we can make some degree of
+error in our KLOC estimates without damaging the overall estimation process (see RQ5).
+
+As to the other research questions (R2,R3,R4), those results mean that 
 the continued
 use of parametric estimation can still be endorsed.
+What COCOMO, or other parametric
+estimation models, can offer largely contains the
+fundamentals for making estimation decisions
+from expert-delphi, as well as well calibrated
+tuning factors from over 40 years of
+industrial data.  We would advise
+researchers {\em not} to ignore these fundamentals.
 %% These new model  are of many types.
 %% Older approaches
 %% used a fixed set of parameters (e.g
@@ -429,24 +443,19 @@ use of parametric estimation can still be endorsed.
 %%                       [.yes Try\ parametric\\methods\ first ]
 %%                       [.no  Case-based\\reasoning ] ] ] ]
 %% }
-This result has strong implications for current research practice. 
-Specifically: it must be asked to what extent we
-can count on newer innovative techniques for effort estimation.  
+
+More generally, these results make us question 
+some of the newer (and supposedly better) innovative techniques for effort estimation.  
 The unique and highly variable characteristics of SE
 project data place great limitation on the results
 obtained by naively applying some brand-new
-algorithm.  What COCOMO, or other parametric
-estimation models, can offer largely contains the
-backbone structure for making estimation decisions
-from expert-delphi, as well as well calibrated
-tuning factors from over 40 years of
-industrial data. Perhaps the best future direction is to
+algorithm.  Perhaps the best future direction is to
 investigate how innovative new techniques can extend
 (rather than replace) existing and successful
 estimation methods.  Some experiments in this paper
 are a starting point for that investigation.
 
-\section{Overall Structure of These Experiments}
+\section{Overall Structure of These Experiments}\label{sect:overall}
 
 When designing a data mining experiment, it is vitally
 important {\em not} to  evaluate the learned model using the data used to learn that model.
@@ -466,12 +475,12 @@ Space Station. This
 data is very different to COC81 (e.g.  median development effort for NASA93
 is $2.57*$COC81's median).
 \item 
-Our two other data serts are COC05 and NASA10. These data sets
-are proprietary and, as such,
-cannot be released to the rest of the research community. That said,
-we assert that these projects have minimal overlap
+Our two other data sets are COC05 and NASA10 (these data sets
+are proprietary and 
+cannot be released to the research community). These projects have minimal overlap
 to each other other,
-as well as COC81 and NASA93 (see \fig{types}).  
+as well as with COC81 and NASA93 (see \fig{types}).  
+Further, all this data comes from different projects than the 161 project used train ``the'' canonical   COCOMO.
 \ei
 To download our public data, see http://openscience.us/repo/effort.
 \begin{figure}[!t]
@@ -523,10 +532,10 @@ shows project attributes.}\label{fig:types}
 
 Another concern  is that the number of model parameters
 relative to the number of projects being analyzed.
-The 24 parameters of the standard COCOMO model is shown in \fig{cparems}
-and, as shown in \fig{types}, the data tables of NASA10, COC81, NASA93, and COC05
-contain information on 17, 63, 93, and 95  projects, respectively. The concern 
-here is that  this is not enough data to constrain the learning of a 24 parameter
+As shown in \fig{types}, the data tables of NASA10, COC81, NASA93, and COC05
+contain information on 17, 63, 93, and 95  projects, respectively. Also,
+the 24 parameters of the standard COCOMO model are shown in \fig{cparems}.
+The concern here is that  this is not enough data to constrain the learning of a 24 parameter
 model-- which means that that data could be fitted to almost anything.
 
 It is not possible to solve this problem
@@ -719,9 +728,6 @@ Based on an analysis of those 161 projects, Boehm
  added  new attributes called {\em scale factors}
 that had an {\em exponential impact}
 on effort (e.g. one such attribute was process maturity).
- For a full description of the COCOMO-II attributes,
-see \fig{cparems}.
-
 Using that new data, Boehm and his colleagues developed
 the  {\em tunings} shown in \fig{coc2} that
 map the project descriptors (very low, low, etc)
@@ -730,13 +736,12 @@ into the specific values used in the COCOMO-II model
 \begin{equation}\label{eq:cocII}
 \mathit{effort}=a\prod_i EM_i *\mathit{KLOC}^{b+0.01\sum_j SF_j}
 \end{equation}
-Here, {\em EM,SF} denote the effort multipliers and scale
+Here, {\em EM,SF} are  effort multipliers and scale
 factors and
- $a,b$ are the {\em local calibration} parameters (which in COCOMO-II
-have default values of 2.94 and 0.91).
+ $a,b$ are the {\em local calibration} parameters (with default values of 2.94 and 0.91).
 Also, {\em effort}
 measures ``development months'' where one month
-is 152 hours work by one developer (and includes development and management hours).
+is 152 hours of work  (and includes development and management hours).
 For example, if {\em effort}=100, then according to COCOMO,
 five developers would finish
 the project in 20 months.
@@ -744,7 +749,7 @@ the project in 20 months.
 
 
 
-Recent changes in the software industry
+Recent changes 
 suggest  it is time  to revise COCOMO-II.
 The rise of agile methods, web
 services, cloud services, parallelized software on
@@ -766,18 +771,33 @@ these modes and to gather data to calibrate models
 for dealing with them are underway, and contributors
 to the definition and calibration are welcome.}.  
 
-Before going on, we offer one more equation that will be required in our
-external validity section. For a fixed KLOC (say, KLOC=100), the effort
-can change according the minimum and maximum values of 
+Before going on, we offer an  equation that will be required later
+in this paper. For a fixed KLOC, \eq{cocII} tells us that
+the minimum  
+effort estimate is bounded by the  {\em sum} of the minimum scale factors
+and the {\em product} of the minimum effort multipliers (and similarly for
+the maximum effort estimate). From \fig{coc2},
+that range is:
+\begin{equation}\label{eq:range}
+0.18*\mathit{KLOC}^{0.97}  \le \mathit{effort} \le 154*\mathit{KLOC}^{1.23}
+\end{equation}
+Dividing the minimum and maximum values shows
+how   a COCOMO estimate can vary for a given KLOC:
+\begin{equation}\label{eq:ration}
+154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
+\end{equation}
 
+ 
 \subsection{COCOMO and Local Calibration}\label{sect:coconut}
-When there is insufficient 
-data to generate the exact tunings of \fig{coc2}, 
-a {\em local calibration} procedure can be used.
-Local calibration adjusts the impact of the scale factors and effort
+In \tion{overall}, we discussed the need to ``trim'' the number
+of variables in a model when the  training data is scarce.
+The COCOMO trimming procedure, called   {\em local calibration}, adjusts the impact of the scale factors and effort
 multipliers by tuning the  $a,b$ values of Equation~\ref{eq:cocII}
-(while keeping constant the other values of the tuning matrix
-shown in \fig{coc2}).
+while keeping constant the other values of the tuning matrix
+shown in \fig{coc2}. Effectively, local calibration trims
+a 24 variable model
+into a model with two variable: (one  to adjust the linear effort
+multipliers, and another to adjust the exponential scale factors).
 
 Menzies' preferred local calibration procedure is the COCONUT
 procedure of \fig{coconut} (first written in 2002
@@ -850,9 +870,7 @@ Uses the COCOMO2 function of \fig{coc2}.}\label{fig:coconut}
 
 
 
-\section{Experimental Methods}
-This section offers some
-notes on the experimental methods used later in this paper.
+\section{Experimental Methods} 
 %% \begin{figure*}
 %% {\scriptsize
 %% \begin{verbatim}
@@ -892,7 +910,7 @@ notes on the experimental methods used later in this paper.
 is the conceit 
 that what holds for all, also holds for parts 
 of the population~\cite{posnet11,me12d}.
-For the purposes of avoid ecological inference,
+To avoid ecological inference,
 our  rig runs separately for each data set (see Figure~\ref{fig:rig}).
 
 For the purposes of repeatability, we use
@@ -900,6 +918,8 @@ leave-one-out experiments
 i.e. for every project, the learner is offered a training
 set containing all other projects. For a justification of leave-one-out
 vs other methods (e.g. n-way cross-validation), see~\cite{koc13a}.
+Note that leave-one-out ensures that the our models
+are tested on data never seen during training.
 
 
 
@@ -910,7 +930,7 @@ we repeat the leave-one-out experiments $N=10$ times
 found our results looked the same at $N=8$ and
 $N=16$).
 
-The performance of the estimate for each project was
+The performance of our estimators was
 assessed via the magnitude of the relative error; i.e. 
 \mbox{$ \mathit{MRE}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{actual}}$}. 
 Shepperd \& MacConnell~\cite{shepperd12a} propose
@@ -1262,6 +1282,7 @@ estimation.
 
 \begin{figure}[!t]
 
+\renewcommand{\baselinestretch}{0.4}
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
 
@@ -1385,6 +1406,8 @@ those tunings (in NASA10).
 
 
 \begin{figure}[!t]
+
+\renewcommand{\baselinestretch}{0.4}
 {\scriptsize
 
 \noindent {\bf NASA10: (new NASA data up to 2010):}
@@ -1396,9 +1419,8 @@ those tunings (in NASA10).
 \hline  2 &      COCONUT &    46  &  33 & \quart{19}{42}{27}{94} \\
 \hline  3 &     Knear(3) &    50  &  77 & \quart{3}{96}{32}{94} \\
   3 &     Knear(1) &    57  &  49 & \quart{0}{61}{41}{94} \\
-  3 &         CART &    61  &  32 & \quart{21}{40}{46}{94} \\
+  3 &         CART &    61  &  32 & \quart{21}{40}{46}{94} \\ 
 \end{tabular}}
-
 ~\\
 
 %\subsection{newCIIdataDeTune}
@@ -1415,7 +1437,7 @@ those tunings (in NASA10).
   1 &      COCOMO-II &    46  &  146 & \quart{1}{98}{18}{55} \\
   1 &     Knear(1) &    55  &  70 & \quart{0}{47}{24}{55} \\
   1 &     Knear(3) &    63  &  99 & \quart{5}{67}{30}{55} \\
-  1 &      COCONUT &    66  &  34 & \quart{18}{23}{32}{55} 
+  1 &      COCONUT &    66  &  34 & \quart{18}{23}{32}{55} \\ 
 \end{tabular}}
 
 % :learn 815.741004 :analyze 25.107361 :boots 2 effects 2 :conf 0.9801
@@ -1432,9 +1454,9 @@ those tunings (in NASA10).
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 15, max= 110\\
   1 &      COCONUT &    36  &  38 & \quart{0}{39}{22}{89} \\
   1 &      COCOMO-II &    38  &  39 & \quart{5}{41}{24}{89} \\
-\hline  2 &         CART &    40  &  55 & \quart{1}{57}{26}{89} \\
+\hline  2 &         CART &    40  &  55 & \quart{1}{57}{26}{89} \\ 
 \hline  3 &     Knear(3) &    54  &  66 & \quart{9}{69}{41}{89} \\
-  3 &     Knear(1) &    56  &  77 & \quart{1}{81}{43}{89} 
+  3 &     Knear(1) &    56  &  77 & \quart{1}{81}{43}{89} \\ 
 \end{tabular}}
 
 ~\\
@@ -1449,16 +1471,100 @@ those tunings (in NASA10).
   1 &      COCONUT &    36  &  42 & \quart{0}{14}{7}{29} \\
 \hline  2 &         CART &    66  &  95 & \quart{8}{33}{17}{29} \\
 \hline  3 &     Knear(3) &    85  &  260 & \quart{10}{89}{24}{29} \\
-  3 &     Knear(1) &    87  &  236 & \quart{10}{81}{24}{29}
+  3 &     Knear(1) &    87  &  236 & \quart{10}{81}{24}{29}\\ 
+  
 \end{tabular}}
 
 % :learn 367.497208 :analyze 17.554273 :boots 4 effects 9 :conf 0.96059601
 
-}
+
 \caption{COCOMO vs standard methods.
 Displayed as per \fig{loc}. }\label{fig:standard}
 \end{figure}
 
+
+
+\begin{figure}[!t]
+
+\renewcommand{\baselinestretch}{0.4}
+{\scriptsize
+{\bf NASA10 (new NASA data up to 2010):}
+
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 0, max= 185\\
+\\
+  1 &      COCONUT &    34  &  14 & \quart{14}{8}{18}{111} \\
+  1 &   COCOMO-II &    43  &  35 & \quart{13}{19}{23}{111} \\
+\hline 
+  2 &      TEAK &    73  &  80 & \quart{29}{43}{39}{111} \\
+\hline  3 & Linear Regression &    83  &  142 & \quart{18}{77}{45}{111} \\
+\end{tabular}}
+
+~\\
+
+{\bf COC05 (new COCOMO data up to 2005):}
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 300\\
+  1 &      COCOMO-II &    46  &  134 & \quart{0}{41}{9}{110} \\
+  1 & COCONUT &    62  &  38 & \quart{6}{6}{15}{110} \\
+  2 &      TEAK &    84  &  110 & \quart{10}{32}{23}{110} \\
+\hline 
+  3 & Linear Regression &    117  &  253 & \quart{9}{83}{35}{110} \\
+\end{tabular}}
+
+% :learn 70.71 :analyze 4.04 :boots 2 effects 2 :conf 0.9801
+
+~\\
+
+
+{\bf NASA93 (NASA data up to 1993):}
+
+
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 15, max= 250\\
+\\
+  1 &      COCONUT &    36  &  38 & \quart{0}{10}{9}{100} \\
+  1 &      COCOMO-II &    39  &  39 & \quart{3}{10}{10}{100} \\
+\hline  
+  2 & TEAK &    50  &  81 & \quart{0}{28}{15}{100} \\
+\hline
+  3 & Linear Regression &    65  &  221 & \quart{3}{88}{21}{100} \\
+\end{tabular}}
+
+% :learn 548.2 :analyze 7.81 :boots 3 effects 14 :conf 0.970299
+
+
+
+% :learn 37.86 :analyze 3.84 :boots 3 effects 5 :conf 0.970299
+%\subsection{coc81}
+
+
+~\\
+
+{\bf COC81 (original data from the 1981 COCOMO book):}
+
+{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 12, max= 500\\
+\\
+  1 &      COCOMO-II &    32  &  33 & \quart{2}{4}{4}{100} \\
+  1 &      COCONUT &    33  &  42 & \quart{0}{6}{4}{100} \\
+\hline  2 & TEAK &    93  &  128 & \quart{9}{24}{17}{100} \\
+\hline  
+  3 & Linear Regression &    351  &  1539 & \quart{14}{92}{40}{100} \\
+\end{tabular}}
+
+% :learn 260.57 :analyze 8.89 :boots 6 effects 11 :conf 0.941480149401
+
+}
+\caption{COCOMO vs newer methods. Displayed as per \fig{loc}. }\label{fig:fss}
+\end{figure}
 
 
 \subsection{COCOMO vs Simpler COCOMO}\label{sect:simpler}
@@ -1550,6 +1656,8 @@ Note that, due to the results of \fig{loc}, LOC was excluded from column reducti
 
 
 \begin{figure}[!t]
+
+\renewcommand{\baselinestretch}{0.4} 
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
 
