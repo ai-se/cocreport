@@ -63,7 +63,7 @@
 \setlist{nolistsep,leftmargin=5mm}
 %\usepackage[pdftex]{graphicx}
 \newcommand{\Sample}{{\bf SAMPLE}}
-\newcommand{\Slope}{{\bf SLOPE}}
+\newcommand{\PEEKER}{{\bf PEEKER}}
 \usepackage{picture}
 \usepackage{colortbl}
 \usepackage[table]{xcolor}
@@ -88,7 +88,7 @@
     showstringspaces=false,
     %backgroundcolor=\color{Gray},
     keywordstyle=\bfseries,
-    emph={COCONUT,GUESSES,ASSESS,COCOMO2,SLOPE,SAMPLE,WHERE,RIG}, emphstyle=\bfseries\color{Blue},
+    emph={COCONUT,GUESSES,ASSESS,COCOMO2,PEEKER,SAMPLE,WHERE,RIG}, emphstyle=\bfseries\color{Blue},
     stringstyle=\color{green!50!black},
     commentstyle=\color{red}\itshape,
     %numbers=none,
@@ -130,6 +130,7 @@
  \setlength{\textfloatsep}{1ex}
  
 \usepackage[compact,small]{titlesec}
+\DeclareMathSizes{7}{7}{7}{7}
 %\renewcommand{\footnotesize}{\scriptsize}
 
 \pagenumbering{arabic}
@@ -468,12 +469,10 @@ Data mining experiments should
  {\em not}   evaluate the learned model using the data used to learn that model.
 Accordingly, for this study, we (1)~separated out the available COCOMO-style data into five
 sets then (2)~used a model learned from one of the sets as ``the'' COCOMO model applied to the other four.
-Note that while all of these data sets could be called ``COCOMO'' models (since they all use the
-same column names), their rows come from very different projects.
-To be  specific, the canonical  model used as ``the'' COCOMO model in this study was
-trained by Boehm et al.~\cite{boehm00b} in 1999 using  161 projects in the period 1982 to 1997 from commercial, aerospace,government, and non-profit organizations. 
 
-As to the other four data sets used  for in our testing: 
+The current version of COCOMO was built in 1999 by Boehm et al.~\cite{boehm00b}  using  161 projects in the period 1982 to 1997 from commercial, aerospace,government, and non-profit organizations. 
+The data used to build this model is very different to the four test sets used in the experiments
+of this paper: 
 \bi
 \item COC81 is the original data from 1981 COCOMO book~\cite{boehm81}. 
 This comes from projects dating 1970 to 1980.
@@ -488,7 +487,7 @@ are proprietary and
 cannot be released to the research community). These projects have minimal overlap
 to each other other,
 as well as with COC81 and NASA93 (see \fig{types}).  
-Further, all this data comes from different projects than the 161 project used train ``the'' canonical   COCOMO.
+Further, all this data comes from different projects than the 161 project used train the current  COCOMO.
 \ei
 To download our public data, see http://openscience.us/repo/effort.
 \begin{figure}[!t]
@@ -564,20 +563,20 @@ we will also find the COCOMO generates
 {\em higher accuracy} and {\em lower variance} results
 
 Step two is to compare standard methods
-with {\em dimensionality reduction methods} that first ``trim'' the number of the parameters in the model. This study explores two such ``trimming'' methods (the COCONUT and TEAK tools, described below). Surprisingly, in a result that strengthens the case for ``the'' canonical COCOMO  model, we show below that trimming
+with {\em dimensionality reduction methods} that first ``trim'' the number of the parameters in the model. This study explores two such ``trimming'' methods (the COCONUT and TEAK tools, described below). Surprisingly, in a result that strengthens the case for the current COCOMO  model, we show below that trimming
 does not out-perform standard COCOMO, suggesting that the COCOMO description of projects
 successfully constrains the description space for software projects.
 
  
 
-\subsection{Delpi- vs Model-based Estimation}
+\subsection{Parameter- vs Model- vs Delpi-based Estimation}
+COCOMO is a parametric method which, in turn,
+are  a  kind of {\em model-based} method (a)~build a model using old data then (b)~use the
+model to generate estimates for new projects.  Parametric methods assume that the target model has a particular structure,
+then uses model-based methods to fill in the details of that structure (e.g. to set some tuning parameters).
 
-There are two broad classes of software effort
-estimation: {\em delphi-based methods}  use
-human experts while {\em model-based  methods} such as parametric estimation
-(a)~build a model using old data then (b)~use the
-model to generate estimates for new projects. 
-
+An alternate to parametric- and model-based approaches are  {\em delphi-based} methods that use
+humans, rather than models, to make an estimate. 
 Once a
 large software project has been divided into
 multiple small stories, Delphi-based methods can be
@@ -848,37 +847,12 @@ def ASSESS(training, aGuess, bGuess):
      error    += abs(predicted - actual) / actual
    return error / len(training) # mean training error
 \end{lstlisting}
-\caption{COCONUT: tuning the $a,b$ local calibration variables
-used in COCOMO's effort function  of \fig{coc2}.}\label{fig:coconut}
+\caption{COCONUT  tunes  $a,b$ 
+of \fig{coc2}'s COCOMO function.}\label{fig:coconut}
 \end{figure}
 
+ 
 
-COCONUT is a very simple trimming tool. For more sophsiticated ``trimmers'',
-see  TEAK and TEAK2 (discussed below).
-
-\subsection{The Future of COCOMO}
-
-Recent changes 
-suggest  it is time  to revise COCOMO-II.
-The rise of agile methods, web
-services, cloud services, parallelized software on
-multicore chips, field-programmable-gate-array
-(FPGA) software, apps, widgets, and net-centric
-systems of systems (NCSOS) have caused the COCOMO II
-developers and users to begin addressing an upgrade
-to the 14-year-old COCOMO II. 
-Current discussions
-of a potential COCOMO III have led to a
-reconsideration of the old COCOMO 1981 development
-modes, as different development phenomena appear to
-drive the costs and schedules of web-services,
-business data processing, real-time embedded
-software, command and control, and engineering and
-scientific applications.
-Efforts to characterize
-these modes and to gather data to calibrate models
-for dealing with them are underway, and contributors
-to the definition and calibration are most  welcome.  
 
 %Local calibration
 %can dramatically improve the effort estimates
@@ -945,8 +919,8 @@ we repeat the leave-one-out experiments $N=10$ times
 found our results looked the same at $N=8$ and
 $N=16$).
 
-The performance of our estimators was
-assessed via the magnitude of the relative error; i.e. 
+We assess  
+performance via the magnitude of the relative error; i.e. 
 \mbox{$ \mathit{MRE}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{actual}}$}. 
 Shepperd \& MacConnell~\cite{shepperd12a} propose
 another measure that reports the performance as a
@@ -988,33 +962,46 @@ def RIG():
 
 \subsection{Choice of Learners}\label{sect:whatlearn}
 
- Our LOC(n) ``straw man'' 
-estimators ignore all attributes except for lines of code
-in the $n$ nearest projects\footnote{For distance,
-we use the standard Euclidean measure recommended for
-instance-based reasoning by Aha et al.~\cite{aha91};
-i.e. $\sqrt{\sum_i(x_i-y_i)^2}$ where $x_i,y_i$ 
-are values normalized 0..1 for the range min..max}. For $n>1$,
-we weight estimates via the triangle 
+Our LOC(n) ``straw man'' 
+estimators just uses  lines of code
+in the $n$ nearest projects. For distance,
+we use:
+\begin{equation}\label{eq:dist}
+\mathit{dist}(x,y) = \sqrt{\sum_i w_i (x_i-y_i)^2}
+\end{equation} 
+where $x_i,y_i$ 
+are values normalized 0..1 for the range min..max
+and $w_i$ is a weighting factor (defaults to $w_i=1$).
+When  estimating from $n>1$ neighbors,
+we combines estimates via the triangle 
 function of  Walkerden
 and Jeffery~\cite{Walkerden1999}; 
 e.g.. for $loc(3)$, the  estimate
 from the first, second, third closest neighbor with estimates
 $a,b,c$ is 
-
-{\footnotesize
 \begin{equation}\label{eq:tri}
 \mathit{effort} = (50a + 33b + 17c)/100
-\end{equation}}
+\end{equation}
 Apart from the LOC ``straw man'',
-we also compare COCOMO-II and COCONUT with CART
-and Knear(n). 
-CART is an {\em iterative dichotomization} algorithm
+we also compare COCOMO-II and COCONUT with CART,
+Knear(n), TEAK, and PEEKER. 
+These  methods were  selected, for the following reasons.
+TEAK  and PEEKER   represent   recent innovations in effort
+estimation~\cite{koc11b,papa13}.  
+CART and Knear(n) are more traditional methods  that proved their value  in the 1990s~\cite{shepperd97,Walkerden1999}. That said, CART and Knear(n)
+still have currency: 
+recent results from IEEE TSE 2008 and 2012 still endorse their  use for effort estimation~\cite{dejaeger12,koc11a,keung2008b}).
+Also, according to the Shaw's timetable for industry adoption of research innovations
+(discussed in the introduction),  CART and Knear(n) should now be mature enough for industrial use.
+
+
+CART~\cite{breiman84} is an {\em iterative dichotomization} algorithm
 that finds the attribute that most divides the data such that
 the variance of the goal variable in each division is minimized.
 The algorithm then recurses on each division. 
 Finally, the cost data in the leaf divisions
 is averaged to generate the estimate. 
+
 
 Knear(n) estimates a new project's effort
 by a nearest neighbor  method~\cite{shepperd97}. Unlike LOC(n),
@@ -1038,53 +1025,63 @@ Secondly,
 unlike other predictors, it makes no assumptions about data
 distributions or some  underlying parametric model. 
 
-In defense of our selection of CART and case-based
-reasoners like Knear(n):
-\bi
-\item 
-Recall Shaw's comments listed in the introduction. 
-If it takes decades before research work becomes popular
-in industry, then it makes most sense for this study to
-explore innovative effort estimation methods that at least
-a decade old, or more. Two such methods are CART and Knear(n).
-\item
-Several papers have concluded
-that CART and Knear(n)
-are useful comparison algorithms for effort
-estimation-- see Figure~\ref{fig:kcart}.
-\ei
-\begin{figure}[!t]
-{\small
+Earlier in this paper,   the use of ``trimming'' was discussed in \tion{overall}
+to alleviate the problem of fitting   data to spurious noise. 
+Two such trimming algorithms are TEAK and PEEKER~\cite{koc11b,papa13}. TEAK is built
+on the assumption that spurious noise leads to large variance in the recorded efforts~\cite{koc11b}.
+TEAK's pre-processor removes such regions of high variance as follows.
+First, it  applied greedy agglomerate clustering  to generate a tree of clusters.
+Next, it reflects on the variance
+of the efforts seen in each sub-tree and discards the sub-trees with largest variance. Estimation is then performed
+on the surviving examples.
+PEEKER~\cite{papa13} is a far more aggressive ``trimmer'' than TEAK and combines three data reduction operators:
+feature weighting, PCA, and prototype generation, see \fig{peeker}.
+\begin{figure}[!b]
+\small
 \begin{tabular}{|p{.95\linewidth}|}\hline
-Recent studies published in IEEE
-TSE~\cite{keung2008b,me13a,dejaeger12}
-endorse
-CART as a state-of-the-art effort estimation method.  These
-studies assert that in terms of assessing new effort
-estimation methods, existing methods such as CART's
-regression tree generation may be more than
-adequate, e.g.~ Dejaeger et al. found little
-evidence that learners more elaborate than CART
-offer a significant value-added~\cite{dejaeger12}.
-
-Our own results endorse the conclusions of
-Dejaeger et al. 
-Recently we studied 90
-effort estimators. These were  combinations of 10
-pre-processors and 9 learners to build ensemble
-methods~\cite{koc11a}).  As it might have been
-predicted by Myrtveit et al.~\cite{myrtveit05}, the
-ranking of the estimators varied greatly.
-However, we found a small group of 13 estimators
-(all variants of CART and Knear(n) aided with
-pre-processors) that were consistently the best
-performing methods across a range of experimental rigs.
-\\\hline
-\end{tabular}}
-\caption{Studies concluding that CART and Kmeans(n)
-are useful as comparison methods in effort estimation.}
-\label{fig:kcart}
+\bi
+\item
+PEEKER's feature weighting scheme changes the $_w_i$ score used in the distance 
+calculations of \eq{dist}.
+Attributes are scored according to how much that attribute
+can divide and reduce the variance of the effort data (the {\em greater} the reduction, the
+{\em larger} the $w_i$ score).  
+\item
+PEEKER's PCA tool used an accelerated   principle component analysis that synthesises  new
+attributes $e_i, e_2,...$
+that extends across the dimension of greatest  variance in the data  with attributes $d$.  
+PCA is an interesting data ``trimmer'' since, usually,
+only a few $e \ll d$ new dimensions are required to represent the variance in the data. 
+PCA  combines
+redundant  variables into a smaller set of variables since those
+redundancies become (approximately) parallel lines
+in $e$ space. For all such redundancies \mbox{$i,j \in d$}, we 
+can ignore $j$ 
+since effects that change over $j$ also
+change in the same way over $i$.
+PCA is also useful for skipping over noisy variables from $d$-- these
+variables are effectively ignored since    they  do not contribute to the variance in the data.
+\item
+PEEKER's prototype generator then clusters the data along the dimensions
+found by accelerated PCA. Each cluster is then replaced with a ``prototype'' generated from
+the median value of all attributes in that cluster. Prototype generation is a useful tool for
+handling outliers: large groups of outliers get their own cluster; small sets of outliers
+get ignored via median prototype generation.
+\item
+PEEKER generates estimates for a test case by finding its two nearest prototypes   (where ``nearest''
+is computed using \eq{dict} plus feature weighting). If these prototypes are found at distance
+$n_1,n_2, n_1 < n_2$ and have effort values $E_1,E_2$ then the final estimate is an extrapolation
+between the two prototypes, favoring the closest one:
+\ei
+\[
+n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
+\]\\\hline
+\end{tabular} 
+\caption{Inside PEEKER~\cite{papa13}.}\label{fig:peeker}
 \end{figure}
+
+
+
 
 %% Finally, one more learner is explored, just to handle
 %% a possible criticism of this work. This paper
@@ -1109,21 +1106,21 @@ are useful as comparison methods in effort estimation.}
 %% needed one more learner that was more representative
 %% of recent work than CART or Knear(n). 
 %% Such a learner is the 
-%% SLOPE algorithm of Papakroni~\cite{papa13}.
-%% SLOPE
+%% PEEKER algorithm of Papakroni~\cite{papa13}.
+%% PEEKER
 %% is a non-parametric response surface method that generates estimates for a project by
 %%  interpolating between
 %% the two nearest centroids found by a clustering algorithm.
 %%  This interpolation is weighted by the
 %% distance to each centroid (and the estimate from
-%% the closer centroid has more weight, see \fig{slope}).
-%% That is,  SLOPE is any example of a {\em prototype learner}~\cite{chang74}
+%% the closer centroid has more weight, see \fig{PEEKER}).
+%% That is,  PEEKER is any example of a {\em prototype learner}~\cite{chang74}
 %%  that replaces $N$ examples with $M \ll N$ most informative ``prototypes'' (in this case,
 %% the cluster centroids).
 %% Prototype learners mitigate for data outliers since 
 %% noisy outliers disappear from the prototypes~\cite{chang74}.
 %% In an extensive study,
-%% Papakroni~\cite{papa13} found that SLOPE's predictions where (1)~ competitive
+%% Papakroni~\cite{papa13} found that PEEKER's predictions where (1)~ competitive
 %% with random forests and  Naive Bayes (for defect prediction)
 %% and (2)~regression trees and linear regression (for effort estimation).
 
@@ -1132,7 +1129,7 @@ are useful as comparison methods in effort estimation.}
 
 %% \begin{figure}[!t]
 %% \begin{lstlisting}
-%% def SLOPE(data,project):
+%% def PEEKER(data,project):
 %%    prototypes= WHERE(data)
 %%    neighbors = distances(project,prototypes) 
 %%    one, two  = neighbors[0],neighbors[1] #two closest
@@ -1141,9 +1138,9 @@ are useful as comparison methods in effort estimation.}
 %%    est1, est2= effort(one), effort(two)
 %%    return (w1*est1 + w2*est2) / (w1 + w2) 
 %% \end{lstlisting}
-%% \caption{SLOPE: a non-parametric response surface method that 
+%% \caption{PEEKER: a non-parametric response surface method that 
 %% generates estimates from a  set of piecewise linear approximations.
-%% SLOPE builds its clusters using the WHERE spectral clusterer~\cite{me11m}
+%% PEEKER builds its clusters using the WHERE spectral clusterer~\cite{me11m}
 %% that
 %% recursively divides projects
 %% synthesized by a 
@@ -1152,7 +1149,7 @@ are useful as comparison methods in effort estimation.}
 %%   method~\cite{platt05,Faloutsos1995} rather than
 %%   the standard $O(N^2)$ method to find these
 %%   principle components~\cite{Du2008}.
-%% }\label{fig:slope}
+%% }\label{fig:PEEKER}
 %% \end{figure}
 
 
@@ -1168,10 +1165,7 @@ score. It then
 splits $l$ into sub-lists $m,n$ in order to maximize the expected value of
  differences  in the observed performances
 before and after divisions. E.g. for lists $l,m,n$ of size $ls,ms,ns$ where $l=m\cup n$:
-
-
-{\footnotesize
-\[E(\Delta)=\frac{ms}{ls}abs(m.\mu - l.\mu)^2 + \frac{ns}{ls}abs(n.\mu - l.\mu)^2\]}
+ \[E(\Delta)=\frac{ms}{ls}abs(m.\mu - l.\mu)^2 + \frac{ns}{ls}abs(n.\mu - l.\mu)^2\]
 Scott-Knott then applies some statistical hypothesis test $H$ to check
 if $m,n$ are significantly different. If so, Scott-Knott then recurses on each division.
 For example, consider the following data collected under different treatments {\em rx}:
@@ -1218,7 +1212,7 @@ For a justification of the use of non-parametric
 bootstrapping, see Efron \&
 Tibshirani~\cite[p220-223]{efron93}.
 For a justification of the use of effect size tests
-see Shepperd\&MacDonell~\cite{shepperd12a}; Arcuri\&Briand~\cite{arcuri11}; Kampenes~\cite{kampenes07}. These researchers
+see Shepperd\&MacDonell~\cite{shepperd12a}; Kampenes~\cite{kampenes07}. These researchers
 warn that even if an
 hypothesis test declares two populations to be
 ``significantly'' different, then that result is
@@ -1235,13 +1229,12 @@ non-parametric
 A12 effect size test 
 explores
 two lists $M$ and $N$ of size $m$ and $n$:
-
-{\footnotesize \[A12 = \left(\sum_{x\in M, y \in N} 
+\[A12 = \left(\sum_{x\in M, y \in N} 
 \begin{cases} 
 1   & \mathit{if}\; x > y\\
 0.5 & \mathit{if}\; x == y
 \end{cases}\right) / (mn)
-\]}
+\]
 This expression computes the probability that numbers in one sample are bigger than in another.
 This test was recently 
 endorsed by Arcuri and Briand
@@ -1296,8 +1289,7 @@ estimation.
 
 
 \begin{figure}[!t]
-
-\renewcommand{\baselinestretch}{0.4}
+ 
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
 
@@ -1421,8 +1413,7 @@ those tunings (in NASA10).
 
 
 \begin{figure}[!t]
-
-\renewcommand{\baselinestretch}{0.4}
+ 
 {\scriptsize
 
 \noindent {\bf NASA10: (new NASA data up to 2010):}
@@ -1499,6 +1490,7 @@ Displayed as per \fig{loc}. }\label{fig:standard}
 
 
 
+
 \begin{figure}[!t]
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
@@ -1512,8 +1504,7 @@ Displayed as per \fig{loc}. }\label{fig:standard}
   1 &   COCOMO-II &    43  &  35 & \quart{13}{19}{23}{111} \\
 \hline 
   2 &      TEAK &    73  &  80 & \quart{29}{43}{39}{111} \\
-  2 & TEAK2 &    74  &  51 & \quart{29}{22}{39}{111} \\
-  2 & Linear Regression &    83  &  142 & \quart{18}{77}{45}{111} \\
+  2 & PEEKER &    74  &  51 & \quart{29}{22}{39}{111}  
 \end{tabular}}
 
 ~\\
@@ -1527,9 +1518,7 @@ Displayed as per \fig{loc}. }\label{fig:standard}
   1 & COCONUT &    62  &  38 & \quart{6}{6}{15}{110} \\
   1 &      TEAK &    84  &  110 & \quart{10}{32}{23}{110} \\
 \hline
-  2 & TEAK2 &    87  &  140 & \quart{6}{40}{24}{110} \\
-\hline
-  3 & Linear Regression &    117  &  253 & \quart{9}{83}{35}{110} \\
+  2 & PEEKER &    87  &  140 & \quart{6}{40}{24}{110}  
 \end{tabular}}
 
 % :learn 70.71 :analyze 4.04 :boots 2 effects 2 :conf 0.9801
@@ -1549,8 +1538,7 @@ Displayed as per \fig{loc}. }\label{fig:standard}
   1 &      COCOMO-II &    39  &  39 & \quart{3}{10}{10}{100} \\
   1 & TEAK &    50  &  81 & \quart{0}{28}{15}{100} \\
 \hline  
-  2 & TEAK2 &    65  &  165 & \quart{6}{64}{21}{100} \\
-  2 & Linear Regression &    65  &  221 & \quart{3}{88}{21}{100} \\
+  2 & PEEKER &    65  &  165 & \quart{6}{64}{21}{100}  
 \end{tabular}}
 
 % :learn 548.2 :analyze 7.81 :boots 3 effects 14 :conf 0.970299
@@ -1573,9 +1561,7 @@ Displayed as per \fig{loc}. }\label{fig:standard}
   1 &      COCONUT &    33  &  42 & \quart{0}{6}{4}{100} \\
 \hline  2 & TEAK &    93  &  128 & \quart{9}{24}{17}{100} \\
 \hline
-  3 & TEAK2 &    131  &  569 & \quart{9}{70}{24}{100} \\
-\hline
-  4 & Linear Regression &    351  &  1539 & \quart{14}{92}{40}{100} \\
+  3 & PEEKER &    131  &  569 & \quart{9}{70}{24}{100} \ 
 \end{tabular}}
 
 % :learn 260.57 :analyze 8.89 :boots 6 effects 11 :conf 0.941480149401
@@ -1674,8 +1660,7 @@ Note that, due to the results of \fig{loc}, LOC was excluded from column reducti
 
 
 \begin{figure}[!t]
-
-\renewcommand{\baselinestretch}{0.4} 
+ 
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
 
@@ -1978,6 +1963,34 @@ COCOMO. Best practices and empirical studies
 show that different methods can work together to
 reduce biases~\cite{yang08aa}. What we hope we have shown here is that it would be useful for those best practices
 to {\em include}, and not {\em replace}, parametric estimation.
+
+
+\section{Future Work}
+Having endorsed the use of parametric methods such as COCOMO, it is approprite
+to discuss current plans for new versions of that approach.
+
+Recent changes  in the software industry
+suggest  it is time  to revise COCOMO-II.
+The rise of agile methods, web
+services, cloud services, parallelized software on
+multicore chips, field-programmable-gate-array
+(FPGA) software, apps, widgets, and net-centric
+systems of systems (NCSOS) have caused the COCOMO II
+developers and users to begin addressing an upgrade
+to the 14-year-old COCOMO II. 
+Current discussions
+of a potential COCOMO III have led to a
+reconsideration of the old COCOMO 1981 development
+modes, as different development phenomena appear to
+drive the costs and schedules of web-services,
+business data processing, real-time embedded
+software, command and control, and engineering and
+scientific applications.
+
+Efforts to characterize
+these modes and to gather data to calibrate models
+for dealing with them are underway. Contributors
+to the definition and calibration are most  welcome.  
 
 %%  We hasten to add that these results should not be read
 %% as a repudiation of all other research into effort estimation.  
