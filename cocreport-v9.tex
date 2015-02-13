@@ -130,7 +130,7 @@
  \setlength{\textfloatsep}{1ex}
  
 \usepackage[compact,small]{titlesec}
-\DeclareMathSizes{7}{7}{7}{7}
+\DeclareMathSizes{7}{7}{7}{7} 
 %\renewcommand{\footnotesize}{\scriptsize}
 
 \pagenumbering{arabic}
@@ -1036,50 +1036,6 @@ of the efforts seen in each sub-tree and discards the sub-trees with largest var
 on the surviving examples.
 PEEKER~\cite{papa13} is a far more aggressive ``trimmer'' than TEAK and combines three data reduction operators:
 feature weighting, PCA, and prototype generation, see \fig{peeker}.
-\begin{figure}[!b]
-\small
-\begin{tabular}{|p{.95\linewidth}|}\hline
-\bi
-\item
-PEEKER's feature weighting scheme changes the $_w_i$ score used in the distance 
-calculations of \eq{dist}.
-Attributes are scored according to how much that attribute
-can divide and reduce the variance of the effort data (the {\em greater} the reduction, the
-{\em larger} the $w_i$ score).  
-\item
-PEEKER's PCA tool used an accelerated   principle component analysis that synthesises  new
-attributes $e_i, e_2,...$
-that extends across the dimension of greatest  variance in the data  with attributes $d$.  
-PCA is an interesting data ``trimmer'' since, usually,
-only a few $e \ll d$ new dimensions are required to represent the variance in the data. 
-PCA  combines
-redundant  variables into a smaller set of variables since those
-redundancies become (approximately) parallel lines
-in $e$ space. For all such redundancies \mbox{$i,j \in d$}, we 
-can ignore $j$ 
-since effects that change over $j$ also
-change in the same way over $i$.
-PCA is also useful for skipping over noisy variables from $d$-- these
-variables are effectively ignored since    they  do not contribute to the variance in the data.
-\item
-PEEKER's prototype generator then clusters the data along the dimensions
-found by accelerated PCA. Each cluster is then replaced with a ``prototype'' generated from
-the median value of all attributes in that cluster. Prototype generation is a useful tool for
-handling outliers: large groups of outliers get their own cluster; small sets of outliers
-get ignored via median prototype generation.
-\item
-PEEKER generates estimates for a test case by finding its two nearest prototypes   (where ``nearest''
-is computed using \eq{dict} plus feature weighting). If these prototypes are found at distance
-$n_1,n_2, n_1 < n_2$ and have effort values $E_1,E_2$ then the final estimate is an extrapolation
-between the two prototypes, favoring the closest one:
-\ei
-\[
-n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
-\]\\\hline
-\end{tabular} 
-\caption{Inside PEEKER~\cite{papa13}.}\label{fig:peeker}
-\end{figure}
-
 
 
 
@@ -1170,7 +1126,6 @@ Scott-Knott then applies some statistical hypothesis test $H$ to check
 if $m,n$ are significantly different. If so, Scott-Knott then recurses on each division.
 For example, consider the following data collected under different treatments {\em rx}:
 
-
 {\scriptsize \begin{verbatim}
         rx1 = [0.34, 0.49, 0.51, 0.6]
         rx2 = [0.6,  0.7,  0.8,  0.9]
@@ -1207,6 +1162,52 @@ bootstrapping and an effect size test agreed that
 the division was statistically significant (99\%
 confidence) and not a ``small'' effect ($A12 \ge
 0.6$).
+
+\begin{figure}[!t]
+\small
+\begin{tabular}{|p{.95\linewidth}|}\hline
+\bi
+\item
+PEEKER's feature weighting scheme changes the $_w_i$ score used in the distance 
+calculations of \eq{dist}.
+Attributes are scored according to how much that attribute
+can divide and reduce the variance of the effort data (the {\em greater} the reduction, the
+{\em larger} the $w_i$ score).  
+\item
+PEEKER's PCA tool used an accelerated   principle component analysis that synthesises  new
+attributes $e_i, e_2,...$
+that extends across the dimension of greatest  variance in the data  with attributes $d$.  
+PCA is an interesting data ``trimmer'' since, usually,
+only a few $e \ll d$ new dimensions are required to represent the variance in the data. 
+PCA  combines
+redundant  variables into a smaller set of variables since those
+redundancies become (approximately) parallel lines
+in $e$ space. For all such redundancies \mbox{$i,j \in d$}, we 
+can ignore $j$ 
+since effects that change over $j$ also
+change in the same way over $i$.
+PCA is also useful for skipping over noisy variables from $d$-- these
+variables are effectively ignored since    they  do not contribute to the variance in the data.
+\item
+PEEKER's prototype generator then clusters the data along the dimensions
+found by accelerated PCA. Each cluster is then replaced with a ``prototype'' generated from
+the median value of all attributes in that cluster. Prototype generation is a useful tool for
+handling outliers: large groups of outliers get their own cluster; small sets of outliers
+get ignored via median prototype generation.
+\item
+PEEKER generates estimates for a test case by finding its two nearest prototypes   (where ``nearest''
+is computed using \eq{dict} plus feature weighting). If these prototypes are found at distance
+$n_1,n_2, n_1 < n_2$ and have effort values $E_1,E_2$ then the final estimate is an extrapolation
+between the two prototypes, favoring the closest one:
+\ei
+\[
+n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
+\]\\\hline
+\end{tabular} 
+\caption{Inside PEEKER~\cite{papa13}.}\label{fig:peeker}
+\end{figure}
+
+
 
 For a justification of the use of non-parametric
 bootstrapping, see Efron \&
