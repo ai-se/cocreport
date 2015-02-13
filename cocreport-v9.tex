@@ -59,6 +59,7 @@
 \newcommand{\ee}{\end{enumerate}}
 \newcommand{\tion}[1]{\S\ref{sect:#1}}
 \newcommand{\fig}[1]{Figure~\ref{fig:#1}}
+\newcommand{\eq}[1]{Equation~\ref{eq:#1}}
 \setlist{nolistsep,leftmargin=5mm}
 %\usepackage[pdftex]{graphicx}
 \newcommand{\Sample}{{\bf SAMPLE}}
@@ -129,6 +130,7 @@
  \setlength{\textfloatsep}{1ex}
  
 \usepackage[compact,small]{titlesec}
+%\renewcommand{\footnotesize}{\scriptsize}
 
 \pagenumbering{arabic}
 \begin{document}  
@@ -234,17 +236,15 @@ could be explained by the absence of papers demonstrating that
 (2) supposedly more innovation methods 
 are comparatively better. 
 
-Accordingly, this paper tries unsuccessfully
-to demonstrate these two points. After extensive experimentation,
-we  conclude that,  in 2015, is still valid and recommended practice to try parametric estimation
-before exploring other, more innovative methods. 
-We conjecture 
-the size of software estimation data sets is usually very small,
-then the {\em details of data collection} are far more important than
-{\em the subsequent data mining}.  
-Also, it  can be useful
-to augment parametric estimation with (a)~some local calibration 
-and (b)~some column pruning (which are techniques  discussed in this paper).
+Accordingly, this paper tries 
+to demonstrate these two points. We were unsuccessful. 
+According, we conclude that (a)~it is still valid and recommended practice to try parametric estimation
+rather than other methods that are supposedly more  innovative;
+(b)~it is useful
+to augment parametric estimation with some local calibration 
+and column pruning (which are techniques  discussed in this paper).
+Also, given the small size of effort estimation data sets,
+(c)~the {\em details of data collection} must be given due consideration; 
 \end{abstract}
 
 
@@ -254,6 +254,11 @@ and (b)~some column pruning (which are techniques  discussed in this paper).
 {\bf Categories/Subject Descriptors:} 
 D.2.9 [Software Engineering]: Time Estimation;
 K.6.3 [Software Management]: Software Process
+
+\vspace{1mm}
+\noindent
+{\bf Keywords:} effort estimation, COCOMO, CART, nearest neighbor, 
+clustering, feature selection, prototype generation, bootstrap sampling, effect size, A12.
  
 
 \section{Introduction}
@@ -326,8 +331,7 @@ temporal learning~\cite{lokan09,minku14}, and many more besides.
 
 In her keynote address to ICSE'01, Mary Shaw~\cite{shaw01} noted that it can take up to a
 decade  for  research innovations
-to become stable and then another decade after that to become
-widely popular\footnote{See slide3 of her slides at goo.gl/tfi3D6.}. Given that, it would be reasonable
+to become stable and then another decade after that to become. Given that, it would be reasonable
 to expect commercial adoption of  the 1990s estimation work
 on  regression trees~\cite{shepperd97} or case-based-reasoning~\cite{shepperd97}.
 This has not happened:
@@ -396,17 +400,17 @@ if there are large errors in the KLOC estimate.
 
 The experiments of this paper conclude that
 the answer to all  these research questions is
-``no''. It turns out that RQ1 and RQ5 are connected.
-As discussed later in this paper, there is more to effort estimation than merely
-consider KLOC estimates. Hence,  just as estimation using merely
-KLOC is not recommended (see RQ1), we can make some degree of
+``no''.  
+The RQ1 experiments show that good estimates use many variables
+and  poorer estimates result from   some trite calculation based on KLOC.   
+Hence,  we can make some degree of
 error in our KLOC estimates without damaging the overall estimation process (see RQ5).
 
 As to the other research questions (R2,R3,R4), those results mean that 
 the continued
 use of parametric estimation can still be endorsed.
 What COCOMO, or other parametric
-estimation models, can offer largely contains the
+estimation models, can offer largely contains the0
 fundamentals for making estimation decisions
 from expert-delphi, as well as well calibrated
 tuning factors from over 40 years of
@@ -455,17 +459,21 @@ investigate how innovative new techniques can extend
 estimation methods.  Some experiments in this paper
 are a starting point for that investigation.
 
-\section{Overall Structure of These Experiments}\label{sect:overall}
+\section{Background}
 
-When designing a data mining experiment, it is vitally
-important {\em not} to  evaluate the learned model using the data used to learn that model.
+
+\subsection{Principles for Data Mining Experiments}\label{sect:overall}
+
+Data mining experiments should
+ {\em not}   evaluate the learned model using the data used to learn that model.
 Accordingly, for this study, we (1)~separated out the available COCOMO-style data into five
 sets then (2)~used a model learned from one of the sets as ``the'' COCOMO model applied to the other four.
 Note that while all of these data sets could be called ``COCOMO'' models (since they all use the
-same column names), their rows come from very different projects:
-
+same column names), their rows come from very different projects.
 To be  specific, the canonical  model used as ``the'' COCOMO model in this study was
-trained from  161 projects in the period 1982 to 1997 from commercial, aerospace,government, and non-profit organizations. Our other four data sets, used  for testing,  are:
+trained by Boehm et al.~\cite{boehm00b} in 1999 using  161 projects in the period 1982 to 1997 from commercial, aerospace,government, and non-profit organizations. 
+
+As to the other four data sets used  for in our testing: 
 \bi
 \item COC81 is the original data from 1981 COCOMO book~\cite{boehm81}. 
 This comes from projects dating 1970 to 1980.
@@ -536,19 +544,31 @@ As shown in \fig{types}, the data tables of NASA10, COC81, NASA93, and COC05
 contain information on 17, 63, 93, and 95  projects, respectively. Also,
 the 24 parameters of the standard COCOMO model are shown in \fig{cparems}.
 The concern here is that  this is not enough data to constrain the learning of a 24 parameter
-model-- which means that that data could be fitted to almost anything.
-
+model-- which means that that data could be fitted to almost anything (including {\em spurious noise}).
 It is not possible to solve this problem
 with more extensive data collection since small data sets are the norm in effort estimation research\footnote{
 For example, five recent  effort estimation
 publications~\cite{Mendes2003,Auer2006,baker07,koc11a,Li2009} used tables of data with
 13,15,31,33,52 rows (respectively).}.
-Hence, it is important to compare standard methods
-with {\em dimensionality reduction methods} that first ``trim'' the data and hence the number of the parameters in the model. This study explores two such ``trimming'' methods (the COCONUT and TEAK tools, described below). Surprisingly, in a result that strengthens the case for ``the'' canonical COCOMO  model, we show below that trimming
+Hence, to manage spurious fitting, this paper takes two steps.
+
+Step one is, when using methods that tune to the local data, to conduct {\em leave-one-out} studies.
+In those studies, for every project, the learner is offered a training
+set containing all other projects (previously, we have conducted an extensive study
+concluding that 
+leave-one-out is recommended over  other methods; i.e. n-way cross-validation~\cite{koc13a}).
+Such leave-one-out studies  would detect spurious fitting when, after training, the learned model
+exhibits {\em low accuracies} or {\em high variance} on the test data.  In the following experiments,
+we will find numerous such results. However, in a result endorsing the continued use of COCOMO,
+we will also find the COCOMO generates
+{\em higher accuracy} and {\em lower variance} results
+
+Step two is to compare standard methods
+with {\em dimensionality reduction methods} that first ``trim'' the number of the parameters in the model. This study explores two such ``trimming'' methods (the COCONUT and TEAK tools, described below). Surprisingly, in a result that strengthens the case for ``the'' canonical COCOMO  model, we show below that trimming
 does not out-perform standard COCOMO, suggesting that the COCOMO description of projects
 successfully constrains the description space for software projects.
 
-\section{Background}
+ 
 
 \subsection{Delpi- vs Model-based Estimation}
 
@@ -590,11 +610,11 @@ need to do better. Feel free to call on experts
 
 
 TRW had a previous model that worked well for a part
-of TRW’s software business~\cite{wol74}, but it
+of TRW's software business~\cite{wol74}, but it
 did not relate well to the full range of embedded
 software, command and control software, and
 engineering and scientific software involved in
-TRW’s business base.  Having access to experts and
+TRW's business base.  Having access to experts and
 data was a rare opportunity, and a team involving
 Ray Wolverton, Kurt Fischer, and Boehm conducted a
 series of meetings and Delphi exercises to determine
@@ -604,7 +624,7 @@ such as~\cite{putnam76,black77,herd77,watson77},  and early versions of the RCA
 PRICE S model~\cite{frei79}, a model called SCEP was created (Software Cost
 Estimation Program).
 Except for
-one explainable outlier, the model’s estimates for
+one explainable outlier, the model's estimates for
 the 20 projects with solid data were within 30\% of
 the actuals, with most within 15\% of the actuals.
 
@@ -748,44 +768,21 @@ the project in 20 months.
 
 
 
-
-Recent changes 
-suggest  it is time  to revise COCOMO-II.
-The rise of agile methods, web
-services, cloud services, parallelized software on
-multicore chips, field-programmable-gate-array
-(FPGA) software, apps, widgets, and net-centric
-systems of systems (NCSOS) have caused the COCOMO II
-developers and users to begin addressing an upgrade
-to the 14-year-old COCOMO II. 
-Current discussions
-of a potential COCOMO III have led to a
-reconsideration of the old COCOMO 1981 development
-modes, as different development phenomena appear to
-drive the costs and schedules of web-services,
-business data processing, real-time embedded
-software, command and control, and engineering and
-scientific applications\footnote{
-Efforts to characterize
-these modes and to gather data to calibrate models
-for dealing with them are underway, and contributors
-to the definition and calibration are welcome.}.  
-
-Before going on, we offer an  equation that will be required later
-in this paper. For a fixed KLOC, \eq{cocII} tells us that
+Note that, from \eq{cocII},
 the minimum  
-effort estimate is bounded by the  {\em sum} of the minimum scale factors
-and the {\em product} of the minimum effort multipliers (and similarly for
-the maximum effort estimate). From \fig{coc2},
-that range is:
-\begin{equation}\label{eq:range}
-0.18*\mathit{KLOC}^{0.97}  \le \mathit{effort} \le 154*\mathit{KLOC}^{1.23}
-\end{equation}
-Dividing the minimum and maximum values shows
-how   a COCOMO estimate can vary for a given KLOC:
+effort  is bounded by the  {\em sum} of the minimum scale factors
+and the {\em product} of the minimum effort multipliers.
+Similar expressions hold for the  maximum effort estimate which,
+from \fig{coc2}, is
+$0.18*\mathit{KLOC}^{0.97}$ to $\le 154*\mathit{KLOC}^{1.23}$.
+Dividing the minimum and maximum values results in an  expression showimg
+how    effort can vary for any given KLOC.: 
 \begin{equation}\label{eq:ration}
 154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
 \end{equation}
+ 
+
+
 
  
 \subsection{COCOMO and Local Calibration}\label{sect:coconut}
@@ -852,13 +849,36 @@ def ASSESS(training, aGuess, bGuess):
    return error / len(training) # mean training error
 \end{lstlisting}
 \caption{COCONUT: tuning the $a,b$ local calibration variables
-used in COCOMO's effort equation of $a*\prod EM *\mathit{KLOC}^{b+0.01\sum SF}$.
-Uses the COCOMO2 function of \fig{coc2}.}\label{fig:coconut}
+used in COCOMO's effort function  of \fig{coc2}.}\label{fig:coconut}
 \end{figure}
 
 
+COCONUT is a very simple trimming tool. For more sophsiticated ``trimmers'',
+see  TEAK and TEAK2 (discussed below).
 
+\subsection{The Future of COCOMO}
 
+Recent changes 
+suggest  it is time  to revise COCOMO-II.
+The rise of agile methods, web
+services, cloud services, parallelized software on
+multicore chips, field-programmable-gate-array
+(FPGA) software, apps, widgets, and net-centric
+systems of systems (NCSOS) have caused the COCOMO II
+developers and users to begin addressing an upgrade
+to the 14-year-old COCOMO II. 
+Current discussions
+of a potential COCOMO III have led to a
+reconsideration of the old COCOMO 1981 development
+modes, as different development phenomena appear to
+drive the costs and schedules of web-services,
+business data processing, real-time embedded
+software, command and control, and engineering and
+scientific applications.
+Efforts to characterize
+these modes and to gather data to calibrate models
+for dealing with them are underway, and contributors
+to the definition and calibration are most  welcome.  
 
 %Local calibration
 %can dramatically improve the effort estimates
@@ -912,14 +932,9 @@ that what holds for all, also holds for parts
 of the population~\cite{posnet11,me12d}.
 To avoid ecological inference,
 our  rig runs separately for each data set (see Figure~\ref{fig:rig}).
+Note that this rig uses the leave-one-out experiments recommended in
+ in \tion{overall}.
 
-For the purposes of repeatability, we use
-leave-one-out experiments 
-i.e. for every project, the learner is offered a training
-set containing all other projects. For a justification of leave-one-out
-vs other methods (e.g. n-way cross-validation), see~\cite{koc13a}.
-Note that leave-one-out ensures that the our models
-are tested on data never seen during training.
 
 
 
@@ -1485,8 +1500,6 @@ Displayed as per \fig{loc}. }\label{fig:standard}
 
 
 \begin{figure}[!t]
-
-\renewcommand{\baselinestretch}{0.4}
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
 
@@ -1499,7 +1512,8 @@ Displayed as per \fig{loc}. }\label{fig:standard}
   1 &   COCOMO-II &    43  &  35 & \quart{13}{19}{23}{111} \\
 \hline 
   2 &      TEAK &    73  &  80 & \quart{29}{43}{39}{111} \\
-\hline  3 & Linear Regression &    83  &  142 & \quart{18}{77}{45}{111} \\
+  2 & TEAK2 &    74  &  51 & \quart{29}{22}{39}{111} \\
+  2 & Linear Regression &    83  &  142 & \quart{18}{77}{45}{111} \\
 \end{tabular}}
 
 ~\\
@@ -1511,8 +1525,10 @@ Displayed as per \fig{loc}. }\label{fig:standard}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 300\\
   1 &      COCOMO-II &    46  &  134 & \quart{0}{41}{9}{110} \\
   1 & COCONUT &    62  &  38 & \quart{6}{6}{15}{110} \\
-  2 &      TEAK &    84  &  110 & \quart{10}{32}{23}{110} \\
-\hline 
+  1 &      TEAK &    84  &  110 & \quart{10}{32}{23}{110} \\
+\hline
+  2 & TEAK2 &    87  &  140 & \quart{6}{40}{24}{110} \\
+\hline
   3 & Linear Regression &    117  &  253 & \quart{9}{83}{35}{110} \\
 \end{tabular}}
 
@@ -1531,10 +1547,10 @@ Displayed as per \fig{loc}. }\label{fig:standard}
 \\
   1 &      COCONUT &    36  &  38 & \quart{0}{10}{9}{100} \\
   1 &      COCOMO-II &    39  &  39 & \quart{3}{10}{10}{100} \\
+  1 & TEAK &    50  &  81 & \quart{0}{28}{15}{100} \\
 \hline  
-  2 & TEAK &    50  &  81 & \quart{0}{28}{15}{100} \\
-\hline
-  3 & Linear Regression &    65  &  221 & \quart{3}{88}{21}{100} \\
+  2 & TEAK2 &    65  &  165 & \quart{6}{64}{21}{100} \\
+  2 & Linear Regression &    65  &  221 & \quart{3}{88}{21}{100} \\
 \end{tabular}}
 
 % :learn 548.2 :analyze 7.81 :boots 3 effects 14 :conf 0.970299
@@ -1556,14 +1572,16 @@ Displayed as per \fig{loc}. }\label{fig:standard}
   1 &      COCOMO-II &    32  &  33 & \quart{2}{4}{4}{100} \\
   1 &      COCONUT &    33  &  42 & \quart{0}{6}{4}{100} \\
 \hline  2 & TEAK &    93  &  128 & \quart{9}{24}{17}{100} \\
-\hline  
-  3 & Linear Regression &    351  &  1539 & \quart{14}{92}{40}{100} \\
+\hline
+  3 & TEAK2 &    131  &  569 & \quart{9}{70}{24}{100} \\
+\hline
+  4 & Linear Regression &    351  &  1539 & \quart{14}{92}{40}{100} \\
 \end{tabular}}
 
 % :learn 260.57 :analyze 8.89 :boots 6 effects 11 :conf 0.941480149401
 
 }
-\caption{COCOMO vs newer methods. Displayed as per \fig{loc}. }\label{fig:fss}
+\caption{COCOMO vs newer methods. Displayed as per \fig{loc}.}\label{fig:fss}
 \end{figure}
 
 
