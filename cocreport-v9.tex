@@ -1934,6 +1934,53 @@ are complex enough to serve as a stress test for
 different effort estimation methods.
 
 
+
+\newcommand{\crule}[3][black]{\textcolor{#1}{\rule{#2}{#3}}}
+
+\newcommand{\rone}{\crule[red]{1mm}{1.95mm}}
+
+\newcommand{\rtwo}{\crule[red]{2mm}{1.95mm}}
+
+\newcommand{\rthree}{\crule[red]{3mm}{1.95mm}}
+
+\newcommand{\rfour}{\crule[red]{5mm}{1.95mm}}
+
+\newcommand{\rfive}{\crule[red]{5mm}{1.95mm}}
+
+ 
+\begin{figure*}
+\renewcommand{\baselinestretch}{0.5} 
+\small
+\begin{center}
+\begin{tabular}{r@{~}|r@{~}|r@{~}|l@{~}|r@{~}l@{~}|r@{~}l@{~}|r@{~}l@{~}|r@{~}l@{~}|r@{~}l}
+  \multicolumn{4}{c|}{~}&\multicolumn{9}{c}{median( {\em abs(predicted - actual) / actual} ) } \\
+  Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKER}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{Knear(1}         &   \multicolumn{2}{c}{CART~}    &   \multicolumn{2}{c}{Lin.Regr.}\\\hline
+  ~\\
+Albretcht  &   7         &   24   &   Projects from IBM   &   28   &       &   38   &   {\rone}   &   38   &   {\rone}   &   40   &   {\rone}   &   57   &   {\rfour}\\
+China      &   18       &   488   &   Projects from Chinese software companies   &   38   &       &   34   &       &   35   &       &   34   &       &   52   &   {\rfour}\\
+Cosmic     &   y   &   y   &   Projects described in functiion points   &   98   &   {\rone}   &   75   &       &   85   &       &   85   &       &   135   &   {\rfour}\\
+ISBSG10    &   y   &   y   &   From the ISBSG benchmark suite   &   56   &       &   62   &   {\rone}   &   66   &   {\rone}   &   77   &   {\rfour}   &   78   &   {\rfour}\\
+Kemerer    &   7   &   15   &   Large business applications   &   24   &      &   42   &   {\rtwo}   &   55   &       &   55   &   {\rtwo}   &   74   &   {\rfour}\\
+Kitchenham &    y   &   y   &  y    &   34   &   {\rone}  &   43   &   {\rfour}   &   43   &   {\rfour}   &   34   &   {\rone}   &   28   &    \\
+Maxwell    &   27  &   62  & Projects from commercial banks in Finland   &   57   &   {\rtwo}   &   56   &   {\rone}   &   53   &   {\rtwo}   &   47   &       &   63   &   {\rfour}\\
+Miyazaki   &   8   &   48 &Japanese software projects developed in COBOL   &   29   &       &   41   &   {\rtwo}   &   47   &   {\rone}   &   41   &   {\rone}   &   54   &   {\rfour}\\
+Telecom    &   3   &   18   &   Maintenance projects for telecom companies   &   23   &       &   26   &   {\rone}   &   31   &       &   31   &   {\rone}   &   44   &   {\rfour}\\
+Usp05      &   y   &   y   &   y   &   75   &   {\rone}   &   50   &       &   25   &       &   45   &       &   140   &   {\rfour}\\
+\end{tabular}
+\end{center}
+\caption{Median errors seen in leave-one-out studies on
+non-COCOMO data sets. Red lines
+show the errors for each data set (and the {\em shorter} the red lines, the {\em better} the effort estimator).
+Red lines show the error 
+discretized into 20th percentiles ranges from min to max (discretization performed seperately
+for each data set).
+An absent line denotes errors in the 0th to 20th percentile range for that data set.
+The longest line denote largest
+errors in the 80th to 100th percentile range for that data set. Note that PEEKER
+ has the smallest errors while 
+linear regression most often has the largest (exception: Kitchenham).}
+\end{figure*}
+
 \section{Conclusion}
 The past few decades have seen a long line of innovative  methods
 applied to effort estimation. This paper has compared a sample of those methods
