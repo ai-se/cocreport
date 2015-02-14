@@ -72,6 +72,8 @@
 
 \definecolor{lightgray}{gray}{0.8}
 \definecolor{darkgray}{gray}{0.6}
+\usepackage{tabu}
+
 
 
 \definecolor{Gray}{gray}{0.95}
@@ -297,9 +299,10 @@ tweaks~\cite{me04h}.
 
  
 
+  
 
 %XXX what if not in cocomo format. answer : then use something else. caution:
-%XXX the results thos this paper suggest that if possible, better estimates might be obtained from
+%XXX the results thos this paper suggest that if possible& better estimates might be obtained from
 %XXX starting with cocomo- but this is uaully a domain descision (sometimes local experts
 %just prefer using their local in-house descriptors.
 
@@ -1950,8 +1953,8 @@ different effort estimation methods.
  
 \begin{figure*}
 \renewcommand{\baselinestretch}{0.5} 
-\small
-\begin{center}
+\scriptsize
+\begin{minipage}{.85\linewidth}
 \begin{tabular}{r@{~}|r@{~}|r@{~}|l@{~}|r@{~}l@{~}|r@{~}l@{~}|r@{~}l@{~}|r@{~}l@{~}|r@{~}l}
   \multicolumn{4}{c|}{~}&\multicolumn{9}{c}{median( {\em abs(predicted - actual) / actual} ) } \\
   Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKER}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{Knear(1}         &   \multicolumn{2}{c}{CART~}    &   \multicolumn{2}{c}{Lin.Regr.}\\\hline
@@ -1967,16 +1970,36 @@ Miyazaki   &   8   &   48 &Japanese software projects developed in COBOL   &   2
 Telecom    &   3   &   18   &   Maintenance projects for telecom companies   &   23   &       &   26   &   {\rone}   &   31   &       &   31   &   {\rone}   &   44   &   {\rfour}\\
 Usp05      &   y   &   y   &   y   &   75   &   {\rone}   &   50   &       &   25   &       &   45   &       &   140   &   {\rfour}\\
 \end{tabular}
-\end{center}
+\end{minipage}\begin{minipage}{.14\linewidth}
+\begin{tabular}{|p{\linewidth}|}\hline
+{\bf KEY:}
+
+
+Percentile ranges:
+
+
+{\rfour} = 80th to 100th
+
+{\rthree} = 60th to 80th 
+
+{\rtwo} = 40th to 60th 
+
+{\rone} = 20th to 40th 
+
+~\\
+
+An absent bar denotes 0th to 20th percentile.
+
+~\\
+
+Percentile computed  separately
+for each data set.\\\hline
+\end{minipage}
 \caption{Median errors seen in leave-one-out studies on
-non-COCOMO data sets. Red bars
-show the errors for each data set (and the {\em shorter} the bar, the {\em better} the effort estimator).
-These bars  show the error 
-discretized into 20th percentiles ranges from min to max (discretization performed seperately
-for each data set).
-An absent bar denotes errors in the 0th to 20th percentile range for that data set.
-The longest bar denote largest
-errors in the 80th to 100th percentile range for that data set. Note that PEEKER
+non-COCOMO data sets. 
+Red bars  show  error 
+discretized into 20th percentiles ranges from min to max
+Note that PEEKER
  has the smallest errors while 
 linear regression most often has the largest (exception: Kitchenham).}
 \end{figure*}
@@ -2131,6 +2154,49 @@ to the definition and calibration are most  welcome.
  trademark, manufacturer, or otherwise does not constitute
 or imply its endorsement by the US Government.
 
+
+
+\definecolor{grayA}{gray}{1}
+\definecolor{grayB}{gray}{0.95}
+\definecolor{grayC}{gray}{0.9}
+\definecolor{grayD}{gray}{0.85}
+\definecolor{grayE}{gray}{0.8}
+\definecolor{grayF}{gray}{0.75}
+\definecolor{grayG}{gray}{0.7}
+\definecolor{grayH}{gray}{0.65}
+\definecolor{grayI}{gray}{0.6}
+\definecolor{grayJ}{gray}{0.55}
+\definecolor{grayK}{gray}{0.5}
+\definecolor{grayL}{gray}{0.45}
+\definecolor{grayM}{gray}{0.4}
+\definecolor{grayN}{gray}{0.35}
+\definecolor{grayO}{gray}{0.3}
+\definecolor{grayP}{gray}{0.25}
+\definecolor{grayQ}{gray}{0.2}
+\definecolor{grayR}{gray}{0.15}
+\definecolor{grayS}{gray}{0.1}
+\definecolor{grayT}{gray}{0.05}
+\definecolor{grayU}{gray}{0.0} 
+
+\begin{figure}
+{\scriptsize \begin{tabu}{r|r@{~}|c@{~}c@{~}c@{~}c@{~}c@{~}c@{~}c@{~}c@{~}c@{~}c@{~}c@{~}c@{~}c@{~}c@{~}c}
+  &  &\multicolumn{15}{c}{Prototype}
+  \rowfont{\color{black}}  && $w_i$&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\\hline
+    \rowfont{\color{black}} acap&1.00&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayP}}  pcap&0.95& 1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayN}} ltex&0.90&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayL}}  pmat&0.85&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayJ}} resl& 0.80& 1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayH}} pvol& 0.75&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayG}} pexp1&0.70&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayF}} tool&0.35&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayE}} thing& 0.30& 1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayD}} stuff& 2.5&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \rowfont{\color{grayC}} blah&1.5&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15\\
+  \end{tabu}}
+\caption{PEEEKER's trimming of the Albrecht data set. Row colored
+by their weight $w_i$ (so the lighter rows barely contribute to the inference).}
+\end{figure}
 
 % That's all folks!
 \vspace*{0.5mm}
