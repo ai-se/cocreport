@@ -1904,18 +1904,18 @@ vary up to 50\% of their original value.
 \begin{minipage}{.83\linewidth}
 \begin{tabular}{r@{~}|r@{~}|r@{~}|l@{~}|r@{~}l@{~}|r@{~}l|r@{~}l@{~}|r@{~}l@{~}|r@{~}l}
   \multicolumn{4}{c|}{~}&\multicolumn{10}{c}{median( {\em abs(predicted - actual) / actual} ) } \\
-  Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKER}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{Knear(1)}         &   \multicolumn{2}{c}{CART~}    &   \multicolumn{2}{c}{Lin.Regr.}\\\hline
+  Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKER}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{CART~}         &   \multicolumn{2}{c}{Knear(1)}    &   \multicolumn{2}{c}{TEAK}\\\hline
 \multicolumn{1}{c}{~}\\
-Albrecht  &   7         &   24   &   Projects from IBM   &   28   &       &   38   &   {\rone}   &   38   &   {\rone}   &   40   &   {\rone}   &   57   &   {\rfour}\\
-China      &   18       &   488   &   Projects from Chinese software companies   &   38   &       &   34   &       &   35   &       &   34   &       &   52   &   {\rfour}\\
-Cosmic     &   y   &   y   &   Projects described in functiion points   &   98   &   {\rone}   &   75   &       &   85   &       &   85   &       &   135   &   {\rfour}\\
-ISBSG10    &   y   &   y   &   From the ISBSG benchmark suite   &   56   &       &   62   &   {\rone}   &   66   &   {\rone}   &   77   &   {\rfour}   &   78   &   {\rfour}\\
-Kemerer    &   7   &   15   &   Large business applications   &   24   &      &   42   &   {\rtwo}   &   55   &       &   55   &   {\rtwo}   &   74   &   {\rfour}\\
-Kitchenham &    y   &   y   &  y    &   34   &   {\rone}  &   43   &   {\rfour}   &   43   &   {\rfour}   &   34   &   {\rone}   &   28   &    \\
-Maxwell    &   27  &   62  & Projects from commercial banks in Finland   &   57   &   {\rtwo}   &   56   &   {\rone}   &   53   &   {\rtwo}   &   47   &       &   63   &   {\rfour}\\
-Miyazaki   &   8   &   48 &Japanese software projects developed in COBOL   &   29   &       &   41   &   {\rtwo}   &   47   &   {\rone}   &   41   &   {\rone}   &   54   &   {\rfour}\\
-Telecom    &   3   &   18   &   Maintenance projects for telecom companies   &   23   &       &   26   &   {\rone}   &   31   &       &   31   &   {\rone}   &   44   &   {\rfour}\\
-Usp05      &   y   &   y   &   y   &   75   &   {\rone}   &   50   &       &   25   &       &   45   &       &   140   &   {\rfour}\\
+Albrecht  &   7         &   24   &   Projects from IBM   & 28 &     & 40 & {\rtwo} & 38 & {\rtwo} & 38 & {\rtwo} & 49 & {\rfour} \\
+China      &   18       &   488   &   Projects from Chinese software companies   &   38   &  {\rtwo}  &   34   &       &   34   &       &   35   &  {\rone}   &   41   &   {\rfour}\\
+Cosmic     &   y   &   y   &   Projects described in functiion points   &   98   &   {\rfour}   &   75   &       &   85   &    {\rtwo}   &   85   &   {\rtwo}    &   89   &   {\rtwo}\\
+ISBSG10    &   y   &   y   &   From the ISBSG benchmark suite   &   56   &       &   62   &     &   126   &   {\rfour}   &   66   &   {\rone}   &   65   &   {\rone}\\
+Kemerer    &   7   &   15   &   Large business applications   &   42   &  {\rtwo}  &   24   &   &   55   &  {\rfour} &   55   &   {\rfour}   &   55   &   {\rfour}\\
+Kitchenham &    6   &   145   &  y    &   34   &   &   43   &   {\rthree}   &   34   &  &   43   &  {\rthree}  &   47   &  {\rfour}  \\
+Maxwell    &   27  &   62  & Projects from commercial banks in Finland   &   57   &   {\rtwo}   &   56   &   {\rtwo}   &   47   &   &   53   &  {\rone} &   64   &   {\rfour}\\
+Miyazaki   &   8   &   48 &Japanese software projects developed in COBOL   &   39   &       &   41   &   &   41   &    &   57   &   {\rfour}   &   57   &   {\rfour}\\
+Telecom    &   3   &   18   &   Maintenance projects for telecom companies   &   23   &       &   26   &   {\rtwo}   &   31   & {\rfour}  &   31   &   {\rfour}   &   31   &   {\rfour}\\
+Usp05      &   7   &  203  &  Collected from university student projects   &   30   &    &   50   & {\rfour} &   45   & {\rthree}  &   40   &   {\rtwo}  &   50   &   {\rfour}\\
 \end{tabular}
 \end{minipage}\begin{minipage}{.15\linewidth}
 \begin{tabular}{|p{\linewidth}|}\hline
@@ -2064,11 +2064,11 @@ worse than COCOMO in \fig{newer}).
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 0, max= 100\\
 \\
-  1 & PEEKER &    23  &  34 & \quart{9}{34}{23}{100} \\
-  1 & knn(3) &    26  &  33 & \quart{9}{33}{26}{100} \\
-  1 & knn(1) &    31  &  35 & \quart{10}{35}{31}{100} \\
+  1 & PEEKER &    23  &  34 & \quart{12}{34}{23}{100} \\
+  1 & Knear(3) &    26  &  33 & \quart{9}{33}{26}{100} \\
+  1 & TEAK &    31  &  28 & \quart{17}{28}{31}{100} \\
   1 & CART &    31  &  22 & \quart{23}{22}{31}{100} \\
-  1 & Linear Regression &    44  &  79 & \quart{16}{79}{44}{100} \\
+  1 & Knear(1) &    31  &  35 & \quart{10}{35}{31}{100} \\
 \end{tabular}}
 \caption{Example result of applying learners to non-COCOMO data.}\label{fig:telecom}
 \end{figure}

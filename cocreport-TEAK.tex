@@ -573,4 +573,76 @@ email: {\texttt{jsmith@affiliation.org}}) and Julius P.~Kumquat
 \caption{COCOMO vs COCONUT vs TEAK vs Linear Regression}\label{fig:fss}
 \end{figure}
 
+
+\newcommand{\crule}[3][darkgray]{\textcolor{#1}{\rule{#2}{#3}}}
+
+\newcommand{\rone}{\crule{1mm}{1.95mm}}
+
+\newcommand{\rtwo}{\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}}
+
+\newcommand{\rthree}{\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}}
+
+\newcommand{\rfour}{\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}}
+ 
+\newcommand{\rfive}{\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}}
+
+\begin{figure*}
+\renewcommand{\baselinestretch}{0.5} 
+\scriptsize
+\begin{minipage}{.83\linewidth}
+\begin{tabular}{r@{~}|r@{~}|r@{~}|l@{~}|r@{~}l@{~}|r@{~}l|r@{~}l@{~}|r@{~}l@{~}|r@{~}l}
+  \multicolumn{4}{c|}{~}&\multicolumn{10}{c}{median( {\em abs(predicted - actual) / actual} ) } \\
+  Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKER}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{CART~}         &   \multicolumn{2}{c}{Knear(1)}    &   \multicolumn{2}{c}{TEAK}\\\hline
+\multicolumn{1}{c}{~}\\
+Albrecht  &   7         &   24   &   Projects from IBM   & 28 &     & 40 & {\rtwo} & 38 & {\rtwo} & 38 & {\rtwo} & 49 & {\rfour} \\
+China      &   18       &   488   &   Projects from Chinese software companies   &   38   &  {\rtwo}  &   34   &       &   34   &       &   35   &  {\rone}   &   41   &   {\rfour}\\
+Cosmic     &   y   &   y   &   Projects described in functiion points   &   98   &   {\rfour}   &   75   &       &   85   &    {\rtwo}   &   85   &   {\rtwo}    &   89   &   {\rtwo}\\
+ISBSG10    &   y   &   y   &   From the ISBSG benchmark suite   &   56   &       &   62   &     &   126   &   {\rfour}   &   66   &   {\rone}   &   65   &   {\rone}\\
+Kemerer    &   7   &   15   &   Large business applications   &   42   &  {\rtwo}  &   24   &   &   55   &  {\rfour} &   55   &   {\rfour}   &   55   &   {\rfour}\\
+Kitchenham &    6   &   145   &  y    &   34   &   &   43   &   {\rthree}   &   34   &  &   43   &  {\rthree}  &   47   &  {\rfour}  \\
+Maxwell    &   27  &   62  & Projects from commercial banks in Finland   &   57   &   {\rtwo}   &   56   &   {\rtwo}   &   47   &   &   53   &  {\rone} &   64   &   {\rfour}\\
+Miyazaki   &   8   &   48 &Japanese software projects developed in COBOL   &   39   &       &   41   &   &   41   &    &   57   &   {\rfour}   &   57   &   {\rfour}\\
+Telecom    &   3   &   18   &   Maintenance projects for telecom companies   &   23   &       &   26   &   {\rtwo}   &   31   & {\rfour}  &   31   &   {\rfour}   &   31   &   {\rfour}\\
+Usp05      &   7   &  203  &   y   &   30   &    &   50   & {\rfour} &   45   & {\rthree}  &   40   &   {\rtwo}  &   50   &   {\rfour}\\
+\end{tabular}
+\end{minipage}\begin{minipage}{.15\linewidth}
+\begin{tabular}{|p{\linewidth}|}\hline
+
+~\\
+
+{\bf KEY:}
+
+~\\
+
+Error percentile ranges:
+
+~\\
+
+80th to 100th = {\rfour}
+
+60th to 80th ~ = {\rthree}
+
+40th to 60th  ~ = {\rtwo}
+
+20th to 40th  ~ = {\rone}
+
+~\\
+
+An absent bar denotes\newline 0th to 20th percentile.
+
+~\\
+
+Percentiles computed  separately
+for each data set.\\\hline
+\end{tabular}
+\end{minipage}
+\caption{Median errors seen in leave-one-out studies on
+non-COCOMO data sets. 
+Gray bars  show  error 
+discretized into 20th percentiles ranges from min to max.
+All data available from http://openscience.us/repo/effort.
+}\label{fig:nonc}
+\end{figure*}
+
+
 \end{document}
