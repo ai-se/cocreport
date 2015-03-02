@@ -305,8 +305,8 @@ tweaks~\cite{me04h}.
 %XXX starting with cocomo- but this is uaully a domain descision (sometimes local experts
 %just prefer using their local in-house descriptors.
 
-Since that    work on parametric estimation, other researchers
-have innovated other  methods based on
+Since that work on parametric estimation, researchers
+have innovated other methods based on
 regression
 trees~\cite{shepperd97}
 case-based-reasoning~\cite{shepperd97}, spectral
@@ -334,10 +334,10 @@ temporal learning~\cite{lokan09,minku14}, and many more besides.
 
 In her keynote address to ICSE'01, Mary Shaw~\cite{shaw01} noted that it can take up to a
 decade  for  research innovations
-to become stable and then another decade after that to become. Given that, it would be reasonable
+to become stable and then another decade after that to become widely popular. Given that, it would be reasonable
 to expect commercial adoption of  the 1990s estimation work
-on  regression trees~\cite{shepperd97} or case-based-reasoning~\cite{shepperd97}.
-This has not happened:
+on  regression trees~\cite{shepperd97} or case-based-reasoning~\cite{shepperd97}. However, 
+this has not happened:
 \bi
 \item
 Based on our knowledge of the Chinese and United States software industry,
@@ -364,7 +364,7 @@ Cost Modeling (goo.gl/O01Pc6).
 \ei
 This  lack of adoption of   innovative  estimation methods
 could be explained by the absence of papers demonstrating that
-(1) parametric estimation is no longer useful and that
+(1) parametric estimation is no longer useful, or that
 (2) supposedly more innovation methods 
 are comparatively better. 
 Since the case for (1) and (2) are  missing in the literature,
@@ -413,7 +413,7 @@ As to the other research questions (R2,R3,R4), those results mean that
 the continued
 use of parametric estimation can still be endorsed.
 What COCOMO, or other parametric
-estimation models, can offer largely contains the0
+estimation models, can offer largely contains the
 fundamentals for making estimation decisions
 from expert-delphi, as well as well calibrated
 tuning factors from over 40 years of
@@ -473,7 +473,7 @@ Accordingly, for this study, we (1)~separated out the available COCOMO-style dat
 sets then (2)~used a model learned from one of the sets as ``the'' COCOMO model applied to the other four.
 
 The current version of COCOMO was built in 1999 by Boehm et al.~\cite{boehm00b}  using  161 projects in the period 1982 to 1997 from commercial, aerospace,government, and non-profit organizations. 
-The data used to build this model is very different to the four test sets used in the experiments
+The data used to build this model is largely different to the four test sets used in the experiments
 of this paper: 
 \bi
 \item COC81 is the original data from 1981 COCOMO book~\cite{boehm81}. 
@@ -486,10 +486,10 @@ is $2.57*$COC81's median).
 \item 
 Our two other data sets are COC05 and NASA10 (these data sets
 are proprietary and 
-cannot be released to the research community). These projects have minimal overlap
+cannot be released to the research community). These projects have no overlap
 to each other other,
 as well as with COC81 and NASA93 (see \fig{types}).  
-Further, all this data comes from different projects than the 161 project used train the current  COCOMO.
+Further, except COC81, all other data comes from different projects than the 161 project used train the current  COCOMO.
 \ei
 To download our public data, see http://openscience.us/repo/effort.
 \begin{figure}[!t]
@@ -544,7 +544,7 @@ relative to the number of projects being analyzed.
 As shown in \fig{types}, the data tables of NASA10, COC81, NASA93, and COC05
 contain information on 17, 63, 93, and 95  projects, respectively. Also,
 the 24 parameters of the standard COCOMO model are shown in \fig{cparems}.
-The concern here is that  this is not enough data to constrain the learning of a 24 parameter
+The concern here is that  this is not enough data to constrain the learning of a 23 parameter
 model-- which means that that data could be fitted to almost anything (including {\em spurious noise}).
 It is not possible to solve this problem
 with more extensive data collection since small data sets are the norm in effort estimation research\footnote{
@@ -793,7 +793,7 @@ The COCOMO trimming procedure, called   {\em local calibration}, adjusts the imp
 multipliers by tuning the  $a,b$ values of Equation~\ref{eq:cocII}
 while keeping constant the other values of the tuning matrix
 shown in \fig{coc2}. Effectively, local calibration trims
-a 24 variable model
+a 23 variable model
 into a model with two variable: (one  to adjust the linear effort
 multipliers, and another to adjust the exponential scale factors).
 
@@ -954,7 +954,7 @@ ratio of some other, much
 simpler, ``straw man'' approach (they recommend the
 mean effort value of $N>100$ random samples of the
 training data). At first, we used the Shepperd \&
-MacDonnel approach for this work but found that
+MacConnell approach for this work but found that
 their straw man had orders of magnitude larger error
 than all the results shown here. Hence, we adopt the
 spirit, but not the letter, of their proposal and
@@ -1408,7 +1408,7 @@ better than just using simple lines of code measures.
 As shown in \fig{loc}, this is not necessarily true.
 This figure is a comparative ranking for LOC(1)
 LOC(3), COCOMO-II and COCONUT.
-The rows of \fig{loc} are sorted by the median MRE figure.
+The rows of \fig{loc} are sorted by the median MRE figures.
 These rows are divided according to their 
  {\em rank}, shown in the left column: better methods
 have {\em lower rank} since they have {\em lower MRE} error values.
@@ -1417,17 +1417,17 @@ inside the inter-quartile range
 (25th to 75th percentile, show as a horizontal line).
 
 The key observation in \fig{loc}
-is that it   just using lines of
+is that  just using lines of
 code is {\em not}  better than parametric estimation.
 Also, when LOC(n) goes wrong, it goes very
-wrong indeed (as seen in the COC81 results, over
+wrong indeed (as seen in the COC81 results, LOC(3) produces over
 double the median MRE error generated by COCOMO-II).
 
 One explanation for this   is \eq{ration} which showed
 how    effort   varies for a given KLOC. That equation had two components: KLOC raised to
 a small exponent (0.25), and a constant showing the influence of all  other
 COCOMO variables. The large value of 856 for that second component
-indicates that many factors outside of KLOC influence effort. Hence, it is hardly
+indicates that many factors outside of KLOC influence effort.{is this absolutely right?} Hence, it is hardly
 surprising that just using KLOC is a poor way to do effort estimation.
 
 Another observation from \fig{loc} is that,
@@ -1994,7 +1994,7 @@ are so imprecise. Perhaps the research community should spend a few years  worki
 on variance reduction, after which time, they can better explore reducing median error values.
  
  
-\subsection{If Not COCOMO, Then What?}\label{sect:nonc}
+\subsection{For Non-COCOMO Data}\label{sect:nonc}
 
 This study was highlighted the benefits of estimating projects using COCOMO.
 Shepperd~\cite{shepperd07} notes that one of the disadvantages of COCOMO is that it demands projects be described
