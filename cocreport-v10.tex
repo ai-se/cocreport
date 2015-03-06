@@ -335,20 +335,7 @@ temporal learning~\cite{lokan09,minku14}, and many more besides.
 %% the model was updated to COCOMO-II~\cite{boehm00b}. A newer COCOMO-III model is also
 %% currently
 %% under development~\cite{rosa14}. 
-
-\begin{tikzpicture}
-      \begin{scope}
-    \clip \secondcircle;
-    \fill[cyan] \thirdcircle;
-      \end{scope}
-      \begin{scope}
-    \clip \firstcircle;
-    \fill[cyan] \thirdcircle;
-      \end{scope}
-      \draw \firstcircle node[text=black,above] {$A$};
-      \draw \secondcircle node [text=black,below left] {$B$};
-      \draw \thirdcircle node [text=black,below right] {$C$};
-    \end{tikzpicture}
+ 
 
 In her keynote address to ICSE'01, Mary Shaw~\cite{shaw01} noted that it can take up to a
 decade  for  research innovations
@@ -410,11 +397,24 @@ if there are large errors in the KLOC estimate.
 
 To explore these questions, we use  COCOMO since its
 internal details have been fully
-published~\cite{boehm00b}. Also, several large COCOMO data
-sets are readily available
+published~\cite{boehm00b}. Also, we can access a full implementation of the standard 1998
+COCOMO model.
+
+Further, we have access to numerous interesting  COCOMO data
+sets. For details on that data, see \fig{dataused} and \fig{types}). 
+With one exception, our learning experiments do not use the data
+that generated   standard COCOMO.
+That exception is the  COC81 data, since this lets us the assess the  labor intensive methods used to generate standard COCOMO against new methods.  
 
 
-The experiments of this paper conclude that
+\begin{figure}[!t]
+\begin{center}
+\includegraphics[width=3.2in]{datasets.png}
+\end{center}
+\caption{Projects in this study (COC81 is a subset of COC'2000).}\label{fig:dataused}
+\end{figure}
+
+Using that data,  the experiments of this paper conclude that
 the answer to all  our  research questions is
 ``no''.  
 The RQ1 experiments show that good estimates use many variables
@@ -474,10 +474,7 @@ investigate how innovative new techniques can extend
 (rather than replace) existing and successful
 estimation methods.  Some experiments in this paper
 are a starting point for that investigation.
-\begin{figure} 
-\includegraphics[width=3.5in]{datasets.png}
-\caption{Projects in this study.}\label{fig:dataused}
-\end{figure}
+
 
 \section{Background}
 
@@ -550,8 +547,8 @@ Sys (OS, compilers, sensors,etc)&7&3&2&
 \includegraphics[width=2.3in]{yearLOC.pdf}
 \noindent
 \end{center}
-\caption{Projects in this study. \fig{cparems}
-shows project attributes.}\label{fig:types}
+\caption{Projects used by the learners in this study. \fig{cparems}
+shows project attributes. }\label{fig:types}
 \end{figure}
 \input{cocomoParams}
 
