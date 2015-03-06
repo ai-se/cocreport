@@ -199,23 +199,19 @@ Tim Menzies\\
        \affaddr{Systems Eng., Stevens, USA}\\
        {yangye@gmail.com}
        % 2nd. author
-\alignauthor
-Barry Boehm\\
-       \affaddr{CS, USC, USA}\\
-       {barryboehm@gmail.com}
+\alignauthor George Mathew \\
+       \affaddr{CS, NcState, USA}\\
+       {george.meg91@gmail.com}
 % 3rd. author
  % use '\and' if you need 'another row' of author names
 % 4th. author
 \and
-\alignauthor George Mathew \\
-       \affaddr{CS, NcState, USA}\\
-       {george.meg91@gmail.com}
+\alignauthor Barry Boehm\\
+       \affaddr{CS, USC, USA}\\
+       {barryboehm@gmail.com}
 \alignauthor Jairus Hihn\\
        \affaddr{JPL, Caltech, USA}\\
-       {jairus.hihn@jpl.nasa.gov}    
-\alignauthor Naveen Lekkalapudi\\
-       \affaddr{CS, WVU, USA}\\
-       {nalekkalapudi@mix.wvu.edu}
+       {jairus.hihn@jpl.nasa.gov}  
 }
 % There's nothing stopping you putting the seventh, eighth, etc.
 % author on the opening page (as the 'third row') but we ask,
@@ -335,20 +331,7 @@ temporal learning~\cite{lokan09,minku14}, and many more besides.
 %% the model was updated to COCOMO-II~\cite{boehm00b}. A newer COCOMO-III model is also
 %% currently
 %% under development~\cite{rosa14}. 
-
-\begin{tikzpicture}
-      \begin{scope}
-    \clip \secondcircle;
-    \fill[cyan] \thirdcircle;
-      \end{scope}
-      \begin{scope}
-    \clip \firstcircle;
-    \fill[cyan] \thirdcircle;
-      \end{scope}
-      \draw \firstcircle node[text=black,above] {$A$};
-      \draw \secondcircle node [text=black,below left] {$B$};
-      \draw \thirdcircle node [text=black,below right] {$C$};
-    \end{tikzpicture}
+ 
 
 In her keynote address to ICSE'01, Mary Shaw~\cite{shaw01} noted that it can take up to a
 decade  for  research innovations
@@ -410,11 +393,26 @@ if there are large errors in the KLOC estimate.
 
 To explore these questions, we use  COCOMO since its
 internal details have been fully
-published~\cite{boehm00b}. Also, several large COCOMO data
-sets are readily available
+published~\cite{boehm00b}. Also, we can access a full implementation of the standard 1998
+COCOMO model.
+Further, we have access to numerous interesting  COCOMO data
+sets: see \fig{dataused} and \fig{types}.
+With one exception, our learning experiments do not use the data
+that generated   standard COCOMO.
+That exception is the  COC81 data-- which  lets us  compare new methods
+against the  labor intensive methods used to make standard COCOMO. 
+Note that all the non-proprietary data used in this study (COC81 and NASA93) is available at
+http://openscience.us/repo.
 
 
-The experiments of this paper conclude that
+\begin{figure}[!t]
+\begin{center}
+\includegraphics[width=3.2in]{datasets1.png}
+\end{center}
+\caption{Projects in this study (COC81 is a subset of COC'2000).}\label{fig:dataused}
+\end{figure}
+
+Using that data,  the experiments of this paper conclude that
 the answer to all  our  research questions is
 ``no''.  
 The RQ1 experiments show that good estimates use many variables
@@ -474,10 +472,8 @@ investigate how innovative new techniques can extend
 (rather than replace) existing and successful
 estimation methods.  Some experiments in this paper
 are a starting point for that investigation.
-\begin{figure} 
-\includegraphics[width=3.5in]{datasets.png}
-\caption{Projects in this study.}\label{fig:dataused}
-\end{figure}
+
+
 
 \section{Background}
 
@@ -550,8 +546,8 @@ Sys (OS, compilers, sensors,etc)&7&3&2&
 \includegraphics[width=2.3in]{yearLOC.pdf}
 \noindent
 \end{center}
-\caption{Projects in this study. \fig{cparems}
-shows project attributes.}\label{fig:types}
+\caption{Projects used by the learners in this study. \fig{cparems}
+shows project attributes. }\label{fig:types}
 \end{figure}
 \input{cocomoParams}
 
@@ -594,23 +590,38 @@ are  a  kind of {\em model-based} method (a)~build a model using old data then (
 model to generate estimates for new projects.  Parametric methods assume that the target model has a particular structure,
 then uses model-based methods to fill in the details of that structure (e.g. to set some tuning parameters).
 
-An alternate to parametric- and model-based approaches are  {\em delphi-based} methods that use
-humans, rather than models, to make an estimate. 
+One of the myths of effort estimation is that no one used model-based estimation and that
+estimates are always better done using expert-based guess-timation, a.k.a. {\em delphi-based} methods.
+While it is true that delphi-based estimation is a common practice~\cite{boehm00a}, this is not to say that it (a) leads to good results; or (b) is easy to apply. In fact, drawbacks with  delphi methods are one of the main motivators for investigating model-based 
+approaches:
+\bi 
+\item Passos et al. show that many
+commercial software engineers generalize from their
+first few projects to all future
+projects~\cite{passos11}.
+\item
+Jorgensen \& Gruschke document how
+  commercial estimation ``gurus'' rarely use lessons
+  from past projects to improve their future estimates~\cite{jorgensen09}. 
+They note that when engineers
+  fail to revise their beliefs, this leads to poor
+  Delphi-based estimates  (see examples in~\cite{jorgensen09}).
+  \ei 
+Once of us (Hihn) is adamant that best estimations come from combining the predictions
+from multiple oracles.  The issue with using multiple oracles is that some of them
+can be very slow to reach their conclusions. Valerdi has carefully documented how
+long it takes a panel of experts to reach consensus on the estimates for XXX
+
+Another matter relating to ease of use is when can humans perform effort estimates.
 Once a
 large software project has been divided into
 multiple small stories, Delphi-based methods can be
 remarkably accurate~\cite{molokk08}. However, for {\em initial} large-scale
-estimates, the Delphi approach has some problems.
-Passos et al. show that many
-commercial software engineers generalize from their
-first few projects to all future
-projects~\cite{passos11}.
-Also, Jorgensen \& Gruschke document how
-  commercial estimation ``gurus'' rarely use lessons
-  from past projects to improve their future estimates~\cite{jorgensen09}. 
-When engineers
-  fail to revise their beliefs, this leads to poor
-  Delphi-based estimates  (see examples in~\cite{jorgensen09}).
+estimates, the Delphi approach has some problems. This is an important issue since, for larger
+projects, that initial budget allocation may require a significant amount of intra-organizational lobbying between groups with competing concerns. For such large-estimate-projects, if can
+be challenging to change the initial budget allocation. Hence, it is important to get
+that initial estimate as accurate as possible.
+
 
 \subsection{COCOMO: Origins and Development}
 These concerns with  Delphi  date
