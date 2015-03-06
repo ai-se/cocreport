@@ -46,7 +46,10 @@
 % For tracking purposes - this is V2.0 - May 2012
 
 \documentclass{sig-alternate}
-
+\usepackage{tikz}
+  \def\firstcircle{(90:1.75cm) circle (2.5cm)}
+  \def\secondcircle{(210:1.75cm) circle (2.5cm)}
+  \def\thirdcircle{(330:1.75cm) circle (2.5cm)} 
 \usepackage{comment}
 \usepackage{cite}
 \usepackage[shortlabels]{enumitem} 
@@ -192,24 +195,24 @@
 Tim Menzies\\
        \affaddr{CS, NcState, USA}\\
        {tim@menzies.us}
-% 2nd. author
+\alignauthor Ye Yang\\
+       \affaddr{Systems Eng., Stevens, USA}\\
+       {yangye@gmail.com}
+       % 2nd. author
 \alignauthor
 Barry Boehm\\
        \affaddr{CS, USC, USA}\\
        {barryboehm@gmail.com}
 % 3rd. author
-\alignauthor Ye Yang\\
-       \affaddr{Systems Eng., Stevens, USA}\\
-       {yangye@gmail.com}
  % use '\and' if you need 'another row' of author names
 % 4th. author
 \and
-\alignauthor Jairus Hihn\\
-       \affaddr{JPL, Caltech, USA}\\
-       {jairus.hihn@jpl.nasa.gov}    
 \alignauthor George Mathew \\
        \affaddr{CS, NcState, USA}\\
        {george.meg91@gmail.com}
+\alignauthor Jairus Hihn\\
+       \affaddr{JPL, Caltech, USA}\\
+       {jairus.hihn@jpl.nasa.gov}    
 \alignauthor Naveen Lekkalapudi\\
        \affaddr{CS, WVU, USA}\\
        {nalekkalapudi@mix.wvu.edu}
@@ -232,14 +235,16 @@ Barry Boehm\\
 Despite decades of research into software effort estimation,
  industry  still makes most use of 
 parametric methods  developed in the 1970s.
-This  lack of adoption of   innovative  estimation methods
-could be explained by the absence of papers demonstrating that
+Why is there so little adoption of   innovative  estimation methods?
+
+One explanation is an absence of results showing that
 (1) parametric estimation is no longer useful and that
 (2) supposedly more innovation methods 
 are comparatively better. 
-
 Accordingly, this paper tries 
-to demonstrate these two points. We were unsuccessful. 
+to demonstrate these two points. 
+We were unsuccessful.  
+
 From this study we conclude that (a)~it is still valid and recommended practice to try parametric estimation
 rather than other methods that are supposedly more  innovative;
 (b)~it is useful
@@ -331,61 +336,63 @@ temporal learning~\cite{lokan09,minku14}, and many more besides.
 %% currently
 %% under development~\cite{rosa14}. 
 
+\begin{tikzpicture}
+      \begin{scope}
+    \clip \secondcircle;
+    \fill[cyan] \thirdcircle;
+      \end{scope}
+      \begin{scope}
+    \clip \firstcircle;
+    \fill[cyan] \thirdcircle;
+      \end{scope}
+      \draw \firstcircle node[text=black,above] {$A$};
+      \draw \secondcircle node [text=black,below left] {$B$};
+      \draw \thirdcircle node [text=black,below right] {$C$};
+    \end{tikzpicture}
 
 In her keynote address to ICSE'01, Mary Shaw~\cite{shaw01} noted that it can take up to a
 decade  for  research innovations
 to become stable and then another decade after that to become widely popular. Given that, it would be reasonable
 to expect commercial adoption of  the 1990s estimation work
 on  regression trees~\cite{shepperd97} or case-based-reasoning~\cite{shepperd97}. However, 
-this has not happened:
-\bi
-\item
-Based on our knowledge of the Chinese and United States software industry,
-we assert that  industry, government labs, or professional societies
-make almost exclusive
-use  of parametric estimation tools such as those offered by 
-Price Systems (pricesystems.com) and  Galorath (galorath.com).
-\item
+this has not happened.
 Parametric estimation is
 widely-used, especially across the aerospace
-industry and various U.S. government agencies. For example,
+industry and various U.S. government agencies. For example:
+\bi 
+\item 
 NASA routinely checks  software estimates 
 in  COCOMO~\cite{dabney07}.  
 \item
+In our work with the Chinese and United States software industry,
+we saw an   almost exclusive
+use  of parametric estimation tools such as those offered by 
+Price Systems (pricesystems.com) and  Galorath (galorath.com).
+\item 
 Professional societies, handbooks and
-certification programs have developed around the use
-of these parametric estimation methods and tools such as ICEAA
-(the
-International Cost Estimation and Analysis Society: 
-iceaaonline.com), along with workshops such as the
-NASA Cost Symposium (goo.gl/8jxPrb) and the
+certification programs are mostly developed around 
+parametric estimation methods and tools; e.g. see the 
+International Cost Estimation and Analysis Society; the
+NASA Cost Symposium;  the
 International Forum on COCOMO and Systems/Software
-Cost Modeling (goo.gl/O01Pc6).
+Cost Modeling\footnote{http://goo.gl/u3q9Nq; http://goo.gl/8jxPrb; http://goo.gl/O01Pc6}.
 \ei
 This  lack of adoption of   innovative  estimation methods
-could be explained by the absence of papers demonstrating that
+could be explained by the absence of results showing that
 (1) parametric estimation is no longer useful, or that
 (2) supposedly more innovation methods 
 are comparatively better. 
-Since the case for (1) and (2) are  missing in the literature,
-we choose to  explore these  issues.
+To explore those absent results this paper asks five research questions:
 
-For that task,
-we used COCOMO since its
-internal details have been fully
-published~\cite{boehm00b}. Also, several COCOMO data
-sets are readily available
-which we used to   answer five research questions:
 
 {\bf RQ1: Is parametric estimation no better than
    using just Lines of Code measures?} 
   (an   often heard, but rarely tested, comment).
 
 {\bf RQ2: Has parametric estimation been superseded
- by more recent estimation methods?}  We 
+ by more recent estimation methods?}  We  
  apply our ``best''
-learner, published in recent IEEE TSE paper, to some
-recent NASA data. We also comparatively assess
+learner, as well as 
 case-based reasoning and regression trees.
 
 {\bf RQ3: Are the old parametric tunings irrelevant
@@ -401,8 +408,14 @@ as well as simplifying the specification of local projects.
 In the context of RQ4, we check what happens
 if there are large errors in the KLOC estimate.
 
+To explore these questions, we use  COCOMO since its
+internal details have been fully
+published~\cite{boehm00b}. Also, several large COCOMO data
+sets are readily available
+
+
 The experiments of this paper conclude that
-the answer to all  these research questions is
+the answer to all  our  research questions is
 ``no''.  
 The RQ1 experiments show that good estimates use many variables
 and  poorer estimates result from   some trite calculation based on KLOC.   
@@ -461,6 +474,10 @@ investigate how innovative new techniques can extend
 (rather than replace) existing and successful
 estimation methods.  Some experiments in this paper
 are a starting point for that investigation.
+\begin{figure} 
+\includegraphics[width=3.5in]{datasets.png}
+\caption{Projects in this study.}\label{fig:dataused}
+\end{figure}
 
 \section{Background}
 
