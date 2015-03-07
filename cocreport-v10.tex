@@ -66,7 +66,7 @@
 \setlist{nolistsep,leftmargin=5mm}
 %\usepackage[pdftex]{graphicx}
 \newcommand{\Sample}{{\bf SAMPLE}}
-\newcommand{\PEEKER}{{\bf PEEKER}}
+\newcommand{\PEEKER2}{{\bf PEEKER2}}
 \usepackage{picture}
 \usepackage{colortbl}
 \usepackage[table]{xcolor}
@@ -93,7 +93,7 @@
     showstringspaces=false,
     %backgroundcolor=\color{Gray},
     keywordstyle=\bfseries,
-    emph={COCONUT,GUESSES,ASSESS,COCOMO2,PEEKER,SAMPLE,WHERE,RIG}, emphstyle=\bfseries\color{Blue},
+    emph={COCONUT,GUESSES,ASSESS,COCOMO2,PEEKER2,SAMPLE,WHERE,RIG}, emphstyle=\bfseries\color{Blue},
     stringstyle=\color{green!50!black},
     commentstyle=\color{red}\itshape,
     %numbers=none,
@@ -114,6 +114,15 @@
 
 \newcommand{\quart}[4]{\begin{picture}(100,4)%1
 {\color{black}\put(#3,2){\circle*{4}}\put(#1,2){\line(1,0){#2}}}\end{picture}}
+
+
+\definecolor{MyDarkBlue}{rgb}{0,0.08,0.45} 
+\newenvironment{changed}{\par\color{MyDarkBlue}}{\par}
+%\newenvironment{changed}{\par}{\par}
+
+\newcommand{\ADD}[1]{\textcolor{MyDarkBlue}{{\bf #1}}}
+%\newcommand{\ADD}[1]{#1}
+ 
 
 
 \usepackage{times}
@@ -391,6 +400,7 @@ as well as simplifying the specification of local projects.
 In the context of RQ4, we check what happens
 if there are large errors in the KLOC estimate.
 
+\begin{changed}
 To explore these questions, we use  COCOMO since its
 internal details have been fully
 published~\cite{boehm00b}. Also, we can access a full implementation of the standard 1998
@@ -401,15 +411,72 @@ With one exception, our learning experiments do not use the data
 that generated   standard COCOMO.
 That exception is the  COC81 data-- which  lets us  compare new methods
 against the  labor intensive methods used to make standard COCOMO. 
-Note that all the non-proprietary data used in this study (COC81 and NASA93) is available at
-http://openscience.us/repo.
+\end{changed}
 
 
 \begin{figure}[!t]
 \begin{center}
 \includegraphics[width=3.2in]{datasets1.png}
 \end{center}
-\caption{Projects in this study (COC81 is a subset of COC'2000).}\label{fig:dataused}
+\caption{\ADD{Projects in this study (COC81 is a subset of COC'2000).}}\label{fig:dataused}
+\end{figure}
+
+
+
+\begin{figure}[!b]
+
+~\\~\\
+
+\begin{center}
+{\scriptsize
+\begin{tabular}{r|@{~}r|@{~}r|@{~}r|@{~}l}
+
+Types of projects& COC81 & NASA93& COC05 &NASA10\\\hline 
+Avionics&     &26&10&17\\\hline
+Banking&       &      &13&     \\\hline
+Business apps/data processing&7&4&31&  \\\hline   
+Control&9&18&13&     \\\hline
+Human-machine interaction&12&       &       &     \\\hline
+Military, ground&       &       &8&     \\\hline
+Misc&5&4&5&     \\\hline
+Mission Planning&      &16&       &     \\\hline
+SCI scientific application&16&21&11&     \\\hline
+Support (tools, utilities, etc)&7&        &       &   \\\hline  
+Sys (OS, compilers, sensors,etc)&7&3&2&     
+     
+
+%% NASA10& COC05 & NASA93& COC81 & Types of projects\\\hline\hline
+%%      &     5 &4      &       & Misc\\\hline
+%%      &       &        &  7   &  Support (tools, utilities, etc)\\\hline
+%%      &      8&       &       & Military, ground\\\hline
+%%      &      13&      &       & Banking\\\hline
+%%      &      2&3      & 7     & Sys (OS, compilers, sensors,etc)\\\hline
+%%      &      31&4     &  7    & Business apps/data processing\\\hline
+%%      &       &16      &      & Mission Planning\\\hline
+%%      &     13  &18     &   9 & Control\\\hline
+%%      &       &       & 12    & Human=machine interaction\\\hline
+%%      &      11& 21     & 16   & SCI scientific application\\\hline
+%%  17  &     10 &26      &     & Avionics Monitoring
+\end{tabular}}
+
+~\\~\\
+
+\includegraphics[width=2.3in]{yearLOC.pdf}
+\noindent
+\end{center}
+\caption{Projects used by the learners in this study. \fig{cparems}
+shows project attributes. 
+COC81 is the original data from 1981 COCOMO book~\cite{boehm81}. 
+This comes from projects dating 1970 to 1980.
+NASA93 is NASA data collected  in the early 1990s
+ about software that supported  the planning activities for the International
+Space Station. 
+Our two other data sets are COC05 and NASA10 (these data sets
+are proprietary and 
+cannot be released to the research community). 
+The non-proprietary data  (COC81 and NASA93) is available at
+http://openscience.us/repo.
+}\label{fig:types}
 \end{figure}
 
 Using that data,  the experiments of this paper conclude that
@@ -426,7 +493,7 @@ use of parametric estimation can still be endorsed.
 What COCOMO, or other parametric
 estimation models, can offer largely contains the
 fundamentals for making estimation decisions
-from expert-delphi, as well as well calibrated
+from expert-Delphi, as well as well calibrated
 tuning factors from over 40 years of
 industrial data.  We would advise
 researchers {\em not} to ignore these fundamentals.
@@ -474,155 +541,86 @@ estimation methods.  Some experiments in this paper
 are a starting point for that investigation.
 
 
-
 \section{Background}
 
 
-\subsection{Principles for Data Mining Experiments}\label{sect:overall}
-
-Data mining experiments should
- {\em not}   evaluate the learned model using the data used to learn that model.
-Accordingly, for this study, we (1)~separated out the available COCOMO-style data into five
-sets then (2)~used a model learned from one of the sets as ``the'' COCOMO model applied to the other four.
-
-The current version of COCOMO was built in 1999 by Boehm et al.~\cite{boehm00b}  using  161 projects in the period 1982 to 1997 from commercial, aerospace,government, and non-profit organizations. 
-The data used to build this model is largely different to the four test sets used in the experiments
-of this paper: 
-\bi
-\item COC81 is the original data from 1981 COCOMO book~\cite{boehm81}. 
-This comes from projects dating 1970 to 1980.
-\item NASA93 is NASA data collected  in the early 1990s
- about software that supported  the planning activities for the International
-Space Station. This
-data is very different to COC81 (e.g.  median development effort for NASA93
-is $2.57*$COC81's median).
-\item 
-Our two other data sets are COC05 and NASA10 (these data sets
-are proprietary and 
-cannot be released to the research community). These projects have no overlap
-to each other other,
-as well as with COC81 and NASA93 (see \fig{types}).  
-Further, except COC81, all other data comes from different projects than the 161 project used train the current  COCOMO.
-\ei
-To download our public data, see http://openscience.us/repo/effort.
-\begin{figure}[!t]
-\begin{center}
-
-~\\~\\~\\
-
-{\scriptsize
-\begin{tabular}{r|@{~}r|@{~}r|@{~}r|@{~}l}
-
-Types of projects& COC81 & NASA93& COC05 &NASA10\\\hline\hline
-Avionics&     &26&10&17\\\hline
-Banking&       &      &13&     \\\hline
-Business apps/data processing&7&4&31&  \\\hline   
-Control&9&18&13&     \\\hline
-Human-machine interaction&12&       &       &     \\\hline
-Military, ground&       &       &8&     \\\hline
-Misc&5&4&5&     \\\hline
-Mission Planning&      &16&       &     \\\hline
-SCI scientific application&16&21&11&     \\\hline
-Support (tools, utilities, etc)&7&        &       &   \\\hline  
-Sys (OS, compilers, sensors,etc)&7&3&2&     
-     
-
-%% NASA10& COC05 & NASA93& COC81 & Types of projects\\\hline\hline
-%%      &     5 &4      &       & Misc\\\hline
-%%      &       &        &  7   &  Support (tools, utilities, etc)\\\hline
-%%      &      8&       &       & Military, ground\\\hline
-%%      &      13&      &       & Banking\\\hline
-%%      &      2&3      & 7     & Sys (OS, compilers, sensors,etc)\\\hline
-%%      &      31&4     &  7    & Business apps/data processing\\\hline
-%%      &       &16      &      & Mission Planning\\\hline
-%%      &     13  &18     &   9 & Control\\\hline
-%%      &       &       & 12    & Human=machine interaction\\\hline
-%%      &      11& 21     & 16   & SCI scientific application\\\hline
-%%  17  &     10 &26      &     & Avionics Monitoring
-\end{tabular}}
-
-~\\~\\
-
-\includegraphics[width=2.3in]{yearLOC.pdf}
-\noindent
-\end{center}
-\caption{Projects used by the learners in this study. \fig{cparems}
-shows project attributes. }\label{fig:types}
-\end{figure}
-\input{cocomoParams}
 
 
-Another concern  is that the number of model parameters
-relative to the number of projects being analyzed.
-As shown in \fig{types}, the data tables of NASA10, COC81, NASA93, and COC05
-contain information on 17, 63, 93, and 95  projects, respectively. Also,
-the 24 parameters of the standard COCOMO model are shown in \fig{cparems}.
-The concern here is that  this is not enough data to constrain the learning of a 23 parameter
-model-- which means that that data could be fitted to almost anything (including {\em spurious noise}).
-It is not possible to solve this problem
-with more extensive data collection since small data sets are the norm in effort estimation research\footnote{
-For example, five recent  effort estimation
-publications~\cite{Mendes2003,Auer2006,baker07,koc11a,Li2009} used tables of data with
-13,15,31,33,52 rows (respectively).}.
-Hence, to manage spurious fitting, this paper takes two steps.
-
-Step one is, when using methods that tune to the local data, to conduct {\em leave-one-out} studies.
-In those studies, for every project, the learner is offered a training
-set containing all other projects (previously, we have conducted an extensive study
-concluding that 
-leave-one-out is recommended over  other methods; i.e. n-way cross-validation~\cite{koc13a}).
-Such leave-one-out studies  would detect spurious fitting when, after training, the learned model
-exhibits {\em low accuracies} or {\em high variance} on the test data.  In the following experiments,
-we will find numerous such results. However, in a result endorsing the continued use of COCOMO,
-we will also find the COCOMO generates
-{\em higher accuracy} and {\em lower variance} results
-
-Step two is to compare standard methods
-with {\em dimensionality reduction methods} that first ``trim'' the number of the parameters in the model. This study explores two such ``trimming'' methods (the COCONUT and TEAK tools, described below). Surprisingly, in a result that strengthens the case for the current COCOMO  model, we show below that trimming
-does not out-perform standard COCOMO, suggesting that the COCOMO description of projects
-successfully constrains the description space for software projects.
-
- 
 
 \subsection{Parameter- vs Model- vs Delpi-based Estimation}
+
+\begin{changed}
+
 COCOMO is a parametric method which, in turn,
-are  a  kind of {\em model-based} method (a)~build a model using old data then (b)~use the
-model to generate estimates for new projects.  Parametric methods assume that the target model has a particular structure,
-then uses model-based methods to fill in the details of that structure (e.g. to set some tuning parameters).
+are  a  kind of {\em model-based} method that (a)~assumes that the target model has a particular structure,
+then (b)~uses model-based methods to fill in the details of that structure (e.g. to set some tuning parameters).
+
 
 One of the myths of effort estimation is that no one used model-based estimation and that
-estimates are always better done using expert-based guess-timation, a.k.a. {\em delphi-based} methods.
-While it is true that delphi-based estimation is a common practice~\cite{boehm00a}, this is not to say that it (a) leads to good results; or (b) is easy to apply. In fact, drawbacks with  delphi methods are one of the main motivators for investigating model-based 
-approaches:
+estimates are always better done using expert-based guess-timation, a.k.a. {\em Delphi-based} methods\footnote{The mythological oracle of Delphi spoke for the god Apollo to answered questions  about colonization, religion, and power.}.
+While it is true that Delphi-based estimation is a common practice~\cite{boehm00a}, this is not to say that Delphi-estimation should be recommended as the {\em best} or {\em only} way to make estimates:
 \bi 
+\item
+Jorgensen~\cite{Jorgensen2004} reviews studies 
+comparing  model- and Delphi- based estimation and concludes that there
+there is no clear case that delph-methods are better.
+\item 
+Valerdi~\cite{valerdi11} lists the
+cognitive biases that can make an expert offer poor Delphi-estimates.
 \item Passos et al. show that many
 commercial software engineers generalize from their
 first few projects to all future
 projects~\cite{passos11}.
 \item
-Jorgensen \& Gruschke document how
-  commercial estimation ``gurus'' rarely use lessons
-  from past projects to improve their future estimates~\cite{jorgensen09}. 
-They note that when engineers
-  fail to revise their beliefs, this leads to poor
-  Delphi-based estimates  (see examples in~\cite{jorgensen09}).
+Jorgensen \& Gruschke~\cite{jorgensen09} document how
+  commercial  ``gurus'' rarely use lessons
+  from past projects to improve their future Delphi-estimates. 
+ They offer examples where this
+  failure to revise prior beliefs   leads to poor
+ Delphi-based estimates.
   \ei 
-Once of us (Hihn) is adamant that best estimations come from combining the predictions
-from multiple oracles.  The issue with using multiple oracles is that some of them
-can be very slow to reach their conclusions. Valerdi has carefully documented how
-long it takes a panel of experts to reach consensus on the estimates for XXX
+Much research has concluded that best    estimations come from {\em combining} the predictions
+from {\em multiple oracles}~\cite{koc11a,chulani99,baker07,valerdi11}.  
+For example, Delphi-estimates might be double-checked against model-based estimates-- in
+which case, it is important to use ``best-in-breed'' model-based estimators (hence, this
+article).
 
-Another matter relating to ease of use is when can humans perform effort estimates.
-Once a
-large software project has been divided into
-multiple small stories, Delphi-based methods can be
-remarkably accurate~\cite{molokk08}. However, for {\em initial} large-scale
-estimates, the Delphi approach has some problems. This is an important issue since, for larger
+\input{cocomoParams}
+
+
+Note that it is far easy faster to apply this double-check strategy using Delphi+model-based methods 
+than by comparing the estimates from multiple Delphi teams.
+For example, all the learners studies in this paper can generate estimates
+in just a few seconds. In comparison, Delphi-based estimation is orders of magnitude slower. 
+Valerdi's  
+COSYSMO method reconciles Delphi-estimates 
+with domain data using  model-based Bayesian tuning.
+While a strong proponent of this approach, he concedes that 
+``(it is)  extremely time
+consuming when large sample sizes are needed''~\cite{valerdi11}.
+For example, he once
+recruited 40 experts to three Delphi sessions, each of which ran for three hours.
+Assuming a 7.5 hour day,
+then that study took \[3*3*40 /7.5 = 48\; \mathit{days}\]
+
+COSYSMO is an elaborate Delphi-based method. An alternate, more lightweight Delphi-method is  ``planning poker''~\cite{molokk08}.
+Participants offer anonymous
+``bids'' on the 
+completion time for a project. If  the bids are widely divergent, then the factors
+leading to that disagreement elaborated and debated. This cyclic of bid+discuss continues
+until a consensus has been reached.
+
+While planning poker is widely advocated in the agile community,
+there are surprisingly few studies assessing this method (one rare exception is~\cite{molokk08}).
+Further,   planning poker is used to assessing effort
+for particular tasks in the scrum backlog-- which is a different and simpler task
+than the {\em initial} estimation of  large-scale
+projects. This is an important issue since, for larger
 projects, that initial budget allocation may require a significant amount of intra-organizational lobbying between groups with competing concerns. For such large-estimate-projects, if can
 be challenging to change the initial budget allocation. Hence, it is important to get
 that initial estimate as accurate as possible.
 
-
+\end{changed}
 \subsection{COCOMO: Origins and Development}
 These concerns with  Delphi  date
 back many decades and were the genesis for  COCOMO. In 1976, Robert Walquist (a TRW division general manager)
@@ -646,15 +644,15 @@ engineering and scientific software involved in
 TRW's business base.  Having access to experts and
 data was a rare opportunity, and a team involving
 Ray Wolverton, Kurt Fischer, and Boehm conducted a
-series of meetings and Delphi exercises to determine
-the relative significance of various software cost
+series of meetings and Delphi exercises to find
+the relative significance of various  cost
 drivers. Using combining local expertise  and data, plus some prior results 
 such as~\cite{putnam76,black77,herd77,watson77},  and early versions of the RCA
 PRICE S model~\cite{frei79}, a model called SCEP was created (Software Cost
 Estimation Program).
 Except for
-one explainable outlier, the model's estimates for
-the 20 projects with solid data were within 30\% of
+one explainable outlier, the estimates for
+ 20 projects with solid data were within 30\% of
 the actuals, with most within 15\% of the actuals.
 
 \begin{figure}[!t]
@@ -686,14 +684,10 @@ _  = None;  Coc2tunings = [[
 'time',           _,    _, 1.00, 1.11, 1.29, 1.63],[
 'tool',        1.17, 1.09, 1.00, 0.90, 0.78,    _]]
 
-def COCOMO2(project, 
-            a = 2.94, b = 0.91, # defaults
-            tunes= Coc2tunings):# defaults, see above
-  sfs  = 0
-  ems  = 1 
-  kloc = 22
-  scaleFactors = 5 
-  effortMultipliers = 17
+def COCOMO2(project,  a = 2.94, b = 0.91, # defaults
+                      tunes= Coc2tunings):# defaults 
+  sfs ems, kloc  = 0,1,22          
+  scaleFactors, effortMultipliers = 5, 17
   for i in range(scaleFactors):
     sfs += tunes[i][project[i]]
   for i in range(effortMultipliers):
@@ -801,10 +795,11 @@ Note that, from \eq{cocII},
 the minimum  
 effort  is bounded by the  {\em sum} of the minimum scale factors
 and the {\em product} of the minimum effort multipliers.
-Similar expressions hold for the  maximum effort estimate which,
-from \fig{coc2}, is
-$0.18*\mathit{KLOC}^{0.97}$ to $\le 154*\mathit{KLOC}^{1.23}$.
-Dividing the minimum and maximum values results in an  expression showimg
+Similar expressions hold for the  maximum effort estimate. Hence,
+for a given KLOC, the range of values is given by:
+\[
+0.18*\mathit{KLOC}^{0.97}  \le \mathit{effort} \le 154*\mathit{KLOC}^{1.23}\]
+Dividing the minimum and maximum values results in an  expression showing
 how    effort can vary for any given KLOC.: 
 \begin{equation}\label{eq:ration}
 154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
@@ -815,9 +810,9 @@ how    effort can vary for any given KLOC.:
 
  
 \subsection{COCOMO and Local Calibration}\label{sect:coconut}
-In \tion{overall}, we discussed the need to ``trim'' the number
-of variables in a model when the  training data is scarce.
-The COCOMO trimming procedure, called   {\em local calibration}, adjusts the impact of the scale factors and effort
+When local data is scare, approximations can be used to
+tune a model using just a handful of examples.  
+ COCOMO   {\em local calibration} pocedure, adjusts the impact of the scale factors and effort
 multipliers by tuning the  $a,b$ values of Equation~\ref{eq:cocII}
 while keeping constant the other values of the tuning matrix
 shown in \fig{coc2}. Effectively, local calibration trims
@@ -960,9 +955,21 @@ that what holds for all, also holds for parts
 of the population~\cite{posnet11,me12d}.
 To avoid ecological inference,
 our  rig runs separately for each data set (see Figure~\ref{fig:rig}).
-Note that this rig uses the leave-one-out experiments recommended in
- in \tion{overall}.
 
+\begin{changed}
+Figure~\ref{fig:rig} is a ``leave-one-out experiment''; i.e.
+training is conducted on all-but-one example, then tested
+on an ``holdout'' example not seen in training This separation of training and testing
+data is of particular
+importance in this study. 
+As shown in \fig{types}, our  data sets (NASA10, COC81, NASA93, and COC05)
+contain information on 17, 63, 92, and 93  projects, respectively. When fitted to
+the   24 parameters of the standard COCOMO model  (shown in \fig{cparems}),
+there may not be enough information to constrain the learning-- which means that it is theoretically
+possible that data could be fitted to almost anything (including {\em spurious noise}).
+To detect such spurious models, it is vital to test the learned model against some
+outside source such as the holdout example.
+\end{changed} 
 
 
 
@@ -988,8 +995,7 @@ than all the results shown here. Hence, we adopt the
 spirit, but not the letter, of their proposal and
 compare all our results against the LOC(n) ``straw
 man'' method discussed below.
-
-
+ 
 
 \subsection{Choice of Learners}\label{sect:whatlearn}
 
@@ -1015,9 +1021,9 @@ $a,b,c$ is
 \end{equation}
 Apart from the LOC ``straw man'',
 we also compare COCOMO-II and COCONUT with CART,
-Knear(n), TEAK, and PEEKER. 
+Knear(n), TEAK, and PEEKER2. 
 These  methods were  selected, for the following reasons.
-TEAK  and PEEKER   represent   recent innovations in effort
+TEAK  and PEEKER2   represent   recent innovations in effort
 estimation~\cite{koc11b,papa13}.  
 CART and Knear(n) are more traditional methods  that proved their value  in the 1990s~\cite{shepperd97,Walkerden1999}. That said, CART and Knear(n)
 still have currency: 
@@ -1056,18 +1062,18 @@ Secondly,
 unlike other predictors, it makes no assumptions about data
 distributions or some  underlying parametric model. 
 
-Earlier in this paper,   the use of ``trimming'' was discussed in \tion{overall}
-to alleviate the problem of fitting   data to spurious noise. 
-Two such trimming algorithms are TEAK and PEEKER~\cite{koc11b,papa13}. TEAK is built
+\begin{changed}
+TEAK is built
 on the assumption that spurious noise leads to large variance in the recorded efforts~\cite{koc11b}.
 TEAK's pre-processor removes such regions of high variance as follows.
 First, it  applied greedy agglomerate clustering  to generate a tree of clusters.
 Next, it reflects on the variance
 of the efforts seen in each sub-tree and discards the sub-trees with largest variance. Estimation is then performed
 on the surviving examples.
-PEEKER~\cite{papa13} is a far more aggressive ``trimmer'' than TEAK and combines three data reduction operators:
-feature weighting, PCA, and prototype generation, see \fig{peeker}.
 
+PEEKER2~\cite{papa13} is a far more aggressive ``data pruner'' than TEAK and combines   data reduction operators, 
+feature weighting,  and PCA. PEEKER2 is described in  \fig{peeker}.
+\end{changed}
 
 
 \begin{figure}[!t]
@@ -1075,19 +1081,15 @@ feature weighting, PCA, and prototype generation, see \fig{peeker}.
 \begin{tabular}{|p{.95\linewidth}|}\hline
 \bi
 \item
-PEEKER's feature weighting scheme changes the $w_i$ score used in the distance 
-calculations of \eq{dist}.
-Attributes are scored according to how much that attribute
+PEEKER2's feature weighting scheme changes  $w_i$ in \eq{dist}  according to how much an attribute
 can divide and reduce the variance of the effort data (the {\em greater} the reduction, the
 {\em larger} the $w_i$ score).  
 \item
-PEEKER's PCA tool used an accelerated   principle component analysis that synthesises  new
+PEEKER2's PCA tool used an accelerated   principle component analysis that synthesises  new
 attributes $e_i, e_2,...$
 that extends across the dimension of greatest  variance in the data  with attributes $d$.  
-PCA is an interesting data ``trimmer'' since, usually,
-only a few $e \ll d$ new dimensions are required to represent the variance in the data. 
 PCA  combines
-redundant  variables into a smaller set of variables since those
+redundant  variables into a smaller set of variables  (so $e \ll d$) since those
 redundancies become (approximately) parallel lines
 in $e$ space. For all such redundancies \mbox{$i,j \in d$}, we 
 can ignore $j$ 
@@ -1096,22 +1098,23 @@ change in the same way over $i$.
 PCA is also useful for skipping over noisy variables from $d$-- these
 variables are effectively ignored since    they  do not contribute to the variance in the data.
 \item
-PEEKER's prototype generator then clusters the data along the dimensions
+PEEKER2's prototype generator  clusters the data along the dimensions
 found by accelerated PCA. Each cluster is then replaced with a ``prototype'' generated from
 the median value of all attributes in that cluster. Prototype generation is a useful tool for
 handling outliers: large groups of outliers get their own cluster; small sets of outliers
 get ignored via median prototype generation.
 \item
-PEEKER generates estimates for a test case by finding its two nearest prototypes   (where ``nearest''
-is computed using \eq{dist} plus feature weighting). If these prototypes are found at distance
+PEEKER2 generates estimates for a test case by finding its nearest cluster,
+then the two nearest neighbors within that cluster  (where ``near''
+is computed using \eq{dist} plus feature weighting). If these neighbors are found at distance
 $n_1,n_2, n_1 < n_2$ and have effort values $E_1,E_2$ then the final estimate is an extrapolation
-between the two prototypes, favoring the closest one:
+favoring the closest one:
 \ei
 \[
 n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
 \]\\\hline
 \end{tabular} 
-\caption{Inside PEEKER~\cite{papa13}.}\label{fig:peeker}
+\caption{Inside PEEKER2~\cite{papa13}.}\label{fig:peeker}
 \end{figure}
 
 
@@ -1511,8 +1514,28 @@ their new method against older ones.
 
 
 
+As to COCONUT, this method
+was usually ranked equaled to COCOMO-II.  
+In several case  COCOMO-II and COCONUT were ranked first and second but
+the median difference in their scores is very small: see
+NASA10 of \fig{standard} and NASA93,COC81 of \fig{newer}
+Also,
+many other methods often had much larger variances. 
+Hence,  we can recommend some form of local calibration as a variance reduction tool
+(e.g. compare COCONUT with COCOMO-II in COC05 of \fig{newer}).
 
-\begin{figure}[!t]
+
+From this data, we conclude that it is not
+always true the parametric estimation has been
+superseded by more recent innovations such
+as CART, Knear(n), TEAK or PEEKER2. Also, the COCOMO-II tunings from 2000
+are useful not just for the projects prior to 200
+(all of COC81, plus some of NASA93)
+but also for projects completed up to a decade after
+those tunings (NASA10).
+
+
+\begin{figure}[!h]
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
 
@@ -1525,7 +1548,7 @@ their new method against older ones.
   1 &   COCOMO-II &    43  &  35 & \quart{13}{19}{23}{111} \\
 \hline 
   2 &      TEAK &    73  &  80 & \quart{29}{43}{39}{111} \\
-  2 & PEEKER &    74  &  51 & \quart{29}{22}{39}{111}  
+  2 & PEEKER2 &    74  &  51 & \quart{29}{22}{39}{111}  
 \end{tabular}}
 
 ~\\
@@ -1539,7 +1562,7 @@ their new method against older ones.
   1 & COCONUT &    62  &  38 & \quart{6}{6}{15}{110} \\
   1 &      TEAK &    84  &  110 & \quart{10}{32}{23}{110} \\
 \hline
-  2 & PEEKER &    87  &  140 & \quart{6}{40}{24}{110}  
+  2 & PEEKER2 &    87  &  140 & \quart{6}{40}{24}{110}  
 \end{tabular}}
 
 % :learn 70.71 :analyze 4.04 :boots 2 effects 2 :conf 0.9801
@@ -1559,7 +1582,7 @@ their new method against older ones.
   1 &      COCOMO-II &    39  &  39 & \quart{3}{10}{10}{100} \\
   1 & TEAK &    50  &  81 & \quart{0}{28}{15}{100} \\
 \hline  
-  2 & PEEKER &    65  &  165 & \quart{6}{64}{21}{100}  
+  2 & PEEKER2 &    65  &  165 & \quart{6}{64}{21}{100}  
 \end{tabular}}
 
 % :learn 548.2 :analyze 7.81 :boots 3 effects 14 :conf 0.970299
@@ -1582,7 +1605,7 @@ their new method against older ones.
   1 &      COCONUT &    33  &  42 & \quart{0}{6}{4}{100} \\
 \hline  2 & TEAK &    93  &  128 & \quart{9}{24}{17}{100} \\
 \hline
-  3 & PEEKER &    131  &  569 & \quart{9}{70}{24}{100} \ 
+  3 & PEEKER2 &    131  &  569 & \quart{9}{70}{24}{100} \ 
 \end{tabular}}
 
 % :learn 260.57 :analyze 8.89 :boots 6 effects 11 :conf 0.941480149401
@@ -1592,25 +1615,6 @@ their new method against older ones.
 \end{figure}
 
 
-As to COCONUT, this method
-was usually ranked equaled to COCOMO-II.  
-In several case  COCOMO-II and COCONUT were ranked first and second but
-the median difference in their scores is very small: see
-NASA10 of \fig{standard} and NASA93,COC81 of \fig{newer}
-Also,
-many other methods often had much larger variances. 
-Hence,  we can recommend some form of local calibration as a variance reduction tool
-(e.g. compare COCONUT with COCOMO-II in COC05 of \fig{newer}).
-
-
-From this data, we conclude that it is not
-always true the parametric estimation has been
-superseded by more recent innovations such
-as CART, Knear(n), TEAK or PEEKER. Also, the COCOMO-II tunings from 2000
-are useful not just for the projects prior to 200
-(all of COC81, plus some of NASA93)
-but also for projects completed up to a decade after
-those tunings (NASA10).
 
 \subsection{COCOMO vs Simpler COCOMO}\label{sect:simpler}
 This section explores {\bf RQ4:
@@ -1932,7 +1936,7 @@ vary up to 50\% of their original value.
 \begin{minipage}{.83\linewidth}
 \begin{tabular}{r@{~}|r@{~}|r@{~}|l@{~}|r@{~}l@{~}|r@{~}l|r@{~}l@{~}|r@{~}l@{~}|r@{~}l}
   \multicolumn{4}{c|}{~}&\multicolumn{10}{c}{median( {\em abs(predicted - actual) / actual} ) } \\
-  Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKER}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{CART~}         &   \multicolumn{2}{c}{Knear(1)}    &   \multicolumn{2}{c}{TEAK}\\\hline
+  Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKER2}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{CART~}         &   \multicolumn{2}{c}{Knear(1)}    &   \multicolumn{2}{c}{TEAK}\\\hline
 \multicolumn{1}{c}{~}\\
 Albrecht  &   7         &   24   &   Projects from IBM   & 28 &     & 40 & {\rtwo} & 38 & {\rtwo} & 38 & {\rtwo} & 49 & {\rfour} \\
 China      &   18       &   488   &   Projects from Chinese software companies   &   38   &  {\rtwo}  &   34   &       &   34   &       &   35   &  {\rone}   &   41   &   {\rfour}\\
@@ -2059,12 +2063,12 @@ The gray bars of that figure  show  the median error
 results of a leave-one-out study descretized into   20th percentiles ranges from min to max
 (so the {\em more} the gray bars, the {\em worse} the learner).
 On these non-COCOMO data sets, standard linear regression usually performed worse
-and PEEKER usually performed best. Hence, for non-COCOMO data sets we recommend PEEKER (but
+and PEEKER2 usually performed best. Hence, for non-COCOMO data sets we recommend PEEKER2 (but
 stress this qualitative recommendation is not as strong as our 
 previous endorsement of COCOMO/COCOUNT,
 which can be defended via a  more rigorous statistical analysis).
 
-Why is PEEKER best for non-COCOMO data and not for COCOMO
+Why is PEEKER2 best for non-COCOMO data and not for COCOMO
 data? The answer, we conjecture,
 is that model-based effort estimation involves {\em data collection} followed by {\em model
 generation}. Perhaps if the data collection is very broad and covers all aspects of a project such as the 
@@ -2077,9 +2081,9 @@ we would expect:
 \bi 
 \item The generator needs to be  sophisticated; e.g. not something
 as simplistic as the linear regression used in \fig{nonc}
-(hence, PEEKER did well in that figure);
+(hence, PEEKER2 did well in that figure);
 \item No matter how sophisticated the model generator, it may not perform well
-as models generated from a broader range of data (hence, PEEKER   performed
+as models generated from a broader range of data (hence, PEEKER2   performed
 worse than COCOMO in \fig{newer}).
 \ei
 
@@ -2092,7 +2096,7 @@ worse than COCOMO in \fig{newer}).
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 0, max= 100\\
 \\
-  1 & PEEKER &    23  &  34 & \quart{12}{34}{23}{100} \\
+  1 & PEEKER2 &    23  &  34 & \quart{12}{34}{23}{100} \\
   1 & Knear(3) &    26  &  33 & \quart{9}{33}{26}{100} \\
   1 & TEAK &    31  &  28 & \quart{17}{28}{31}{100} \\
   1 & CART &    31  &  22 & \quart{23}{22}{31}{100} \\
