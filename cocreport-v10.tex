@@ -66,7 +66,7 @@
 \setlist{nolistsep,leftmargin=5mm}
 %\usepackage[pdftex]{graphicx}
 \newcommand{\Sample}{{\bf SAMPLE}}
-\newcommand{\PEEKER2}{{\bf PEEKER2}}
+\newcommand{\PEEKER}{{\bf PEEKER2}}
 \usepackage{picture}
 \usepackage{colortbl}
 \usepackage[table]{xcolor}
@@ -77,7 +77,7 @@
 \definecolor{darkgray}{gray}{0.6}
 \usepackage{tabu}
 
-
+%XXX also note in 2.1 the rpevalnce of model-based methds
 
 \definecolor{Gray}{gray}{0.95}
 \definecolor{LightGray}{gray}{0.975}
@@ -340,7 +340,6 @@ temporal learning~\cite{lokan09,minku14}, and many more besides.
 %% the model was updated to COCOMO-II~\cite{boehm00b}. A newer COCOMO-III model is also
 %% currently
 %% under development~\cite{rosa14}. 
- 
 
 In her keynote address to ICSE'01, Mary Shaw~\cite{shaw01} noted that it can take up to a
 decade  for  research innovations
@@ -367,7 +366,7 @@ parametric estimation methods and tools; e.g. see the
 International Cost Estimation and Analysis Society; the
 NASA Cost Symposium;  the
 International Forum on COCOMO and Systems/Software
-Cost Modeling\footnote{http://goo.gl/u3q9Nq; http://goo.gl/8jxPrb; http://goo.gl/O01Pc6}.
+Cost Modeling\footnote{See the websites goo.gl/u3q9Nq, goo.gl/8jxPrb, goo.gl/O01Pc6.}.
 \ei
 This  lack of adoption of   innovative  estimation methods
 could be explained by the absence of results showing that
@@ -551,14 +550,18 @@ are a starting point for that investigation.
 
 \begin{changed}
 
-COCOMO is a parametric method which, in turn,
-are  a  kind of {\em model-based} method that (a)~assumes that the target model has a particular structure,
+COCOMO is a parametric method; i.e. it is a 
+{\em model-based} method that (a)~assumes that the target model has a particular structure,
 then (b)~uses model-based methods to fill in the details of that structure (e.g. to set some tuning parameters).
 
 
 One of the myths of effort estimation is that no one used model-based estimation and that
 estimates are always better done using expert-based guess-timation, a.k.a. {\em Delphi-based} methods\footnote{The mythological oracle of Delphi spoke for the god Apollo to answered questions  about colonization, religion, and power.}.
-While it is true that Delphi-based estimation is a common practice~\cite{boehm00a}, this is not to say that Delphi-estimation should be recommended as the {\em best} or {\em only} way to make estimates:
+As seen in the introduction, model-based
+parametric methods are  widely used in industry and
+are strongly advocated by professional socients.
+Also, 
+while it is true that Delphi-based estimation is a common practice~\cite{boehm00a}, this is not to say that this should be recommended as the {\em best} or {\em only} way to make estimates:
 \bi 
 \item
 Jorgensen~\cite{Jorgensen2004} reviews studies 
@@ -581,21 +584,14 @@ Jorgensen \& Gruschke~\cite{jorgensen09} document how
   \ei 
 Much research has concluded that best    estimations come from {\em combining} the predictions
 from {\em multiple oracles}~\cite{koc11a,chulani99,baker07,valerdi11}.  
-For example, Delphi-estimates might be double-checked against model-based estimates-- in
-which case, it is important to use ``best-in-breed'' model-based estimators (hence, this
-article).
-
 \input{cocomoParams}
-
-
 Note that it is far easy faster to apply this double-check strategy using Delphi+model-based methods 
 than by comparing the estimates from multiple Delphi teams.
-For example, all the learners studies in this paper can generate estimates
-in just a few seconds. In comparison, Delphi-based estimation is orders of magnitude slower. 
+For example, all the learners studied in this paper can generate estimates
+in just a few seconds. In comparison, Delphi-based estimation is orders of magnitude slower-- as seen in  
 Valerdi's  
-COSYSMO method reconciles Delphi-estimates 
-with domain data using  model-based Bayesian tuning.
-While a strong proponent of this approach, he concedes that 
+COSYSMO Delphi-method.
+While a strong proponent of this approach, Valerdi concedes that 
 ``(it is)  extremely time
 consuming when large sample sizes are needed''~\cite{valerdi11}.
 For example, he once
@@ -603,8 +599,8 @@ recruited 40 experts to three Delphi sessions, each of which ran for three hours
 Assuming a 7.5 hour day,
 then that study took \[3*3*40 /7.5 = 48\; \mathit{days}\]
 
-COSYSMO is an elaborate Delphi-based method. An alternate, more lightweight Delphi-method is  ``planning poker''~\cite{molokk08}.
-Participants offer anonymous
+COSYSMO is an elaborate Delphi-based method. An alternate, more lightweight Delphi-method is  ``planning poker''~\cite{molokk08} where
+participants offer anonymous
 ``bids'' on the 
 completion time for a project. If  the bids are widely divergent, then the factors
 leading to that disagreement elaborated and debated. This cyclic of bid+discuss continues
@@ -949,17 +945,18 @@ def RIG():
 \subsection{Choice of Experimental Rig}
 
 
-``Ecology inference''
+``Ecological inference''
 is the conceit 
 that what holds for all, also holds for parts 
 of the population~\cite{posnet11,me12d}.
 To avoid ecological inference,
-our  rig runs separately for each data set (see Figure~\ref{fig:rig}).
+our  rig in Figure~\ref{fig:rig}
+runs separately for each data set.
 
 \begin{changed}
-Figure~\ref{fig:rig} is a ``leave-one-out experiment''; i.e.
+It is important to note that Figure~\ref{fig:rig} is a ``leave-one-out experiment''; i.e.
 training is conducted on all-but-one example, then tested
-on an ``holdout'' example not seen in training This separation of training and testing
+on an ``holdout'' example not seen in training. This separation of training and testing
 data is of particular
 importance in this study. 
 As shown in \fig{types}, our  data sets (NASA10, COC81, NASA93, and COC05)
@@ -1227,13 +1224,13 @@ Note that Scott-Knott found  little
 difference between rx5 and rx3. Hence,
 they have the same rank, even though their medians differ.
 
-Scott-Knott is preferred to, say, hypothesis testing
-over all-pairs of methods; e.g. six treatments
-can be compared $(6^2-6)/2=15$ ways and 
-a 95\% confidence test run for each comparison has  a very low total confidence 
-$0.95^{15} = 46$\%.
+Scott-Knott is better than an 
+ all-pairs hypothesis test of all methods; e.g. six treatments
+can be compared \mbox{$(6^2-6)/2=15$} ways. 
+A 95\% confidence test run for each comparison has  a very low total confidence: 
+\mbox{$0.95^{15} = 46$}\%.
 To avoid an all-pairs comparison, Scott-Knott only calls on hypothesis
-tests {\em after} it has found splits that maximize the perfromance differences.
+tests {\em after} it has found splits that maximize the performance differences.
  
 For this study, our hypothesis test $H$ was a
 conjunction of the A12 effect size test of  and
@@ -1275,7 +1272,63 @@ at ICSE'11~\cite{arcuri11}.
 
 
 
-\begin{figure}[!t]
+\section{Results}
+\subsection{COCOMO vs Just Lines of Code}\label{sect:justloc}
+This section explores {\bf RQ1:
+is parametric estimation no better than 
+using simple lines of code measures?}
+
+An often heard, but not often tested, criticism of parametric
+estimation methods is that they are no
+better than just using simple lines of code measures.
+As shown in \fig{loc}, this is not necessarily true.
+This figure is a comparative ranking for LOC(1)
+LOC(3), COCOMO-II and COCONUT.
+The rows of \fig{loc} are sorted by the median MRE figures.
+These rows are divided according to their 
+ {\em rank}, shown in the left column: better methods
+have {\em lower rank} since they have {\em lower MRE} error values.
+The right-hand-side column displays the median error (as a black dot)
+inside the inter-quartile range
+(25th to 75th percentile, show as a horizontal line).
+
+The key feature of \fig{loc}
+is that  just using lines of
+code is {\em not}  better than parametric estimation.
+Also, when LOC(n) goes wrong, it goes very
+wrong indeed (see the COC81 results: LOC(3) produces 
+double the median MRE error generated by COCOMO-II).
+
+One explanation for this   is \eq{ration} which showed
+how    effort   varies for a given KLOC. That equation had two components: KLOC raised to
+a small exponent (0.25), and a constant showing the influence of all  other
+COCOMO variables. The large value of 856 for that second component
+indicates that many factors outside of KLOC influence effort.{is this absolutely right?} Hence, it is hardly
+surprising that just using KLOC is a poor way to do effort estimation.
+
+Another observation from \fig{loc} is that,
+measured in terms of median MRE, COCONUT's local
+calibration is not  better
+than  untuned COCOMO. In only one data set
+(NASA93) did COCONUT have a lower median MRE than
+COCOMO-II but even in that case, Scott-Knott
+declared there was no significant difference between
+the COCOMO-II and COCONUT results.
+
+On the other hand, sometimes the local calibration
+results exhibited far less variance than those of
+COCOMO-II. For example, in \fig{loc}'s COC05
+results, the IQR ranges for
+COCOMO-II and COCONUT were 146 and 34 respectively.
+This result (that local calibration reduces
+variance) repeats enough times in the subsequent
+experiments to make us recommend local calibration
+as a method for taming high variance in effort
+estimation.
+
+
+
+\begin{figure}
  
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
@@ -1363,6 +1416,24 @@ divide the ``ranks'' found by our Scott-Knott+bootstrapping+effect size tests  (
 
 
 
+\subsection{COCOMO vs Other Methods}\label{sect:othermethods}
+This section explores {\bf RQ2: 
+has parametric estimation been superseded
+by more recent estimation methods?}
+and {\bf R3: Are the old parametric tunings irrelevant to
+more recent projects?}
+
+\fig{standard} compares COCOMO and COCONUT with  
+traditional effort estimation methods
+from the 1990s (CART and Knear(n)).
+In that comparison, nothing was ever ranked better than COCOMO-II
+(sometimes
+CART or COCONUT had a slightly lower median MRE but that difference was small: $\le 4$\%).
+
+
+
+
+
 \begin{figure}[!t]
  
 {\scriptsize
@@ -1427,79 +1498,6 @@ divide the ``ranks'' found by our Scott-Knott+bootstrapping+effect size tests  (
 Displayed as per \fig{loc}. }\label{fig:standard}
 \end{figure}
 
-\section{Results}
-\subsection{COCOMO vs Just Lines of Code}\label{sect:justloc}
-This section explores {\bf RQ1:
-is parametric estimation no better than 
-using simple lines of code measures?}
-
-An often heard, but not often tested, criticism of parametric
-estimation methods is that they are no
-better than just using simple lines of code measures.
-As shown in \fig{loc}, this is not necessarily true.
-This figure is a comparative ranking for LOC(1)
-LOC(3), COCOMO-II and COCONUT.
-The rows of \fig{loc} are sorted by the median MRE figures.
-These rows are divided according to their 
- {\em rank}, shown in the left column: better methods
-have {\em lower rank} since they have {\em lower MRE} error values.
-The right-hand-side column displays the median error (as a black dot)
-inside the inter-quartile range
-(25th to 75th percentile, show as a horizontal line).
-
-The key observation in \fig{loc}
-is that  just using lines of
-code is {\em not}  better than parametric estimation.
-Also, when LOC(n) goes wrong, it goes very
-wrong indeed (as seen in the COC81 results, LOC(3) produces over
-double the median MRE error generated by COCOMO-II).
-
-One explanation for this   is \eq{ration} which showed
-how    effort   varies for a given KLOC. That equation had two components: KLOC raised to
-a small exponent (0.25), and a constant showing the influence of all  other
-COCOMO variables. The large value of 856 for that second component
-indicates that many factors outside of KLOC influence effort.{is this absolutely right?} Hence, it is hardly
-surprising that just using KLOC is a poor way to do effort estimation.
-
-Another observation from \fig{loc} is that,
-measured in terms of median MRE, COCONUT's local
-calibration is not  better
-than  untuned COCOMO. In only one data set
-(NASA93) did COCONUT have a lower median MRE than
-COCOMO-II but even in that case, Scott-Knott
-declared there was no significant difference between
-the COCOMO-II and COCONUT results.
-
-On the other hand, sometimes the local calibration
-results exhibited far less variance than those of
-COCOMO-II. For example, in \fig{loc}'s COC05
-results, the IQR ranges for
-COCOMO-II and COCONUT were 146 and 34 respectively.
-This result (that local calibration reduces
-variance) repeats enough times in the subsequent
-experiments to make us recommend local calibration
-as a method for taming high variance in effort
-estimation.
-
-
-
-
-\subsection{COCOMO vs Other Methods}\label{sect:othermethods}
-This section explores {\bf RQ2: 
-has parametric estimation been superseded
-by more recent estimation methods?}
-and {\bf R3: Are the old parametric tunings irrelevant to
-more recent projects?}
-
-\fig{standard} compares COCOMO and COCONUT with  
-traditional effort estimation methods
-from the 1990s (CART and Knear(n)).
-In that comparison, nothing was ever ranked better than COCOMO-II
-(sometimes
-CART or COCONUT had a slightly lower median MRE but that difference was small: $\le 4$\%).
-
-
-
 
 \fig{newer} compares COCOMO and COCONUT to more recent effort estimation methods
   (TEAK and PEEKER). Once again,   nothing was ever ranked better than COCOMO-II
@@ -1535,7 +1533,7 @@ but also for projects completed up to a decade after
 those tunings (NASA10).
 
 
-\begin{figure}[!h]
+\begin{figure}
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
 
@@ -1671,7 +1669,7 @@ results obtained with {\em r8} we did not explore larger training sets.
 
 
 
-\begin{figure}[!b]
+\begin{figure}
  
 {\scriptsize
 {\bf NASA10 (new NASA data up to 2010):}
@@ -1943,7 +1941,7 @@ China      &   18       &   488   &   Projects from Chinese software companies  
 Cosmic     &   y   &   y   &   Projects described in functiion points   &   98   &   {\rfour}   &   75   &       &   85   &    {\rtwo}   &   85   &   {\rtwo}    &   89   &   {\rtwo}\\
 ISBSG10    &   y   &   y   &   From the ISBSG benchmark suite   &   56   &       &   62   &     &   126   &   {\rfour}   &   66   &   {\rone}   &   65   &   {\rone}\\
 Kemerer    &   7   &   15   &   Large business applications   &   42   &  {\rtwo}  &   24   &   &   55   &  {\rfour} &   55   &   {\rfour}   &   55   &   {\rfour}\\
-Kitchenham &    6   &   145   &  y    &   34   &   &   43   &   {\rthree}   &   34   &  &   43   &  {\rthree}  &   47   &  {\rfour}  \\
+Kitchenham &    6   &   145   &  Misc software projects.    &   34   &   &   43   &   {\rthree}   &   34   &  &   43   &  {\rthree}  &   47   &  {\rfour}  \\
 Maxwell    &   27  &   62  & Projects from commercial banks in Finland   &   57   &   {\rtwo}   &   56   &   {\rtwo}   &   47   &   &   53   &  {\rone} &   64   &   {\rfour}\\
 Miyazaki   &   8   &   48 &Japanese software projects developed in COBOL   &   39   &       &   41   &   &   41   &    &   57   &   {\rfour}   &   57   &   {\rfour}\\
 Telecom    &   3   &   18   &   Maintenance projects for telecom companies   &   23   &       &   26   &   {\rtwo}   &   31   & {\rfour}  &   31   &   {\rfour}   &   31   &   {\rfour}\\
@@ -1984,16 +1982,24 @@ for each data set.\\\hline
 non-COCOMO data sets. 
 Gray bars  show  error 
 discretized into 20th percentiles ranges from min to max.
+The PEEKER2 learner has fewest gray bars;
+i.e. it is the best learner seen in this sample.
 All data available from http://openscience.us/repo/effort.
 }\label{fig:nonc}
 \end{figure*}
 
 \section{Discussion}
-From the above, there are two open issues.
+From the above, there are several open issues:
+\bi 
+\item 
 How can an estimation method based
-on lines of code be immune to errors in measures to those lines of code? Also,
-all the above assumes that it is possible to collect project data using the COCOMO
+on lines of code be immune to errors in measures to those lines of code? 
+\item 
+All the above assumes that it is possible to collect project data using the COCOMO
 attributes of \fig{cparems}. What if that is not true?
+\item 
+The nature of software development is changing. What does that say for the future of parametric models like COCOMO?
+\ei
 
 \subsection{KLOC Noise Immunity}
 
@@ -2104,6 +2110,35 @@ worse than COCOMO in \fig{newer}).
 \end{tabular}}
 \caption{Example result of applying learners to non-COCOMO data.}\label{fig:telecom}
 \end{figure}
+
+\subsection{Next-Generation COCOMO}
+
+
+Having endorsed the use of parametric methods such as COCOMO, it is approprite
+to discuss current plans for new versions of that approach.
+Recent changes  in the software industry
+suggest  it is time  to revise COCOMO-II.
+The rise of agile methods, web
+services, cloud services, parallelized software on
+multicore chips, field-programmable-gate-array
+(FPGA) software, apps, widgets, and net-centric
+systems of systems (NCSOS) have caused the COCOMO II
+developers and users to begin addressing an upgrade
+to the 14-year-old COCOMO II. 
+Current discussions
+of a potential COCOMO III have led to a
+reconsideration of the old COCOMO 1981 development
+modes, as different development phenomena appear to
+drive the costs and schedules of web-services,
+business data processing, real-time embedded
+software, command and control, and engineering and
+scientific applications.
+Efforts to characterize
+these modes and to gather data to calibrate models
+for dealing with them are underway. Contributors
+to the definition and calibration are most  welcome.  
+
+
 \section{Threats to Validity}
 
 The above results were based with certain settings for some experiments on some data. 
@@ -2181,36 +2216,8 @@ show that different methods can work together to
 reduce biases~\cite{yang08aa}. What we hope we have shown here is that it would be useful for those best practices
 to {\em include}, and not {\em replace}, parametric estimation.
 
+ 
 
-\section{Future Work}
-The discussion section of this paper highlighted the difficulties
-associated with reasoning about effort estimates with high variance. Reducing
-high variance should be a focus of future effort estimation research.
-
-
-Having endorsed the use of parametric methods such as COCOMO, it is approprite
-to discuss current plans for new versions of that approach.
-Recent changes  in the software industry
-suggest  it is time  to revise COCOMO-II.
-The rise of agile methods, web
-services, cloud services, parallelized software on
-multicore chips, field-programmable-gate-array
-(FPGA) software, apps, widgets, and net-centric
-systems of systems (NCSOS) have caused the COCOMO II
-developers and users to begin addressing an upgrade
-to the 14-year-old COCOMO II. 
-Current discussions
-of a potential COCOMO III have led to a
-reconsideration of the old COCOMO 1981 development
-modes, as different development phenomena appear to
-drive the costs and schedules of web-services,
-business data processing, real-time embedded
-software, command and control, and engineering and
-scientific applications.
-Efforts to characterize
-these modes and to gather data to calibrate models
-for dealing with them are underway. Contributors
-to the definition and calibration are most  welcome.  
 
 
 %%  We hasten to add that these results should not be read
