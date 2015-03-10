@@ -66,7 +66,7 @@
 \setlist{nolistsep,leftmargin=5mm}
 %\usepackage[pdftex]{graphicx}
 \newcommand{\Sample}{{\bf SAMPLE}}
-\newcommand{\PEEKER}{{\bf PEEKER2}}
+\newcommand{\PEEKING}{{\bf PEEKING2}}
 \usepackage{picture}
 \usepackage{colortbl}
 \usepackage[table]{xcolor}
@@ -93,7 +93,7 @@
     showstringspaces=false,
     %backgroundcolor=\color{Gray},
     keywordstyle=\bfseries,
-    emph={COCONUT,GUESSES,ASSESS,COCOMO2,PEEKER2,SAMPLE,WHERE,RIG}, emphstyle=\bfseries\color{Blue},
+    emph={COCONUT,GUESSES,ASSESS,COCOMO2,PEEKING2,SAMPLE,WHERE,RIG}, emphstyle=\bfseries\color{Blue},
     stringstyle=\color{green!50!black},
     commentstyle=\color{red}\itshape,
     %numbers=none,
@@ -204,10 +204,10 @@
 \alignauthor
 Tim Menzies\\
        \affaddr{CS, NcState, USA}\\
-       {tim@menzies.us}
+       {tim.menzies@gmail.com}
 \alignauthor Ye Yang\\
-       \affaddr{Systems Eng., Stevens, USA}\\
-       {yangye@gmail.com}
+       \affaddr{SSE, Stevens  Institute, USA}\\
+       {ye.yang@stevens.com}
        % 2nd. author
 \alignauthor George Mathew \\
        \affaddr{CS, NcState, USA}\\
@@ -946,13 +946,25 @@ def RIG():
 \subsection{Choice of Experimental Rig}
 
 
+
+
 ``Ecological inference''
 is the conceit 
 that what holds for all, also holds for parts 
 of the population~\cite{posnet11,me12d}.
 To avoid ecological inference,
 our  rig in Figure~\ref{fig:rig}
-runs separately for each data set.
+runs separately for each data set.  
+
+
+Since some of our methods include a stochastic
+algorithm (the COCONUT algorithm of \fig{coconut}),
+we repeat our experimental rig   $N=10$ times
+(10 was selected since, after experimentation, we
+found our results looked the same at $N=8$ and
+$N=16$).
+
+
 
 \begin{changed}
 It is important to note that Figure~\ref{fig:rig} is a ``leave-one-out experiment''; i.e.
@@ -968,15 +980,6 @@ possible that data could be fitted to almost anything (including {\em spurious n
 To detect such spurious models, it is vital to test the learned model against some
 outside source such as the holdout example.
 \end{changed} 
-
-
-
-Since some of our methods include a stochastic
-algorithm (the COCONUT algorithm of \fig{coconut}),
-we repeat the leave-one-out experiments $N=10$ times
-(10 was selected since, after experimentation, we
-found our results looked the same at $N=8$ and
-$N=16$).
 
 We assess  
 performance via the magnitude of the relative error; i.e. 
@@ -1019,9 +1022,9 @@ $a,b,c$ is
 \end{equation}
 Apart from the LOC ``straw man'',
 we also compare COCOMO-II and COCONUT with CART,
-Knear(n), TEAK, and PEEKER2. 
+Knear(n), TEAK, and PEEKING2. 
 These  methods were  selected, for the following reasons.
-TEAK  and PEEKER2   represent   recent innovations in effort
+TEAK  and PEEKING2   represent   recent innovations in effort
 estimation~\cite{koc11b,papa13}.  
 CART and Knear(n) are more traditional methods  that proved their value  in the 1990s~\cite{shepperd97,Walkerden1999}. That said, CART and Knear(n)
 still have currency: 
@@ -1069,8 +1072,8 @@ Next, it reflects on the variance
 of the efforts seen in each sub-tree and discards the sub-trees with largest variance. Estimation is then performed
 on the surviving examples.
 
-PEEKER2~\cite{papa13} is a far more aggressive ``data pruner'' than TEAK and combines   data reduction operators, 
-feature weighting,  and PCA. PEEKER2 is described in  \fig{peeker}.
+PEEKING2~\cite{papa13} is a far more aggressive ``data pruner'' than TEAK and combines   data reduction operators, 
+feature weighting,  and PCA. PEEKING2 is described in  \fig{peeking}.
 \end{changed}
 
 
@@ -1079,11 +1082,11 @@ feature weighting,  and PCA. PEEKER2 is described in  \fig{peeker}.
 \begin{tabular}{|p{.95\linewidth}|}\hline
 \bi
 \item
-PEEKER2's feature weighting scheme changes  $w_i$ in \eq{dist}  according to how much an attribute
+PEEKING2's feature weighting scheme changes  $w_i$ in \eq{dist}  according to how much an attribute
 can divide and reduce the variance of the effort data (the {\em greater} the reduction, the
 {\em larger} the $w_i$ score).  
 \item
-PEEKER2's PCA tool used an accelerated   principle component analysis that synthesises  new
+PEEKING2's PCA tool used an accelerated   principle component analysis that synthesises  new
 attributes $e_i, e_2,...$
 that extends across the dimension of greatest  variance in the data  with attributes $d$.  
 PCA  combines
@@ -1096,13 +1099,13 @@ change in the same way over $i$.
 PCA is also useful for skipping over noisy variables from $d$-- these
 variables are effectively ignored since    they  do not contribute to the variance in the data.
 \item
-PEEKER2's prototype generator  clusters the data along the dimensions
+PEEKING2's prototype generator  clusters the data along the dimensions
 found by accelerated PCA. Each cluster is then replaced with a ``prototype'' generated from
 the median value of all attributes in that cluster. Prototype generation is a useful tool for
 handling outliers: large groups of outliers get their own cluster; small sets of outliers
 get ignored via median prototype generation.
 \item
-PEEKER2 generates estimates for a test case by finding its nearest cluster,
+PEEKING2 generates estimates for a test case by finding its nearest cluster,
 then the two nearest neighbors within that cluster  (where ``near''
 is computed using \eq{dist} plus feature weighting). If these neighbors are found at distance
 $n_1,n_2, n_1 < n_2$ and have effort values $E_1,E_2$ then the final estimate is an extrapolation
@@ -1112,7 +1115,7 @@ favoring the closest one:
 n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
 \]\\\hline
 \end{tabular} 
-\caption{Inside PEEKER2~\cite{papa13}.}\label{fig:peeker}
+\caption{Inside PEEKING2~\cite{papa13}.}\label{fig:peeking}
 \end{figure}
 
 
@@ -1141,21 +1144,21 @@ n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
 %% needed one more learner that was more representative
 %% of recent work than CART or Knear(n). 
 %% Such a learner is the 
-%% PEEKER algorithm of Papakroni~\cite{papa13}.
-%% PEEKER
+%% PEEKING algorithm of Papakroni~\cite{papa13}.
+%% PEEKING
 %% is a non-parametric response surface method that generates estimates for a project by
 %%  interpolating between
 %% the two nearest centroids found by a clustering algorithm.
 %%  This interpolation is weighted by the
 %% distance to each centroid (and the estimate from
-%% the closer centroid has more weight, see \fig{PEEKER}).
-%% That is,  PEEKER is any example of a {\em prototype learner}~\cite{chang74}
+%% the closer centroid has more weight, see \fig{PEEKING}).
+%% That is,  PEEKING is any example of a {\em prototype learner}~\cite{chang74}
 %%  that replaces $N$ examples with $M \ll N$ most informative ``prototypes'' (in this case,
 %% the cluster centroids).
 %% Prototype learners mitigate for data outliers since 
 %% noisy outliers disappear from the prototypes~\cite{chang74}.
 %% In an extensive study,
-%% Papakroni~\cite{papa13} found that PEEKER's predictions where (1)~ competitive
+%% Papakroni~\cite{papa13} found that PEEKING's predictions where (1)~ competitive
 %% with random forests and  Naive Bayes (for defect prediction)
 %% and (2)~regression trees and linear regression (for effort estimation).
 
@@ -1164,7 +1167,7 @@ n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
 
 %% \begin{figure}[!t]
 %% \begin{lstlisting}
-%% def PEEKER(data,project):
+%% def PEEKING(data,project):
 %%    prototypes= WHERE(data)
 %%    neighbors = distances(project,prototypes) 
 %%    one, two  = neighbors[0],neighbors[1] #two closest
@@ -1173,9 +1176,9 @@ n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
 %%    est1, est2= effort(one), effort(two)
 %%    return (w1*est1 + w2*est2) / (w1 + w2) 
 %% \end{lstlisting}
-%% \caption{PEEKER: a non-parametric response surface method that 
+%% \caption{PEEKING: a non-parametric response surface method that 
 %% generates estimates from a  set of piecewise linear approximations.
-%% PEEKER builds its clusters using the WHERE spectral clusterer~\cite{me11m}
+%% PEEKING builds its clusters using the WHERE spectral clusterer~\cite{me11m}
 %% that
 %% recursively divides projects
 %% synthesized by a 
@@ -1184,7 +1187,7 @@ n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
 %%   method~\cite{platt05,Faloutsos1995} rather than
 %%   the standard $O(N^2)$ method to find these
 %%   principle components~\cite{Du2008}.
-%% }\label{fig:PEEKER}
+%% }\label{fig:PEEKING}
 %% \end{figure}
 
 
@@ -1507,7 +1510,7 @@ CART or COCONUT had a slightly lower median MRE but that difference was small: $
 
 
 \fig{newer} compares COCOMO and COCONUT to more recent effort estimation methods
-  (TEAK and PEEKER). Once again,   nothing was ever ranked better than COCOMO-II
+  (TEAK and PEEKING). Once again,   nothing was ever ranked better than COCOMO-II
   or COCONUT.
   
 From these results,
@@ -1531,7 +1534,7 @@ Hence,  we can recommend some form of local calibration as a variance reduction 
 From this data, we conclude that it is not
 always true the parametric estimation has been
 superseded by more recent innovations such
-as CART, Knear(n), TEAK or PEEKER2. Also, the COCOMO-II tunings from 2000
+as CART, Knear(n), TEAK or PEEKING2. Also, the COCOMO-II tunings from 2000
 are useful not just for the projects prior to 200
 (all of COC81, plus some of NASA93)
 but also for projects completed up to a decade after
@@ -1543,7 +1546,7 @@ those tunings (NASA10).
 {\bf NASA10 (new NASA data up to 2010):}
 
 
-{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 0, max= 185\\
 \\
@@ -1551,21 +1554,20 @@ those tunings (NASA10).
   1 &   COCOMO-II &    43  &  35 & \quart{13}{19}{23}{111} \\
 \hline 
   2 &      TEAK &    73  &  80 & \quart{29}{43}{39}{111} \\
-  2 & PEEKER2 &    74  &  51 & \quart{29}{22}{39}{111}  
+  2 & PEEKING2 &    74  &  51 & \quart{29}{22}{39}{111}  
 \end{tabular}}
 
-~\\
 
 {\bf COC05 (new COCOMO data up to 2005):}
 
-{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 300\\
   1 &      COCOMO-II &    46  &  134 & \quart{0}{41}{9}{110} \\
   1 & COCONUT &    62  &  38 & \quart{6}{6}{15}{110} \\
   1 &      TEAK &    84  &  110 & \quart{10}{32}{23}{110} \\
 \hline
-  2 & PEEKER2 &    87  &  140 & \quart{6}{40}{24}{110}  
+  2 & PEEKING2 &    87  &  140 & \quart{6}{40}{24}{110}  
 \end{tabular}}
 
 % :learn 70.71 :analyze 4.04 :boots 2 effects 2 :conf 0.9801
@@ -1577,7 +1579,7 @@ those tunings (NASA10).
 
 
 
-{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 15, max= 250\\
 \\
@@ -1585,7 +1587,7 @@ those tunings (NASA10).
   1 &      COCOMO-II &    39  &  39 & \quart{3}{10}{10}{100} \\
   1 & TEAK &    50  &  81 & \quart{0}{28}{15}{100} \\
 \hline  
-  2 & PEEKER2 &    65  &  165 & \quart{6}{64}{21}{100}  
+  2 & PEEKING2 &    65  &  165 & \quart{6}{64}{21}{100}  
 \end{tabular}}
 
 % :learn 548.2 :analyze 7.81 :boots 3 effects 14 :conf 0.970299
@@ -1600,7 +1602,7 @@ those tunings (NASA10).
 
 {\bf COC81 (original data from the 1981 COCOMO book):}
 
-{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 12, max= 500\\
 \\
@@ -1608,7 +1610,7 @@ those tunings (NASA10).
   1 &      COCONUT &    33  &  42 & \quart{0}{6}{4}{100} \\
 \hline  2 & TEAK &    93  &  128 & \quart{9}{24}{17}{100} \\
 \hline
-  3 & PEEKER2 &    131  &  569 & \quart{9}{70}{24}{100} \ 
+  3 & PEEKING2 &    131  &  569 & \quart{9}{70}{24}{100} \ 
 \end{tabular}}
 
 % :learn 260.57 :analyze 8.89 :boots 6 effects 11 :conf 0.941480149401
@@ -1768,7 +1770,7 @@ reflect on what columns might be ignored.
 {\bf NASA10 (new NASA data up to 2010):}
 
 
-{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 15, max= 77\\
 \\
@@ -1787,7 +1789,7 @@ reflect on what columns might be ignored.
 
 {\bf COC05 (new COCOMO data up to 2005):}
 
-{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 166\\
   1 &      COCOMO-II &    46  &  146 & \quart{0}{99}{17}{54} \\
@@ -1809,7 +1811,7 @@ reflect on what columns might be ignored.
 
 
 
-{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 12, max= 91\\
 \\
@@ -1835,7 +1837,7 @@ reflect on what columns might be ignored.
 
 {\bf COC81 (original data from the 1981 COCOMO book):}
 
-{\scriptsize \begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+{\scriptsize \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 14, max= 117\\
 \\
@@ -1939,12 +1941,12 @@ vary up to 50\% of their original value.
 \begin{minipage}{.83\linewidth}
 \begin{tabular}{r@{~}|r@{~}|r@{~}|l@{~}|r@{~}l@{~}|r@{~}l|r@{~}l@{~}|r@{~}l@{~}|r@{~}l}
   \multicolumn{4}{c|}{~}&\multicolumn{10}{c}{median( {\em abs(predicted - actual) / actual} ) } \\
-  Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKER2}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{CART~}         &   \multicolumn{2}{c}{Knear(1)}    &   \multicolumn{2}{c}{TEAK}\\\hline
+  Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKING2}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{CART~}         &   \multicolumn{2}{c}{Knear(1)}    &   \multicolumn{2}{c}{TEAK}\\\hline
 \multicolumn{1}{c}{~}\\
 Albrecht  &   7         &   24   &   Projects from IBM   & 28 &     & 40 & {\rtwo} & 38 & {\rtwo} & 38 & {\rtwo} & 49 & {\rfour} \\
 China      &   18       &   488   &   Projects from Chinese software companies   &   38   &  {\rtwo}  &   34   &       &   34   &       &   35   &  {\rone}   &   41   &   {\rfour}\\
-Cosmic     &   y   &   y   &   Projects described in functiion points   &   98   &   {\rfour}   &   75   &       &   85   &    {\rtwo}   &   85   &   {\rtwo}    &   89   &   {\rtwo}\\
-ISBSG10    &   y   &   y   &   From the ISBSG benchmark suite   &   56   &       &   62   &     &   126   &   {\rfour}   &   66   &   {\rone}   &   65   &   {\rone}\\
+Cosmic     &   10   &   42   &   Projects described in functiion points   &   98   &   {\rfour}   &   75   &       &   85   &    {\rtwo}   &   85   &   {\rtwo}    &   89   &   {\rtwo}\\
+ISBSG10    &   11   &   37   &   From the ISBSG benchmark suite   &   56   &       &   62   &     &   126   &   {\rfour}   &   66   &   {\rone}   &   65   &   {\rone}\\
 Kemerer    &   7   &   15   &   Large business applications   &   42   &  {\rtwo}  &   24   &   &   55   &  {\rfour} &   55   &   {\rfour}   &   55   &   {\rfour}\\
 Kitchenham &    6   &   145   &  Misc software projects.    &   34   &   &   43   &   {\rthree}   &   34   &  &   43   &  {\rthree}  &   47   &  {\rfour}  \\
 Maxwell    &   27  &   62  & Projects from commercial banks in Finland   &   57   &   {\rtwo}   &   56   &   {\rtwo}   &   47   &   &   53   &  {\rone} &   64   &   {\rfour}\\
@@ -1987,24 +1989,21 @@ for each data set.\\\hline
 non-COCOMO data sets. 
 Gray bars  show  error 
 discretized into 20th percentiles ranges from min to max.
-The PEEKER2 learner has fewest gray bars;
+The PEEKING2 learner has fewest error bars;
 i.e. it is the best learner seen in this sample.
 All data available from http://openscience.us/repo/effort.
 }\label{fig:nonc}
 \end{figure*}
 
 \section{Discussion}
-From the above, there are several open issues:
-\bi 
-\item 
-How can an estimation method based
+From the above, there are several open issues.
+Firstly,
+how can an estimation method based
 on lines of code be immune to errors in measures to those lines of code? 
-\item 
-All the above assumes that it is possible to collect project data using the COCOMO
+Secondly, 
+all the above assumes that it is possible to collect project data using the COCOMO
 attributes of \fig{cparems}. What if that is not true?
-\item 
-The nature of software development is changing. What does that say for the future of parametric models like COCOMO?
-\ei
+ 
 
 \subsection{KLOC Noise Immunity}
 
@@ -2074,12 +2073,12 @@ The gray bars of that figure  show  the median error
 results of a leave-one-out study descretized into   20th percentiles ranges from min to max
 (so the {\em more} the gray bars, the {\em worse} the learner).
 On these non-COCOMO data sets, standard linear regression usually performed worse
-and PEEKER2 usually performed best. Hence, for non-COCOMO data sets we recommend PEEKER2 (but
+and PEEKING2 usually performed best. Hence, for non-COCOMO data sets we recommend PEEKING2 (but
 stress this qualitative recommendation is not as strong as our 
 previous endorsement of COCOMO/COCOUNT,
 which can be defended via a  more rigorous statistical analysis).
 
-Why is PEEKER2 best for non-COCOMO data and not for COCOMO
+Why is PEEKING2 best for non-COCOMO data and not for COCOMO
 data? The answer, we conjecture,
 is that model-based effort estimation involves {\em data collection} followed by {\em model
 generation}. Perhaps if the data collection is very broad and covers all aspects of a project such as the 
@@ -2092,9 +2091,9 @@ we would expect:
 \bi 
 \item The generator needs to be  sophisticated; e.g. not something
 as simplistic as the linear regression used in \fig{nonc}
-(hence, PEEKER2 did well in that figure);
+(hence, PEEKING2 did well in that figure);
 \item No matter how sophisticated the model generator, it may not perform well
-as models generated from a broader range of data (hence, PEEKER2   performed
+as models generated from a broader range of data (hence, PEEKING2   performed
 worse than COCOMO in \fig{newer}).
 \ei
 
@@ -2103,11 +2102,11 @@ worse than COCOMO in \fig{newer}).
 {\scriptsize 
 {\bf Telecom: Maintenance projects for telecommunications.}
 
-\begin{tabular}{l@{~~}l@{~~}r@{~~}r@{~~}c}
+\begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
 \arrayrulecolor{darkgray}
 \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 0, max= 100\\
 \\
-  1 & PEEKER2 &    23  &  34 & \quart{12}{34}{23}{100} \\
+  1 & PEEKING2 &    23  &  34 & \quart{12}{34}{23}{100} \\
   1 & Knear(3) &    26  &  33 & \quart{9}{33}{26}{100} \\
   1 & TEAK &    31  &  28 & \quart{17}{28}{31}{100} \\
   1 & CART &    31  &  22 & \quart{23}{22}{31}{100} \\
@@ -2116,32 +2115,6 @@ worse than COCOMO in \fig{newer}).
 \caption{Example result of applying learners to non-COCOMO data.}\label{fig:telecom}
 \end{figure}
 
-\subsection{Next-Generation COCOMO}
-
-
-Having endorsed the use of parametric methods such as COCOMO, it is approprite
-to discuss current plans for new versions of that approach.
-Recent changes  in the software industry
-suggest  it is time  to revise COCOMO-II.
-The rise of agile methods, web
-services, cloud services, parallelized software on
-multicore chips, field-programmable-gate-array
-(FPGA) software, apps, widgets, and net-centric
-systems of systems (NCSOS) have caused the COCOMO II
-developers and users to begin addressing an upgrade
-to the 14-year-old COCOMO II. 
-Current discussions
-of a potential COCOMO III have led to a
-reconsideration of the old COCOMO 1981 development
-modes, as different development phenomena appear to
-drive the costs and schedules of web-services,
-business data processing, real-time embedded
-software, command and control, and engineering and
-scientific applications.
-Efforts to characterize
-these modes and to gather data to calibrate models
-for dealing with them are underway. Contributors
-to the definition and calibration are most  welcome.  
 
 
 \section{Threats to Validity}
@@ -2210,6 +2183,38 @@ estimation.  Our results show that COCOMO's performance is usually
 ranked better than other estimation methods. The same cannot be said for non-COCOMO data where,
 in \tion{nonc}, 
 we found it difficult to make a rigorous statistical case than learnerX was better than learnerY.
+
+\section{Future Work}
+
+ 
+
+Having endorsed the use of parametric methods such as COCOMO, it is approprite
+to discuss current plans for new versions of that approach.
+
+Recent changes  in the software industry
+suggest  it is time  to revise COCOMO-II.
+The rise of agile methods, web
+services, cloud services, parallelized software on
+multicore chips, field-programmable-gate-array
+(FPGA) software, apps, widgets, and net-centric
+systems of systems (NCSOS) have caused the COCOMO II
+developers and users to begin addressing an upgrade
+to the 14-year-old COCOMO II. 
+Current discussions
+of a potential COCOMO III have led to a
+reconsideration of the old COCOMO 1981 development
+modes, as different development phenomena appear to
+drive the costs and schedules of web-services,
+business data processing, real-time embedded
+software, command and control, and engineering and
+scientific applications. 
+
+Additionally, during calibrating COCOMO II model and developing COCOMO III, we were also seeing time-competitive Agile projects in well-jelled, domain-experienced rapid development organizations, which demonstrates tremendous effort reduction and schedule acceleration~\cite{yang13}. Finally, the emerging community-based software development, i.e. software crowdsourcing, challenges the underlying assumptions of traditional software estimation laws. Access to external workforce and competition factors are becoming critical development influencial factors and need to be further investigated.   
+
+Efforts to characterize
+these modes and to gather data to calibrate models
+for dealing with them are underway. Contributors
+to the definition and calibration are most  welcome.  
 
 %Having made that case, we need to add that in 
 %practice, approaches like expert judgment~\cite{jorgensen09}  and
