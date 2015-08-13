@@ -116,12 +116,13 @@
 {\color{black}\put(#3,2){\circle*{4}}\put(#1,2){\line(1,0){#2}}}\end{picture}}
 
 
-\definecolor{MyDarkBlue}{rgb}{0,0.08,0.45} 
-\newenvironment{changed}{\par\color{MyDarkBlue}}{\par}
-%\newenvironment{changed}{\par}{\par}
 
-\newcommand{\ADD}[1]{\textcolor{MyDarkBlue}{{\bf #1}}}
-%\newcommand{\ADD}[1]{#1}
+\definecolor{MyDarkBlue}{rgb}{0,0.08,0.45} 
+%\newenvironment{changed}{\par\color{MyDarkBlue}}{\par}
+\newenvironment{changed}{\par}{\par}
+
+%\newcommand{\ADD}[1]{\textcolor{MyDarkBlue}{{\bf #1}}}
+\newcommand{\ADD}[1]{#1}
  
 
 
@@ -206,8 +207,8 @@ Tim Menzies\\
        \affaddr{CS, NcState, USA}\\
        {tim.menzies@gmail.com}
 \alignauthor Ye Yang\\
-       \affaddr{SSE, Stevens  Institute, USA}\\
-       {ye.yang@stevens.com}
+       \affaddr{SSE, Stevens  Inst., USA}\\
+       {yangye@gmail.com}
        % 2nd. author
 \alignauthor George Mathew \\
        \affaddr{CS, NcState, USA}\\
@@ -643,7 +644,7 @@ data was a rare opportunity, and a team involving
 Ray Wolverton, Kurt Fischer, and Boehm conducted a
 series of meetings and Delphi exercises to find
 the relative significance of various  cost
-drivers. Using combining local expertise  and data, plus some prior results 
+drivers. Combining local expertise  and data, plus some prior results 
 such as~\cite{putnam76,black77,herd77,watson77},  and early versions of the RCA
 PRICE S model~\cite{frei79}, a model called SCEP was created (Software Cost
 Estimation Program).
@@ -807,7 +808,7 @@ how    effort can vary for any given KLOC.:
 
  
 \subsection{COCOMO and Local Calibration}\label{sect:coconut}
-When local data is scare, approximations can be used to
+When local data is scarce, approximations can be used to
 tune a model using just a handful of examples.  
  COCOMO   {\em local calibration} pocedure, adjusts the impact of the scale factors and effort
 multipliers by tuning the  $a,b$ values of Equation~\ref{eq:cocII}
@@ -1067,7 +1068,7 @@ distributions or some  underlying parametric model.
 TEAK is built
 on the assumption that spurious noise leads to large variance in the recorded efforts~\cite{koc11b}.
 TEAK's pre-processor removes such regions of high variance as follows.
-First, it  applied greedy agglomerate clustering  to generate a tree of clusters.
+First, it  applies greedy agglomerate clustering  to generate a tree of clusters.
 Next, it reflects on the variance
 of the efforts seen in each sub-tree and discards the sub-trees with largest variance. Estimation is then performed
 on the surviving examples.
@@ -1510,7 +1511,7 @@ CART or COCONUT had a slightly lower median MRE but that difference was small: $
 
 
 \fig{newer} compares COCOMO and COCONUT to more recent effort estimation methods
-  (TEAK and PEEKING). Once again,   nothing was ever ranked better than COCOMO-II
+  (TEAK and PEEKING2). Once again,   nothing was ever ranked better than COCOMO-II
   or COCONUT.
   
 From these results,
@@ -1638,7 +1639,7 @@ rankings from different analysts. If we could reduce
 the current six
 point scoring scale (very low, low, nominal, high, very high and extremely high)
 then there would be less scope 
-for disagree about projects. 
+to disagree about projects. 
 Accordingly,  we tried
 reducing the  six point scale to just three:
 \bi
@@ -1868,7 +1869,7 @@ This section explores
 errors in the size estimate?}
 
 
-Before endorsing an KLOC-based estimation method,
+Before endorsing a KLOC-based estimation method,
 it is important to understand the effects of noise
 within the KLOC samples. 
 Test projects to be estimated may have noisy KLOC values if
@@ -2030,7 +2031,7 @@ of the COCOMO-II results in \fig{noise}, another explanation might be that
 that large variances seen with COCOMO-II shows the inherent imprecision of effort
 estimation. 
 
-These large variances are an important an open issue in effort estimation.
+These large variances are an important and open issue in effort estimation.
 It is hard to make precise statements about effort estimation when the estimates themselves
 are so imprecise. Perhaps the research community should spend a few years  working
 on variance reduction, after which time, they can better explore reducing median error values.
@@ -2167,7 +2168,7 @@ of deploying those methods at a new site (see \tion{simpler});
 \item {\bf RQ5}: Parametric estimation methods like COCOMO that assume effort is exponential on lines of code are {\em not} unduly
 sensitive to errors in the LOC measure (see \tion{nonoise});.
 \ei
-Hence, we conclude that in 2015 is still valid and recommended practice to {\em first} try parametric estimation,
+Hence, we conclude that in 2015, it is still a valid and recommended practice to {\em first} try parametric estimation,
 perhaps  augmented with a local calibration method like COCONUT
 and   column pruner of \tion{pruner}. 
 One   reason to endorse COCOMO-style estimation comes from the row reduction experiments of \tion{row}.
@@ -2195,7 +2196,7 @@ Recent changes  in the software industry
 suggest  it is time  to revise COCOMO-II.
 The rise of agile methods, web
 services, cloud services, parallelized software on
-multicore chips, field-programmable-gate-array
+multicore chips, field- programmable-gate-array
 (FPGA) software, apps, widgets, and net-centric
 systems of systems (NCSOS) have caused the COCOMO II
 developers and users to begin addressing an upgrade
@@ -2209,7 +2210,7 @@ business data processing, real-time embedded
 software, command and control, and engineering and
 scientific applications. 
 
-Additionally, during calibrating COCOMO II model and developing COCOMO III, we were also seeing time-competitive Agile projects in well-jelled, domain-experienced rapid development organizations, which demonstrates tremendous effort reduction and schedule acceleration~\cite{yang13}. Finally, the emerging community-based software development, i.e. software crowdsourcing, challenges the underlying assumptions of traditional software estimation laws. Access to external workforce and competition factors are becoming critical development influencial factors and need to be further investigated.   
+Additionally, during calibrating COCOMO II model and developing COCOMO III, we were also seeing time-competitive Agile projects in well-jelled, domain-experienced rapid development organizations, which demonstrates tremendous effort reduction and schedule acceleration~\cite{ingold13}. Finally, the emerging community-based software development, i.e. software crowdsourcing~\cite{yang13}, challenges the underlying assumptions of traditional software estimation laws. Access to external workforce and competition factors are becoming critical development influencial factors and need to be further investigated.   
 
 Efforts to characterize
 these modes and to gather data to calibrate models
