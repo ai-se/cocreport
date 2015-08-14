@@ -1,0 +1,369 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red26\green26\blue26;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 ----------------------- REVIEW 1 ---------------------\
+PAPER: 33\
+TITLE: On the Value of Parametric Software Effort Estimation\
+AUTHORS: Tim Menzies, Yang Ye, George Mathew, Barry Boehm and Jairus Hihn\
+\
+\
+----------- SUMMARY AND EVALUATION -----------\
+The paper is a mix of polemic and experimental investigation that\
+seeks to compare different classes of software cost model.\'a0 COCOMO,\
+sometimes recalibrated is compared with a benchmark LOC method and CBR\
+for various COCOMO datasets. Although there are comments about\
+regression trees I dodn't see any results.\
+\
+\
+COMMENTS\
+\
+There is a need to be clear what is meant by a parametric model. Of\
+course formally it is any distribution that can be described by a\
+model with a finite number of parameters. But I guess the authors have\
+a more particular view.\
+\
+And in terms of comparisons with LOC for RQ1 (I assume the authors\
+mean a linear relationship so that b=1).\'a0 But in what sense is such a\
+model not a special form of parametric models in general?\
+\
+RQ5 what does unduly sensitive mean?\
+\
+If COC05 and NASA10 are proprietary and it\'92s essential to use them,\
+the experiments should be repeated with and without them so there\'92s at\
+least something that can be replicated/benchmarked by the rest of the\
+community.\
+\
+There seem to be problems with some of the references e.g. is ref [46]\
+appropriate for feature synthesis? Ref [59] seems reasonable for CBR\
+but not for regression trees (p1). Ref [6] is inappropriate. Ref [62]\
+has a broken link.\'a0 I haven\'92t checked all the references but there are\
+sufficient errors to cause me concern.\
+\
+There is already some published work based on a formal sensitivity\
+analysis of COCOMO by Wagner 2007.\'a0 Since as your text hints at there\
+are analytic solutions why do you tackle this problem experimentally?\
+Moreover the discussion makes no sense in that the question being\
+asked relates to LOC so I fail to follow the argument about other\
+variables.\
+\
+\
+p1 When COCOMO is being discussed in the Intro which version?\'a0 Simple?\
+\
+What work with the Chinese and US software industries (p1)?\'a0 Either\
+cite or if this work is unpublished provide some details.\'a0 Otherwise\
+such statements are unhelpful.\
+\
+p2 The authors need to explain what fundamentals they believe are\
+embedded in COCOMO (or may be all parametric models - it\'92s unclear)?\
+How does Delphi fit with parametric modeling or any of the RQs?\
+\
+p2 Who subscribes to the \'91myth\'92 that "no one used model- based\
+estimation and that estimates are always better done using\
+expert-based guess-timation\'94?\'a0 Also I\'92m unclear whether this is one or\
+two myths? This is merely constructing a straw man.\
+\
+p2 Since when have Delphi methods been seen as synonymous with\
+"expert-based guess-timation\'94?\
+\
+p2 Ref [6] provides no information whatsoever on whether Delphi is or\
+isn\'92t a 'common practice'.\
+\
+Figs 4-5 seem redundant\
+\
+p4 The trimming of 23 variables is reasonable if it can be assumed\
+that they are all summative i.e. is measure on the same dimension.\
+\
+p4 The calibration technique looks like a greedy search that assumes\
+limited interaction between a and b.\
+\
+p5 The literature is full of articles debunking ratio based\
+performance measures such as MRE e.g. . Why do you use it?\
+\
+p5 Equation 3 needs explanation.\'a0 If it means the distance between x\
+and y is determined using a set of features 1\uc0\u8804 i\u8804 n where there are n\
+features then is odd since as far as I understand the text you\'92re only\
+only using LOC?\
+\
+p5 In what sense does a Knear method differ from basic case-based\
+reasoning where you use k-NN?\'a0 Is this an unhelpful proliferation of\
+terminology?\
+\
+p6 I\'92m not familiar with Vargha and Delaney\'92s A_\{12\} statistic but on\
+the face of it looks similar to the well known Cliff\'92s delta.\'a0 Why\
+don\'92t you use this? BTW in the unnumbered equation you miss the case\
+of x < y = 0 (for completeness).\
+\
+p6 LOC performs so \'91badly\'92 because unlike your other parametric models\
+you are simply trying to fit with a slope coefficient a (and assuming\
+a zero intercept).\'a0 This isn\'92t much to do with LOC but the constraints\
+you\'92re imposing on your parametric model.\
+\
+p9 Where does Figure 13 come from?\'a0 This looks like quite different\
+work which seems unrelated to the previous analysis. How does it fit\
+with any of the researc questions?\'a0 It seems like a last minute add\
+on.\
+\
+TYPOS:\
+p4 a \'93holdout\'94 example\
+p5 MacDonnell (x2)\
+\
+REFERENCES:\
+\
+@article\{MTNNO1991,\
+\'a0 \'a0author = \{Miyazaki, Y. and Takanou, A. and Nozaki, H. and Nakagawa,\
+N. and Okada, K.\},\
+\'a0 \'a0title = \{Method to estimate parameter values in software prediction models\},\
+\'a0 \'a0journal = \{Information & Software Technology\},\
+\'a0 \'a0volume = \{33\},\
+\'a0 \'a0number = \{3\},\
+\'a0 \'a0pages = \{239-243\},\
+\'a0 \'a0year = \{1991\},\
+\'a0 \'a0type = \{Journal Article\}\
+\}\
+\
+@article\{FSKM2003,\
+\'a0 \'a0author = \{Foss, T. and Stensrud, E. and Kitchenham, B. and Myrtveit, I.\},\
+\'a0 \'a0title = \{A simulation study of the model evaluation criterion MMRE\},\
+\'a0 \'a0journal = \{IEEE Transactions on Software Engineering\},\
+\'a0 \'a0volume = \{29\},\
+\'a0 \'a0number = \{11\},\
+\'a0 \'a0pages = \{985-995\},\
+\'a0 \'a0year = \{2003\},\
+\'a0 \'a0type = \{Journal Article\}\
+\}\
+\
+@article\{K1987,\
+\'a0 \'a0author = \{Kemerer, C.F.\},\
+\'a0 \'a0title = \{An empirical validation of software cost estimation models\},\
+\'a0 \'a0journal = \{Communications of the ACM\},\
+\'a0 \'a0volume = \{30\},\
+\'a0 \'a0number = \{5\},\
+\'a0 \'a0pages = \{416-429\},\
+\'a0 \'a0year = \{1987\},\
+\'a0 \'a0type = \{Journal Article\}\
+\}\
+\
+@article\{SFKM2003,\
+\'a0 \'a0author = \{Stensrud, E. and Foss, T. and Kitchenham, B. and Myrtveit, I.\},\
+\'a0 \'a0title = \{A further empirical investigation of the relationship\
+between MRE and project size\},\
+\'a0 \'a0journal = \{Empirical Software Engineering\},\
+\'a0 \'a0volume = \{8\},\
+\'a0 \'a0number = \{2\},\
+\'a0 \'a0pages = \{139-161\},\
+\'a0 \'a0year = \{2003\},\
+\'a0 \'a0type = \{Journal Article\}\
+\}\
+\
+@inproceedings\{W2007,\
+\'a0 \'a0author = \{Wagner, S.\},\
+\'a0 \'a0title = \{An Approach to Global Sensitivity Analysis: FAST on COCOMO\},\
+\'a0 \'a0booktitle = \{1st Intl. Symp. on Empirical Software Engineering and\
+Measurement (ESEM 2007)\},\
+\'a0 \'a0publisher = \{IEEE Computer Scoiety\},\
+\'a0 \'a0pages = \{440-442\},\
+\'a0 \'a0type = \{Conference Proceedings\}\
+\}\
+\
+----------- STRENGTHS AND WEAKNESSES -----------\
++ A challenging and bold set of research questions\
++ The book Software Engineering Economics was a landmark in its time\
+(1981) which contains much wisdom and insight mainly unrelated to\
+CCOMO.\
+\
+- Ignores related work e.g. independent empirical evaluations such as\
+Kemerer (1987). Applying COCOMO to new data sets would be instructive.\
+- The organisation is poor so the paper meaders e.g. the section on\
+Delphi which is unrelated to the research questions? Then an\
+unnecessary section on the history of COCOMO. The analysis in Figure\
+13 seems unrelated.\
+- There are very many errors\
+- It makes huge generalizations e.g. there are an infinite number of\
+possible models so how is it meaningful to compare parametric models\
+with \'92innovative\'92 methods?\
+- The research questions are ill specified or meaningless\
+- Using the COCOMO datasets to which this model was \'91fitted\'92\
+undermines the generality of the answers.\
+- The conclusion "the continued use of parametric estimation can still\
+be endorsed.\'94 (p1) is unwarranted.\
+\
+\
+----------------------- REVIEW 2 ---------------------\
+PAPER: 33\
+TITLE: On the Value of Parametric Software Effort Estimation\
+AUTHORS: Tim Menzies, Yang Ye, George Mathew, Barry Boehm and Jairus Hihn\
+\
+\
+----------- SUMMARY AND EVALUATION -----------\
+The paper compares a sample of an in the 1970s developed parametric software\
+effort estimation method with some newer innovations for software effort\
+estimation, based on a set of COCOMO-related datasets. The comparison\
+focusses on the use of just Lines-of-Code as a basis for estimations to\
+parametric estimation and the effect of some innovations on effort\
+estimation. Outcome of the comparison is that no remarkable differences are\
+found, the researchers conclude that use of parametric methods is still a\
+valid and recommended practice.\
+\
+\
+Software effort estimation is an important topic of great practical\
+relevance, so it is good to see a paper on this topic submitted to\
+FSE.\
+\
+The questions asked about parametric approaches are relevant, and the\
+explanation of COCOMO and COCONUT are adequate.\
+The methodological approach seems sound, and the experimental outcomes\
+interesting.\
+\
+Unfortunately, the paper itself is not very well organized, and\
+unnecessarily opiniated.\
+\
+The explanation of planning poker could take into account that agile\
+methods focus on situations that are *change*-intensive: Agile methods\
+take as starting point that up front the requirements will not be\
+clear, and hence that short iterations are important. Instead, as the\
+paper explains, COCOMO is primarily useful in upfront calculations.\
+Both approaches have their value, but in very different circumstances.\
+\
+The paper's exposition of Delphi-based methods is inadequate.\'a0 The\
+paper should explain a bit about the history of the Delphi *method*,\
+as proposed by RAND and later expanded and analyzed by Boehm, author\
+of the present paper.\'a0 Instead the present paper just contains a\
+footnote referencing the ancient Delphi oracle. This is not helpful,\
+and not neutral, as it dismisses the method it would like to contrast\
+with as irreproducible.\
+\
+"all the model-based methods studied in this paper can generate\
+estimates in just a few seconds."\
+Well, assuming the 27 COCOMO inputs have been collected, which is of\
+course the real work.\
+\
+"Assuming 7.5 hour day". Why?\
+\
+"Menzies' preferred local calibration procedure is ..."\
+Why should we care about Menzies personal opinions?\
+I'd prefer the neutral reasons why.\
+\
+Section 3 is the methodological heart of the paper.\
+It is very dense -- I would have preferred a more elaborate explanation.\
+I am not an expert in the proposed methods, but they seem to make sense to me.\
+Is a replication package available?\
+\
+"An often heard" --> Please add references to support any of these\
+claims made in the paper.\
+\
+I am surprised to see recommendations mixed with presentation of the\
+results in section 4.\
+It would be preferable to have a clear section 4 with just neutral\
+undisputed results.\
+The next step to use these results to recommend certain practices is\
+more debatable.\
+\
+The future work section sounds like a sales pitch for Cocomo III.\
+"The rise of agile methods, web services, cloud\
+services, parallelized software on multicore chips, field- programmablegate-\
+array (FPGA) software, apps, widgets, and net-centric systems\
+of systems (NCSOS)"\
+"different development phenomena appear to drive the costs and\
+schedules of web-services, business data processing, real-time embedded\
+software, command and control, and engineering and scientific\
+applications"\
+"time-competitive Agile\
+projects in well-jelled, domain-experienced rapid development organizations,\
+which demonstrates tremendous effort reduction and\
+schedule acceleration"\
+\
+This whole section does not add anything relevant to the paper.\
+What is needed instead is a critical and focused assessment to what\
+extent the experiments in this paper will survive in light of some of\
+these developments.\
+\
+\
+The paper feels very rushed: There are many typos and unfinished\
+sentences in the paper.\
+\
+Additional remarks:\
+\
+Page 1: The quite impressive use of references in the Introduction, without\
+extensive explanation, seems to assume that the reader knows about the\
+referred background. The authors risk to lose the less experienced reader\
+here.\
+\
+Page 1: In RQ1 suddenly the concept of Lines of Code pops up without\
+mentioned in the introduction. Why is this particular measure chosen? The\
+authors state that this is an "often heard, but rarely tested, comment": why\
+is this not mentioned in the related work in the introduction (if it is\
+often heard)?\
+\
+Page 6: Repeates the statement made in RQ1 on "an often heard, but not often\
+tested, criticism of parametric estimation methods is that they are no\
+better than just using simple lines of code measures". Seems questionable to\
+me why the authors chose a statement as background for their first research\
+question that is based on hearsay only, and not on earlier research.\
+\
+Page 1: In RQ2 a choice is made for "our 'best' learner, as well as\
+case-based reasoning and regression trees"; why these? Why not others? I\
+miss the explanation.\
+\
+Page 1: RQ4 seems to assume that deployment cost are a subject, why is this\
+chosen? I miss the explanation.\
+\
+Page 8: Paragraph 4.4 mentions the aspect of multiple languages for the\
+first time. I was pages before that already questioning how programming\
+languages were to be related to the datasets used for the research, since I\
+suppose there is a relation between KLOC and language. The paper does not\
+tell me anything about this, while this can be of big influence for the\
+outcomes of the research I suppose. Are this all data from one language?\
+\
+Page 9: Paragraph 5.1 last alinea; a suggestion is made towards the research\
+community to spend a few years on variance reduction. How should this be\
+done? The suggestion reads now as a bit bold.\
+\
+Page 10: On external validity: while only COCOMO related data is used to\
+explore the research questions (Page 2), the title of the paper and the text\
+in the abstract seem to generalize the findings to all parametric software\
+estimation methods. This needs to be more clearly mentioned and explained in\
+the Threats to Validity paragraph I would propose.\
+\
+Page 10; Conclusion; the researchers conclude that it is still valid and\
+recommended practice to first try parametric estimation. However, they did\
+not convince me why the addition first is covered by the research. Can't\
+relate this conclusion to anything in the earlier paper, although a\
+reference to paragraph 4.3.3. is made.\
+\
+Some minor remarks:\
+\
+Page 1: since Putnam is mentioned in the Introduction, I think it would be\
+good to include also a recent critical paper that describes major weaknesses\
+in this model; Suelmann, Han. "Putnam's Effort-Duration Trade-Off Law: Is\
+the Software Estimation Problem Really Solved?." Software Measurement and\
+the International Conference on Software Process and Product Measurement\
+(IWSM-MENSURA), 2014 Joint Conference of the International Workshop on.\
+IEEE, 2014.\
+\
+Page 1: Although I do agree with the statement that "Under-estimation can\
+cause schedule and budget overruns as well as project cancellation" I think\
+that the referred at article on "NASA to Shut Down Checkout & Launch Control\
+System" [61] is maybe not the best example to illustrate this; the article\
+does not clearly state that underestimation was a major cause (out of the\
+many others).\
+\
+Page 4: Figure 4 text contains (I assume) a typo; "plus KLOC plus".\
+\
+Page 4: third line of paragraph 2.3 contains a typo; "pocedure".\
+\
+Page 10: top left alinea; isn't is a little bit too blusterous to state that\
+".this is one of the most extensive and elaborate studies yet published"?\
+\
+Page 10; paragraph 8; sixth line contains a sort of "column outlier"\
+("programmable").\
+\
+----------- STRENGTHS AND WEAKNESSES -----------\
++ effort estimation important topic\
++ recent theories challenged through experiments\
+- poorly written paper that insufficiently separates neutral facts and\
+observations from personal opinions.}
