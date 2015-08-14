@@ -1927,21 +1927,21 @@ vary up to 50\% of their original value.
 \begin{figure*}
 \renewcommand{\baselinestretch}{0.5} 
 \scriptsize
-\begin{minipage}{.83\linewidth}
-\begin{tabular}{r@{~}|r@{~}|r@{~}|l@{~}|r@{~}l@{~}|r@{~}l|r@{~}l@{~}|r@{~}l@{~}|r@{~}l}
-  \multicolumn{4}{c|}{~}&\multicolumn{10}{c}{median( {\em abs(predicted - actual) / actual} ) } \\
-  Data set   &   cols   &   rows   &   notes   &   \multicolumn{2}{c}{PEEKING2}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{CART~}         &   \multicolumn{2}{c}{Knear(1)}    &   \multicolumn{2}{c}{TEAK}\\\hline
+\begin{minipage}{.80\linewidth}
+\begin{tabular}{r@{~}|r@{~}|r@{~}|r@{~}l@{~}|r@{~}l|r@{~}l@{~}|r@{~}l@{~}|r@{~}l}
+  \multicolumn{3}{c|}{~}&\multicolumn{10}{c}{median( {\em abs(predicted - actual) / actual} ) } \\
+  Data set   &   cols   &   rows   &   \multicolumn{2}{c}{PEEKING2}         &   \multicolumn{2}{c}{Knear(3)}         &   \multicolumn{2}{c}{CART~}         &   \multicolumn{2}{c}{Knear(1)}    &   \multicolumn{2}{c}{TEAK}\\\hline
 \multicolumn{1}{c}{~}\\
-Albrecht  &   7         &   24   &   Projects from IBM   & 28 &     & 40 & {\rtwo} & 38 & {\rtwo} & 38 & {\rtwo} & 49 & {\rfour} \\
-China      &   18       &   488   &   Projects from Chinese software companies   &   38   &  {\rtwo}  &   34   &       &   34   &       &   35   &  {\rone}   &   41   &   {\rfour}\\
-Cosmic     &   10   &   42   &   Projects described in functiion points   &   98   &   {\rfour}   &   75   &       &   85   &    {\rtwo}   &   85   &   {\rtwo}    &   89   &   {\rtwo}\\
-ISBSG10    &   11   &   37   &   From the ISBSG benchmark suite   &   56   &       &   62   &     &   126   &   {\rfour}   &   66   &   {\rone}   &   65   &   {\rone}\\
-Kemerer    &   7   &   15   &   Large business applications   &   42   &  {\rtwo}  &   24   &   &   55   &  {\rfour} &   55   &   {\rfour}   &   55   &   {\rfour}\\
-Kitchenham &    6   &   145   &  Misc software projects.    &   34   &   &   43   &   {\rthree}   &   34   &  &   43   &  {\rthree}  &   47   &  {\rfour}  \\
-Maxwell    &   27  &   62  & Projects from commercial banks in Finland   &   57   &   {\rtwo}   &   56   &   {\rtwo}   &   47   &   &   53   &  {\rone} &   64   &   {\rfour}\\
-Miyazaki   &   8   &   48 &Japanese software projects developed in COBOL   &   39   &       &   41   &   &   41   &    &   57   &   {\rfour}   &   57   &   {\rfour}\\
-Telecom    &   3   &   18   &   Maintenance projects for telecom companies   &   23   &       &   26   &   {\rtwo}   &   31   & {\rfour}  &   31   &   {\rfour}   &   31   &   {\rfour}\\
-Usp05      &   7   &  203  &  Collected from university student projects   &   30   &    &   50   & {\rfour} &   45   & {\rthree}  &   40   &   {\rtwo}  &   50   &   {\rfour}\\
+Albrecht  &   7         &   24   & 28 &     & 40 & {\rtwo} & 38 & {\rtwo} & 38 & {\rtwo} & 49 & {\rfour} \\
+China      &   18       &   488   &   38   &  {\rtwo}  &   34   &       &   34   &       &   35   &  {\rone}   &   41   &   {\rfour}\\
+Cosmic     &   10   &   42   &   98   &   {\rfour}   &   75   &       &   85   &    {\rtwo}   &   85   &   {\rtwo}    &   89   &   {\rtwo}\\
+ISBSG10    &   11   &   37   &   56   &       &   62   &     &   126   &   {\rfour}   &   66   &   {\rone}   &   65   &   {\rone}\\
+Kemerer    &   7   &   15   &   42   &  {\rtwo}  &   24   &   &   55   &  {\rfour} &   55   &   {\rfour}   &   55   &   {\rfour}\\
+Kitchenham &    6   &   145   &   34   &   &   43   &   {\rthree}   &   34   &  &   43   &  {\rthree}  &   47   &  {\rfour}  \\
+Maxwell    &   27  &   62  &   57   &   {\rtwo}   &   56   &   {\rtwo}   &   47   &   &   53   &  {\rone} &   64   &   {\rfour}\\
+Miyazaki   &   8   &   48  &   39   &       &   41   &   &   41   &    &   57   &   {\rfour}   &   57   &   {\rfour}\\
+Telecom    &   3   &   18    &   23   &       &   26   &   {\rtwo}   &   31   & {\rfour}  &   31   &   {\rfour}   &   31   &   {\rfour}\\
+Usp05      &   7   &  203  &   30   &    &   50   & {\rfour} &   45   & {\rthree}  &   40   &   {\rtwo}  &   50   &   {\rfour}\\
 \end{tabular}
 \end{minipage}\begin{minipage}{.15\linewidth}
 \begin{tabular}{|p{\linewidth}|}\hline
@@ -1956,17 +1956,17 @@ Error percentile ranges:
 
 ~\\
 
-80th to 100th = {\rfour}
+80 to 100 = {\rfour}
 
-60th to 80th ~ = {\rthree}
+60 to 80 ~ = {\rthree}
 
-40th to 60th  ~ = {\rtwo}
+40 to 60  ~ = {\rtwo}
 
-20th to 40th  ~ = {\rone}
+20 to 40  ~ = {\rone}
 
 ~\\
 
-An absent bar denotes\newline 0th to 20th percentile.
+An absent bar denotes 0 to 20th percentile.
 
 ~\\
 
@@ -1974,6 +1974,23 @@ Percentiles computed  separately
 for each data set.\\\hline
 \end{tabular}
 \end{minipage}
+
+~\\
+
+\begin{tabular}{r@{~}|l@{~}}
+ Data set   &   Notes \\\hline
+ Albrecht   &   Projects from IBM \\
+ China      &   Projects from Chinese software companies \\
+ Cosmic     &   Projects described in function points \\
+ ISBSG10    &   From the ISBSG benchmark suite \\
+ Kemerer    &   Large business applications \\
+ Kitchenham &   Misc software projects. \\
+ Maxwell    &   Projects from commercial banks in Finland \\
+ Miyazaki   &   Japanese software projects developed in COBOL \\
+ Telecom    &   Maintenance projects for telecom companies \\
+ Usp05      &   Collected from university student projects \\ 
+\end{tabular}
+
 \caption{Median errors seen in leave-one-out studies on
 non-COCOMO data sets. 
 Gray bars  show  error 
