@@ -457,8 +457,7 @@ and \string\date\space prior to \string\maketitle}}
 %
 \def\maketitle{\par\let\thanks=\orithanks
 \ch@ckobl{journalname}{Noname}
-\ch@ckobl{date}{the date of receipt and acceptance should be inserted
-later}
+\ch@ckobl{date}{the date of receipt and acceptance should be inserted later}
 \ch@ckobl{title}{A title should be given}
 \ch@ckobl{author}{Name(s) and initial(s) of author(s) should be given}
 \ch@ckobl{institute}{Address(es) of author(s) should be given}
