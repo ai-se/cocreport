@@ -721,7 +721,7 @@ _  = None;  Coc2tunings = [[
 
 def COCOMO2(project,  a = 2.94, b = 0.91, # defaults
                       tunes= Coc2tunings):# defaults 
-  sfs ems, kloc  = 0,1,22          
+  sfs,ems,kloc   = 0, 5 ,22        
   scaleFactors, effortMultipliers = 5, 17
   
   for i in range(scaleFactors):
@@ -825,7 +825,7 @@ def COCONUT(training,          # list of projects
             a=10, b=1,         # initial  (a,b) guess
             deltaA    = 10,    # range of "a" guesses 
             deltaB    = 0.5,   # range of "b" guesses
-            depth     = 10     # max recursive calls
+            depth     = 10,     # max recursive calls
             constricting=0.66):# next time,guess less
             
   if depth > 0:
@@ -879,20 +879,19 @@ def RIG():
 
  DATA = { COC81, NASA83, COC05, NASA10 }
  
- for data in DATA # e.g. data = COC81
+ for data in DATA: # e.g. data = COC81
  
      mres= {}
-     for learner in LEARNERS # e.g. learner = COCONUT
-       n = 0
-       10 times repeat: 
+     for learner in LEARNERS: # e.g. learner = COCONUT 
+       for n in range(10): # ten times repeat
        
-         for project in DATA #  e.g.  one project
+         for project in DATA: #  e.g.  one project
            training = data - project # leave-one-out
            model    = learn(training)
            estimate = guess(model, project)
            actual   = effort(project)
            mre      = abs(actual - estimate)/actual
-           mres[learner][n++] = mre
+           mres[learner][n] = mre
            
      print rank(mres) # some statistical tests
 \end{lstlisting}
@@ -940,10 +939,25 @@ with the COCOMO equation. In both experiments,
 project size was varied from 0 to 1,000,000 lines of code.
 For each size, two estimates were generated using 
 by adjusting the effort/scale factors to their (1)~{\em least}
-and (2)~{\em most} influential values
+and (2)~{\em most} values. As  shown in \fig{linear},
+the exponent on the KLOC term is very close to one while,
+in the worst case (on the orange curve) other factors
+can change the estimate by three orders of magnitude (as witnessed
+by the leading 1699.1 figure). 
+
+
+
+
+
+\begin{figure}
+\includegraphics[width=5in]{linear.png}
+\caption{COCOMO estimates increase
+as very low-order power series.
+Assuming {\em most} / {\em least} values for
+effort and scale factors, the exponent
+on the KLOC term is 0.9723 and 1.23, respectively}\label{fig:linear}
+\end{figure}
 \end{BLUE}
-
-
  
 \subsection{COCOMO and Local Calibration}\label{sect:coconut}
 When local data is scarce, approximations can be used to
