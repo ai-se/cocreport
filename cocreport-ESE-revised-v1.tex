@@ -158,8 +158,67 @@
 \pagenumbering{arabic} 
 \begin{document}  
 \newpage
+\noindent
 {\bf REPLY TO REVIEWERS}
 
+\noindent
+{\bf Comment to editors}
+
+\noindent
+Thank you for your details comments. 
+
+\noindent
+Based on that feedback,
+we think we now have 3 papers:
+\be 
+\item This paper, describing a negative result;
+\item Another paper describing our more positive result
+on other non-cocomo data sets. Following the suggestions
+of both reviewers, that material was removed
+from this paper. Also, following the suggestion of Reviewer2,
+we also applied the Wingham baseline method from TOSEM and found 
+our methods were much much better. So we think that means
+we have a ``better baseline'' paper to submit somewhere else.
+\item
+Yet another paper on the effects of different evaluation
+criteria in effort estimation. At the excellent suggestion
+of Reviewer2, we reran all our experiments using not MRE but 
+using the ratio of the squared difference between the estimate and actual divided by the squared difference between the actual and the average effort. In terms of the conclusions offered by this paper,
+it turns out that these two eval measures
+produce the same results. We would prefer NOT to show the
+equivalence of those results in this paper (since they add no
+information to the argument of this paper) but instead have
+added those charts in the private reply sections to our reviewers.
+\ee
+There is one matter for which your editorial opinion is required:
+\bi
+\item
+We think it is valid to include in this paper four results: two in
+the public domain and two from our own private sources.
+\item
+Reviewer2 does not, describing those results as ``hersay''
+\ei
+We fully agree with Reviewer2 that it is less-than-desirable
+to publish results that are not repoducible. But:
+\bi
+\item
+Many, many other empirical SE papers report results on
+proprietary data sets (e.g. most the results coming out of Microsoft from Zimmermann and Bird).
+\item
+Our general results hold across all our data sets so our results are reproducible on the 2 data sets that we do publishs.
+\item 
+We have tried, most earnestly, for decades to collect
+and publish  data sets (see the 500+ data sets at openscience.us-- a web site we created and maintain for the SE community).
+Even with that resources, and even after years of work,
+these four data sets are all we can offer for this paper
+(there are more, of course, but their users have declined
+to let us use that other data).
+\ei
+So that is our case. If the editors agree with reviewer2 on this matter, they should:
+\bi
+\item Order another paper revision where we dump two of our four data sets. We do not prefer this option since our case is stronger with four data sets than two.
+\item Or they could reject the paper.
+\ei
 \newpage
 \date{}
 %
@@ -734,8 +793,8 @@ def COCOMO2(project,  a = 2.94, b = 0.91, # defaults
   return a * ems * project[kloc] ** (b + 0.01*sfs) 
 \end{lstlisting}
 \caption{COCOMO-II: effort estimates from a {\em project}.
-Here, {\em project} has up to 24 attributes  (5 scale
-factors plus 17 effort multipliers plus KLOC plus. in the training data, the actual effort).
+Here, {\em project} has  5 scale
+factors plus 17 effort multipliers plus KLOC. 
 Each attribute except KLOC and effort is scored
 using the scale very low = 1, low=2, etc.
 For an explanation of the attributes shown in
@@ -818,6 +877,93 @@ into the specific values used in the COCOMO-II model
 \mathit{effort}=a\prod_i EM_i *\mathit{KLOC}^{b+0.01\sum_j SF_j}
 \end{equation}
 
+Here, {\em EM,SF} are  effort multipliers and scale
+factors respectively and
+ $a,b$ are the {\em local calibration} parameters (with default values of 2.94 and 0.91).
+Also, {\em effort}
+measures ``development months'' where one month
+is 152 hours of work  (and includes development and management hours).
+For example, if {\em effort}=100, then according to COCOMO,
+five developers would finish
+the project in 20 months.
+
+
+
+Note that, from \eq{cocII},
+the minimum  
+effort  is bounded by the  {\em sum} of the minimum scale factors
+and the {\em product} of the minimum effort multipliers.
+Similar expressions hold for the  maximum effort estimate. Hence,
+for a given KLOC, the range of values is given by:
+\[
+0.18*\mathit{KLOC}^{0.97}  \le \mathit{effort} \le 154*\mathit{KLOC}^{1.23}\]
+Dividing the minimum and maximum values results in an  expression showing
+how    effort can vary for any given KLOC.: 
+\begin{equation}\label{eq:ration}
+154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
+\end{equation}
+\begin{BLUE}
+From  \eq{ration}, we can make
+two observations. Firstly,   changes to the scale
+factors and effort multipliers have a large
+effect on effort (up to a factor of 856).
+Secondly, 
+the difference
+between the min and max estimate differs as a very low-order
+polynomial ($\mathit{KLOC}^{0.25}$). That is, we might expect
+changes other that KLOC to
+have a relatively larger impact on   COCOMO's
+estimates. 
+
+To confirm this second possibility we ran two small experiments
+with the COCOMO equation. In both experiments,
+project size was varied from 0 to 1,000,000 lines of code.
+For each size, two estimates were generated using 
+by adjusting the effort/scale factors to their (1)~{\em least}
+and (2)~{\em most} values. As  shown in \fig{linear},
+the exponent on the KLOC term is very close to one while,
+in the worst case (on the orange curve) other factors
+can change the estimate by three orders of magnitude (as witnessed
+by the leading 1699.07 value). 
+\end{BLUE}
+
+
+
+
+\begin{figure}[!h]
+\includegraphics[width=5in]{linear.png}
+\caption{\textcolor{blue}{COCOMO estimates increase
+as very low-order power series.
+Assuming {\em most} / {\em least} values for
+effort and scale factors, the exponent
+on the KLOC term is 0.9723 and 1.23, respectively.}}\label{fig:linear}
+\end{figure}
+ 
+\subsection{COCOMO and Local Calibration}\label{sect:coconut}
+When local data is scarce, approximations can be used to
+tune a model using just a handful of examples.  
+ COCOMO   {\em local calibration} procedure, adjusts the impact of the scale factors and effort
+multipliers by tuning the  $a,b$ values of Equation~\ref{eq:cocII}
+while keeping the other values of the tuning matrix constant as
+shown in \fig{coc2}. Effectively, local calibration trims
+a 23 variable model
+into a model with two variables: (one  to adjust the linear effort
+multipliers, and another to adjust the exponential scale factors).
+
+Menzies' preferred local calibration procedure is the COCONUT
+procedure of \fig{coconut} (first written in 2002
+and first published in 2005~\cite{me04h}). 
+For some number of {\em repeats},
+COCONUT will {\em ASSESS} some {\em GUESSES} 
+ for $(a,b)$ by applying them to some
+{\em training} data. If any of these guesses prove to
+be {\em useful} (i.e. reduce the estimation error) then COCONUT will recurse after
+{\em constricting} the guess range for $(a,b)$ by some amount (say, by $2/3$rds). COCONUT terminates
+when (a)~nothing better is found at the current level of recursion
+or (b)~after 10 recursive calls-- at which point the guess range
+has been constricted to  $(2/3)^{10}\approx 1$\% of the initial range.
+
+ 
 
 \begin{figure}
 \begin{lstlisting}
@@ -897,93 +1043,6 @@ def RIG():
 \end{lstlisting}
 \caption{The experimental rig used in this paper.}\label{fig:rig}
 \end{figure}
-Here, {\em EM,SF} are  effort multipliers and scale
-factors respectively and
- $a,b$ are the {\em local calibration} parameters (with default values of 2.94 and 0.91).
-Also, {\em effort}
-measures ``development months'' where one month
-is 152 hours of work  (and includes development and management hours).
-For example, if {\em effort}=100, then according to COCOMO,
-five developers would finish
-the project in 20 months.
-
-
-
-Note that, from \eq{cocII},
-the minimum  
-effort  is bounded by the  {\em sum} of the minimum scale factors
-and the {\em product} of the minimum effort multipliers.
-Similar expressions hold for the  maximum effort estimate. Hence,
-for a given KLOC, the range of values is given by:
-\[
-0.18*\mathit{KLOC}^{0.97}  \le \mathit{effort} \le 154*\mathit{KLOC}^{1.23}\]
-Dividing the minimum and maximum values results in an  expression showing
-how    effort can vary for any given KLOC.: 
-\begin{equation}\label{eq:ration}
-154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
-\end{equation}
-\begin{BLUE}
-From  \eq{ration}, we can make
-two observations. Firstly,   changes to the scale
-factors and effort multipliers have a large
-effect on effort (up to a factor of 856).
-Secondly, 
-the difference
-between the min and max estimate differs as a very low-order
-polynomial ($\mathit{KLOC}^{0.25}$). That is, we might expect
-that small changes to KLOC do not dramatically alter COCOMO's
-estimates. 
-
-To confirm this second possibility we ran two small experiments
-with the COCOMO equation. In both experiments,
-project size was varied from 0 to 1,000,000 lines of code.
-For each size, two estimates were generated using 
-by adjusting the effort/scale factors to their (1)~{\em least}
-and (2)~{\em most} values. As  shown in \fig{linear},
-the exponent on the KLOC term is very close to one while,
-in the worst case (on the orange curve) other factors
-can change the estimate by three orders of magnitude (as witnessed
-by the leading 1699.1 figure). 
-
-
-
-
-
-\begin{figure}
-\includegraphics[width=5in]{linear.png}
-\caption{COCOMO estimates increase
-as very low-order power series.
-Assuming {\em most} / {\em least} values for
-effort and scale factors, the exponent
-on the KLOC term is 0.9723 and 1.23, respectively}\label{fig:linear}
-\end{figure}
-\end{BLUE}
- 
-\subsection{COCOMO and Local Calibration}\label{sect:coconut}
-When local data is scarce, approximations can be used to
-tune a model using just a handful of examples.  
- COCOMO   {\em local calibration} procedure, adjusts the impact of the scale factors and effort
-multipliers by tuning the  $a,b$ values of Equation~\ref{eq:cocII}
-while keeping the other values of the tuning matrix constant as
-shown in \fig{coc2}. Effectively, local calibration trims
-a 23 variable model
-into a model with two variables: (one  to adjust the linear effort
-multipliers, and another to adjust the exponential scale factors).
-
-Menzies' preferred local calibration procedure is the COCONUT
-procedure of \fig{coconut} (first written in 2002
-and first published in 2005~\cite{me04h}). 
-For some number of {\em repeats},
-COCONUT will {\em ASSESS} some {\em GUESSES} 
- for $(a,b)$ by applying them to some
-{\em training} data. If any of these guesses prove to
-be {\em useful} (i.e. reduce the estimation error) then COCONUT will recurse after
-{\em constricting} the guess range for $(a,b)$ by some amount (say, by $2/3$rds). COCONUT terminates
-when (a)~nothing better is found at the current level of recursion
-or (b)~after 10 recursive calls-- at which point the guess range
-has been constricted to  $(2/3)^{10}\approx 1$\% of the initial range.
-
- 
 
 
 %Local calibration
@@ -1113,6 +1172,19 @@ $a,b$ and $c$ respectively is
 \begin{equation}\label{eq:tri}
 \mathit{effort} = (50a + 33b + 17c)/100
 \end{equation}
+
+\begin{BLUE}
+We also baseline the COCOMO-II and COCONUT models using the \textit{Automatically Transformed Linear Baseline Model}(ATLM) proposed by Whigham et al. \cite{whigham15}. ATLM is a form of multiple linear regression of the form
+
+\begin{equation}
+    \label{eq:atlm}
+    effort_i = \beta_0 + \beta_1.x_{1i} + \beta_2.x_{2i} + \ldots + \beta_n.x_{ni} + \epsilon_i
+\end{equation}
+
+where $effort_i$ is referred as the quantitative response(effort) for project $i$ and $x_i$ are the independent variables of describing the project. The prediction weights $\beta_i$ are determined using a least square error estimation. Transformations are also employed on the independent variables($x_i$) based on their nature. If the variable is continuous in nature, either a logarithmic, a square root transformation or no transformation is employed such that the skewness of the independent variable in the training set is minimum. If the variable is of discrete nature, no transformation is performed on the model.
+
+\end{BLUE}
+
 Apart from the LOC ``straw man'',
 we also compare COCOMO-II and COCONUT with CART,
 Knear(n), TEAK, and PEEKING2. 
