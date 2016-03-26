@@ -109,7 +109,7 @@ def RIG():
      print rank(mres) # some statistical tests
 
 def demo():
-    most , least = {},{}
+    most , least, mid = {},{},{}
     for i,x in enumerate(Coc2tunings):
         ranges = x[1:]
         hi, lo = -1, 10**32
@@ -124,8 +124,9 @@ def demo():
                 jlo,lo = k,y
         most[i] =  jhi
         least[i] = jlo
+        mid[i] = 4
     for k in range(10,1000,10):
-        least[22] = most[22] = k
-        print k,COCOMO2(least),COCOMO2(most)
+        least[22] = most[22] = mid[22] = k
+        print k,COCOMO2(least), COCOMO2(mid), COCOMO2(most)
     
 demo()
