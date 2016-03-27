@@ -165,22 +165,39 @@
 {\bf Comment to editors}
 
 \noindent
-Thank you for your details comments. 
+Thank you for your details comments.  This new draft
+contains many corrections and extensions as directed by the
+reviewers (including results from the Wingham method).
 
-\noindent
-Based on that feedback,
-we think we now have 3 papers:
-\be 
-\item This paper, describing a negative result;
-\item Another paper describing our more positive result
-on other non-cocomo data sets. Following the suggestions
-of both reviewers, that material was removed
-from this paper. Also, following the suggestion of Reviewer2,
-we also applied the Wingham baseline method from TOSEM and found 
-our methods were much much better. So we think that means
-we have a ``better baseline'' paper to submit somewhere else.
-\item
-Yet another paper on the effects of different evaluation
+As to your specific comments: 
+ 
+{\em One of the puzzling claims of the paper is "For the non-COCOMO data sets, our newer estimation methods performed better than older methods". }. 
+
+We have removed
+that material.
+
+{\em ...more emphasis of the 'negative' result is needed}
+
+This was another good reason to remove the
+non-COCOMO results).
+
+{\em There are more software engineering papers that have published errata in the recent years (but not necessarily via the main stream venues such as conferences and journals): JungWon Byun , SungYul Rhew, ManSoo Hwang, Vijayan Sugumaran, SooYong Park, SooJin Park Erratum to: Metrics for measuring the consistencies of requirements with objectives and constraints. Requirements Engineering March 2014, Volume 19, Issue 1`}
+
+We read this paper (see http://goo.gl/6mZnk1). This paper
+is an errata on the author names
+and not on technical content. Hence, unless you direct us otherwise,
+we will not reference that paper in this one.
+
+{\em Failure report, negative result and report on a previously published error are not the same; the introduction somehow puts them all together and tries to explain them with the same reasons.}
+
+We have fixed that, on page \pageref{err:ed1}.
+
+{\em "Secondly, it is not standard practice in software analytics for researchers to benchmark their latest results against some supposedly simpler "straw man" method." My guess would be that in many cases no such method is available making benchmarking impossible. When the domain starts to become more mature, this kind of comparisons are bing conducted (see, e.g., code cloning or a more recent work on tag inference for Stack Overflow posts).}
+
+We have fixed that, on page \pageref{err:ed2}.
+
+A third paper we are now writing
+explores the effects of different evaluation
 criteria in effort estimation. At the excellent suggestion
 of Reviewer2, we reran all our experiments using not MRE but 
 using the ratio of the squared difference between the estimate and actual divided by the squared difference between the actual and the average effort. In terms of the conclusions offered by this paper,
@@ -190,35 +207,38 @@ equivalence of those results in this paper (since they add no
 information to the argument of this paper) but instead have
 added those charts in the private reply sections to our reviewers.
 \ee
-There is one matter for which your editorial opinion is required:
+
+
+As to your specific comments,
+Also
+you write {\em I'm also concerned about the choice of the datasets. Two of the datasets considered are affiliated with COCOMO, so they can provide a biased perspective on the power of the results. Are there additional datasets one might consider or are the COCOMO requirements so restrictive that no such datasets can be found unless at NASA?}. Our reply is that 
 \bi
 \item
-We think it is valid to include in this paper four results: two in
-the public domain and two from our own private sources.
-\item
-Reviewer2 does not, describing those results as ``hersay''
-\ei
-We fully agree with Reviewer2 that it is less-than-desirable
-to publish results that are not repoducible. But:
-\bi
-\item
-Many, many other empirical SE papers report results on
-proprietary data sets (e.g. most the results coming out of Microsoft from Zimmermann and Bird).
-\item
-Our general results hold across all our data sets so our results are reproducible on the 2 data sets that we do publishs.
-\item 
 We have tried, most earnestly, for decades to collect
-and publish  data sets (see the 500+ data sets at openscience.us-- a web site we created and maintain for the SE community).
+and publish  data sets (see the 
+500+ data sets at openscience.us-- a web site we created and maintain for the SE community).
+\item
 Even with that resources, and even after years of work,
 these four data sets are all we can offer for this paper
 (there are more, of course, but their users have declined
 to let us use that other data).
-\ei
-So that is our case. If the editors agree with reviewer2 on this matter, they should:
+\item
+As to the ``NASA bias'', certainly that exists but...
 \bi
-\item Order another paper revision where we dump two of our four data sets. We do not prefer this option since our case is stronger with four data sets than two.
-\item Or they could reject the paper.
+\item
+Other empirical software engineering researchers publish
+results with a clear organizational bias (witness the results
+of Zimmermann and Bird from Microsoft data
+or Penix and Elbaum working from Google data.).  
+\item 
+FYI- NASA is not
+really a development organization. Rather it is a contractor
+management site where the real work gets done by external
+contractors (e.g. Rockwell Collins or Boeing). So a ``NASA app''
+is really build by an exterior teams who deliver software
+for many other applications and many other clients.
 \ei
+  
 \newpage
 \date{}
 %
@@ -300,8 +320,8 @@ better estimates than older methods.
 
 {\em Method:} {\em Firstly}, collect effort estimation methods ranging from ``classical'' COCOMO
 (parametric estimation over a pre-determined set of attributes) to ``modern'' (reasoning via analogy
-using spectral-based clustering plus instance and feature selection, a recent ``baseline method'' proposed
-in ACM Transactions on Software Engineering).  {\em Secondly}, catalog the list of objections that lead to the development of
+using spectral-based clustering plus instance and feature selection, \textcolor{blue}{a recent ``baseline method'' proposed
+in ACM Transactions on Software Engineering}.  {\em Secondly}, catalog the list of objections that lead to the development of
 post-COCOMO estimation methods. {\em Thirdly}, characterize each of those objections as a
 comparison between newer and older estimation methods. {\em Fourthly},  using four COCOMO-style
 data sets (from 1991, 2000, 2005, 2010), run those comparisons experiments.
@@ -351,23 +371,30 @@ since they help a researcher (1)~find flaws in old ideas and (2)~evolve better
 new ideas. That is, finding and acknowledging mistakes should be regarded as a routine part of
 standard operations procedure for science. 
 
+\begin{BLUE}\label{err:ed1}
 Given the above, it is troubling  that 
-there are very few failure reports  in the field of software analytics. 
-Some authors  include a ``Erratta''
-section in the papers that patch older conclusions.
-However, such reports are infrequent (evidence: we know of only two such report
-in the last five years of  conferences on software analytics~\cite{menzies13err,Murphy-Hill2012}).
-Given the complexity of software analytics, this absence of such failure reports is highly suspicious. 
+there are very few negative results   in the field of software analytics. 
+What does happen, occasionally,  are  reports of small
+corrections to prior work. Given the complexity of software analytics, this absence of such failure reports is highly suspicious. For examples of these kinds of reports, see (e.g. as done in \cite{menzies13err,Murphy-Hill2012}).
+\end{BLUE}
 
 Why are these reports so rare? There are many possible reasons and here we speculate on two possibilities.
 Firstly, such negative reports may not be acknowledged as ``worthwhile'' by the community. Forums such
 as this special issue are very rare (which is why this issue is so important).
 Secondly, it is not standard practice in software analytics for researchers to benchmark their latest
 results against some supposedly simpler ``straw man'' method. In his textbook on {\em Empirical Methods in AI}, Cohen~\cite{cohen95} strongly advises such ``straw man'' comparisons, since sometimes, they reveal that the supposedly
-superior method is actually overly complex. Hence we take care to compare methods
+superior method is actually overly complex. Hence it
+always useful  to compare methods
 against simpler alternative. 
 
-Accordingly, this paper checks
+\textcolor{blue}{\label{err:ed2} That said,
+in some  cases no such method is available making such  benchmarking impossible. What can happen,
+as a   domain starts to become more mature,
+these comparisons can be conducted; see, e.g. the
+many experiments on defect prediction~\cite{Scanniello2013} or tag inference for Stack Overflow posts~\cite{stanley2013predicting}.}
+Accordingly, this paper checks an interesting,
+but currently unexplored aspect of effort estimation.
+We check
 if there exists data sets from which  very old methods do just as well as anything else. 
 We consider data expressed in terms of the COCOMO ontology: 22 attributes describing
 a software project, as well as aspects of its personnel, platform and product features\footnote{For full details on these attributes, see {\S}4 of this paper.}. We will show
