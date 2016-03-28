@@ -443,20 +443,24 @@ XXX include graphic
 
 But what do you think?
 
-{\em  Wingham et al.'s default model seems more appropriate as a useful strawman and is certainly better than lines of code.}
+{\em Whingham et al.'s default model seems more
+  appropriate as a useful strawman and is certainly
+  better than lines of code.}
 
  We agree and 
 have included those results from the Wingham this paper at
 \WHERE{Reviewer2a} and \WHERE{Reviewer2b} and \WHERE{Reviewer2d}. And please note, as we stated
 before, how badly
-Wingham performs in \WHERE{Reviewer2d}-- thanks to your comments on this matter, we know have
+Whingham performs in \WHERE{Reviewer2d}-- thanks to your comments on this matter, we know have
 another paper to write about a better baseline for effort estimation.
 
 
-{\em From your description it appears that TEAK  removes projects  - how then do you do a fair comparison with other methods ? }
+{\em From your description it appears that TEAK
+  removes projects - how then do you do a fair
+  comparison with other methods ? }
 
-Note that TEAK and PEEKING2 only prunes the training set, not the test set so it is a fair comparison \footnote{George: when we get TEAK
-  back into the paper we have to make this note in the text}.
+Note that TEAK and PEEKING2 only prunes the training set, not the test set so it is a fair comparison.
+We have added a note to this effect at \WHERE{Reviewer2e}
 
 {\em Since Barry Boehm is a co-author, it should be simple to confirm whether or not any of the NASA93 projects were used in the construction of COCOMO-II.}
 
@@ -475,7 +479,8 @@ In order to focus the paper better,  have removed it from this draft. However, a
 
 {\em Section 5: I am not clear why the authors felt it necessary to include Figures 13 \& 14 other than to have something positive to report. However, there does not appear to be much difference between PEEKING2 and Knear(3) at least not really sufficient to claim that PEEKING2 performed best.}
 
-We concur. We have that entire section about positive results on non-COCOMO data.
+We concur. We have removed that entire section about positive results on non-COCOMO data.
+The resulting paper is much clearer, in our opinion.
 
 \newpage
 \date{}
@@ -1463,6 +1468,7 @@ still have currency:
 recent results from IEEE TSE 2008 and 2012 still endorse their  use for effort estimation~\cite{dejaeger12,koc11a,keung2008b}).
 Also, according to the Shaw's timetable for industry adoption of research innovations
 (discussed in the introduction),  CART and Knear(n) should now be mature enough for industrial use.
+Further, to account for some of the more recent work on effort estimation, we also use TEAK and PEEKING2~\cite{koc11b,papa13}.
 
 
 CART~\cite{breiman84} is an {\em iterative dichotomization} algorithm
@@ -1495,60 +1501,62 @@ Secondly,
 unlike other predictors, it makes no assumptions about data
 distributions or some  underlying parametric model. 
 
-% \begin{changed}
-% TEAK is built
-% on the assumption that spurious noise leads to large variance in the recorded efforts~\cite{koc11b}.
-% TEAK's pre-processor removes such regions of high variance as follows.
-% First, it  applies greedy agglomerate clustering  to generate a tree of clusters.
-% Next, it reflects on the variance
-% of the efforts seen in each sub-tree and discards the sub-trees with largest variance. Estimation is then performed
-% on the surviving examples.
+TEAK is built
+on the assumption that spurious noise leads to large variance in the recorded efforts~\cite{koc11b}.
+TEAK's pre-processor removes such regions of high variance as follows.
+First, it  applies greedy agglomerate clustering  to generate a tree of clusters.
+Next, it reflects on the variance
+of the efforts seen in each sub-tree and discards the sub-trees with largest variance. Estimation is then performed
+on the surviving examples.
+PEEKING2~\cite{papa13} is a far more aggressive ``data pruner'' than TEAK and combines   data reduction operators, 
+feature weighting, and Principal Component Analysis(PCA). PEEKING2 is described in  \fig{peeking}.
+\begin{BLUE}\HERE{Reviewer2e}
+  One important detail with TEAK and PEEKING2 is that when they prune data, they
+  only do so on the {\em training} data. Given a test set, TEAK and PEEKING2 will always try to
+  generate estimates for all members of that test set.
+  \end{BLUE}
+  
 
-% PEEKING2~\cite{papa13} is a far more aggressive ``data pruner'' than TEAK and combines   data reduction operators, 
-% feature weighting, and Principal Component Analysis(PCA). PEEKING2 is described in  \fig{peeking}.
-% \end{changed}
-
-
-% \begin{figure}[!t]
-% \small
-% \begin{tabular}{|p{.95\linewidth}|}\hline
-% \bi
-% \item
-% PEEKING2's feature weighting scheme changes  $w_i$ in \eq{dist}  according to how much an attribute
-% can divide and reduce the variance of the effort data (the {\em greater} the reduction, the
-% {\em larger} the $w_i$ score).  
-% \item
-% PEEKING2's PCA tool uses an accelerated   principle component analysis that synthesises  new
-% attributes $e_i, e_2,...$
-% that extends across the dimension of greatest  variance in the data  with attributes $d$.  
-% PCA  combines
-% redundant  variables into a smaller set of variables  (so $e \ll d$) since those
-% redundancies become (approximately) parallel lines
-% in $e$ space. For all such redundancies \mbox{$i,j \in d$}, we 
-% can ignore $j$ 
-% since effects that change over $j$ also
-% change in the same way over $i$.
-% PCA is also useful for skipping over noisy variables from $d$-- these
-% variables are effectively ignored since    they  do not contribute to the variance in the data.
-% \item
-% PEEKING2's prototype generator  clusters the data along the dimensions
-% found by accelerated PCA. Each cluster is then replaced with a ``prototype'' generated from
-% the median value of all attributes in that cluster. Prototype generation is a useful tool for
-% handling outliers: large groups of outliers get their own cluster; small sets of outliers
-% get ignored via median prototype generation.
-% \item
-% PEEKING2 generates estimates for a test case by finding its nearest cluster,
-% then the two nearest neighbors within that cluster  (where ``near''
-% is computed using \eq{dist} plus feature weighting). If these neighbors are found at distance
-% $n_1,n_2, n_1 < n_2$ and have effort values $E_1,E_2$ then the final estimate is an extrapolation
-% favoring the closest one:
-% \ei
-% \[
-% n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
-% \]\\\hline
-% \end{tabular} 
-% \caption{Inside PEEKING2~\cite{papa13}.}\label{fig:peeking}
-% \end{figure}
+\begin{figure}[!t]
+\small
+\begin{tabular}{|p{.95\linewidth}|}\hline
+\bi
+\item
+PEEKING2's feature weighting scheme changes  $w_i$ in \eq{dist}  according to how much an attribute
+can divide and reduce the variance of the effort data (the {\em greater} the reduction, the
+{\em larger} the $w_i$ score).  
+\item
+PEEKING2's PCA tool uses an accelerated   principle component analysis that synthesises  new
+attributes $e_i, e_2,...$
+that extends across the dimension of greatest  variance in the data  with attributes $d$.  
+PCA  combines
+redundant  variables into a smaller set of variables  (so $e \ll d$) since those
+redundancies become (approximately) parallel lines
+in $e$ space. For all such redundancies \mbox{$i,j \in d$}, we 
+can ignore $j$ 
+since effects that change over $j$ also
+change in the same way over $i$.
+PCA is also useful for skipping over noisy variables from $d$-- these
+variables are effectively ignored since    they  do not contribute to the variance in the data.
+\item
+PEEKING2's prototype generator  clusters the data along the dimensions
+found by accelerated PCA. Each cluster is then replaced with a ``prototype'' generated from
+the median value of all attributes in that cluster. Prototype generation is a useful tool for
+handling outliers: large groups of outliers get their own cluster; small sets of outliers
+get ignored via median prototype generation.
+\item
+PEEKING2 generates estimates for a test case by finding its nearest cluster,
+then the two nearest neighbors within that cluster  (where ``near''
+is computed using \eq{dist} plus feature weighting). If these neighbors are found at distance
+$n_1,n_2, n_1 < n_2$ and have effort values $E_1,E_2$ then the final estimate is an extrapolation
+favoring the closest one:
+\ei
+\[
+n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
+\]\\\hline
+\end{tabular} 
+\caption{Inside PEEKING2~\cite{papa13}.}\label{fig:peeking}
+\end{figure}
 
 
 
@@ -2409,9 +2417,6 @@ Displayed as per \fig{loc}.}\label{fig:fss}
 
 \section{Threats to Validity}
 
-The above results were based with certain settings for some experiments on some data. 
-For example, in the previous section, we used noise at levels 25\% and 50\%.
-Clearly, these results may not hold if a wider range of settings (for e.g. noise) are explored.
 
 
 %% In the future, we plaIt is reasonable to require
@@ -2425,7 +2430,7 @@ Clearly, these results may not hold if a wider range of settings (for e.g. noise
 
 
 
-Another source of bias in this study
+One source of bias in this study
 are the learners used for the defect prediction
 studies. Data mining is a large and active field and
 any single study can only use a small subset of the
@@ -2439,8 +2444,132 @@ would generalize to other as yet unstudied
 data-sets. One the other hand, in terms of the
 parametric estimation literature, this is one of the most extensive
 and elaborate studies yet published.
- 
- 
+
+
+This paper offers case studies  that studied the effects of varying
+treating data with different model generation methods.
+This section discusses
+limitations of such case studies.
+As we read standard texts on empirical software engineering
+(e.g. Runeson & Host~\cite{Runeson200874}) the term ``case study'' often ¨
+refers to some act which includes observing or changing
+the conditions under which humans perform some software
+engineering action. In the age of data mining and model-based
+optimization this definition should be further extended
+to include case studies exploring how data collected from
+different projects can be generalized across multiple projects.
+As Cruzes et al. comment:
+\begin{quote}
+{\em   Choosing a suitable method for synthesizing evidence
+across a set of case studies is not straightforward...
+limited access to raw data may limit the ability
+to fully understand and synthesize studies. ~\cite{c75}}
+\end{quote}
+This quote from Cruzes et al. is almost a summary of the
+specific goals of this paper: given limited amounts of software
+project data, how best to build a synthesize a predictive model?
+\bi
+\item Use a modeling methods that is now decades old (COCOMO)?
+\item Or use other methods?
+  \ei
+  There is limited time to explore those methods.
+That is, a paper that attempts to generalizing across multiple
+case studies is itself a case study. Hence, any case studies
+in SE data mining  can only explore a small
+subset of options, selected by the biases of the researcher. The
+biases of the authors of this paper made us select
+a parametric modeling method (COCOMO)  as the main modeling method.
+We then made a conscious decision to reverse those biases
+and explore non-parametric methods (PEEKER and TEAK) as well
+as decision-tree methods (CART). Runeson \& Host comment that ¨
+case studies biased in this way are subject to criticsm:
+\begin{quote}
+As they are different from analytical and controlled
+empirical studies, case studies have been criticized
+for being of less value, impossible to generalize
+from, being biased by researchers etc.
+\end{quote}
+For this reason, it is important to state those biases and explore
+how they affect the reliability and validity of the stated result.
+
+\subsection{Reliability}
+
+Reliability refers to the consistency of the results obtained
+from the research. It has at least two components: {\em internal}
+and {\em external} reliability.
+
+Internal reliability checks if an independent researcher
+reanalyzing the data would come to the same conclusion.
+Our 
+Note
+that large variances in the results threaten internal reliability.
+For this reason, one of the assessment criteria of this paper
+was “optimization failure”; i.e. where the treated project data
+had a larger spread in results than the untreated data. Note
+that one of the reasons we recommend W2 over data farming
+is that the latter was observed to exhibit more optimization
+failures.
+External reliability assesses how well independent researchers
+could reproduce the study. To increase external
+reliability, this paper has taken care to clearly define our
+algorithms. Also, all the data used in this work is available
+on-line in the PROMISE code repository.
+
+5.3.2 Validity
+
+Validity refers to the extent to which a piece of research actually
+investigates what the researcher purports to investigate.
+Validity has at least three components: internal, construct, and
+external validity~\cite{Runeson200874}.
+Internal validity checks that if the differences found in
+the treatments can be ascribed to the treatments under study.
+In this paper, the treatments refer to the algorithms built
+extensively extrapolated the existing data or CBR tools that
+used small local models. We noted that data farming exhibited
+a larger number of optimization failures, which we argue as
+an indication that data farmer over-extrapolates the data to
+derive inappropriate conclusions, in regions of the data that
+is sparsely populated. CBR, on the other hand, exhibited far
+fewer such failures suggesting that nearest neighbor methods
+that build local “bridges” across local data is safer than the
+extrapolation used in data farming (at least that is, for sparsely
+populated data sets).
+
+Construct validity refers to qualities that we cannot directly
+observe but that we assume they exist in order to explain
+behavior we can observe. It is extremely important to define
+constructs that are being investigated in such a way that would
+otherwise enable an outsider to identify these characteristics
+if they came across them. In our case, the important construct
+is the optimization failure. If another data farming researcher
+is working on data where all their treatments selected from
+projects with a large variance than the original population, then
+that should be an indication that they might wish to explore
+CBR in place of their data farmers.
+
+Finally, external validity checks if the results are of relevance
+for other cases, or can be generalized from samples
+to populations. For example, the datasets used here comes
+from COCOMO and NASA projects and these projects do not
+represent the space of all possible projects. Also, optimization
+is a large and active field of research (see the range of
+optimizers discussed in the next section) and any single study
+can only use a small subset of the known algorithms. And if
+anyone reads this sentence, timm will send whiskey. To reduce
+the effects of external validity, this paper first sorted the AI
+algorithms of Figure 6, then compared the best of that set
+of algorithms to W2. Nevertheless, it is a important area for
+future work to observe if other optimizers can produce better
+results than W2 in data-starved domains.
+
+For case study research, it is difficult to completely avoid
+problems of external validity The best we can do is to define
+our algorithms and publicize our data to enable replication
+of our results by other researchers, and perhaps, point out
+a previously unknown bias in our analysis. Desirably, other
+researchers will emulate our methods to repeat, refute, or
+improve our results.
+
 \section{Conclusion}
 The past few decades have seen a long line of innovative  methods
 applied to effort estimation. This paper has compared a sample of those methods
