@@ -107,7 +107,7 @@
 
 
 \usepackage{marginnote}
-%\setlength{\marginparwidth}{5cm}
+\setlength{\marginparwidth}{4cm}
 
 \definecolor{darkgreen}{rgb}{0,0.3,0}
 
@@ -159,15 +159,48 @@
 \begin{document}  
 \newpage
 \noindent
-{\bf REPLY TO REVIEWERS}
+    {\bf REPLY TO REVIEWERS}
 
+    \noindent
+{\bf Comments from the special issue editor}
+
+{\em     The reviewers identify a number of strong points about your submission..}
+
+Thank you for that comment.
+
+{\em ... but also a number of issues related to presentation, emphasis (i.e., more emphasis of the 'negative' result is needed) and clarification of related work. Please take these comments into account when preparing your revision.}
+
+We offer those those clarifications below, and several large changes:
+
+\be
+\item All the non-negative results in the last draft have been moved to another paper
+  (so this paper now focuses on the negative);
+
+  (so this paper now focuses on the negative);
+\item Also removed were the experiments on errors in LOC (which is
+  not really essential for our discussion).
+  
+\item
+  At the suggestion of Reviewer\#2, we now include results from the
+  \textit{Automatically Transformed Linear Baseline Model}(ATLM) proposed by Whigham et al. \cite{whigham15}.
+\item Also, at the suggestion of Reviewer\#2, we re-ran all our results
+  using another evalaution measure (not MRE). Those results did not change
+  the conclusions of this paper... which is an interesting result in of itself
+  (different statistical measures are surprisingly blunt in the face
+  of the large variances seen in effort estimation results). That finding (of
+  equivalent conclusions despite different eval measures) is now on-line for
+  you and the reviewers to inspect\footnote{George: URL?}-- but it adds no information to this
+  paper (do not change any of our conclusions). We think we can write
+  that up as a seperate paper so we ask that we do not
+  present here.  Do you concur?
+  \ee
+  
 \noindent
-{\bf Comment to editors}
+{\bf Comment to Reviewer\#1}
 
 \noindent
 Thank you for your details comments.  This new draft
-contains many corrections and extensions as directed by the
-reviewers (including results from the Wingham method).
+contains many corrections and extensions as directed by your feedback.
 
 As to your specific comments: 
  
@@ -193,42 +226,46 @@ we will not reference that paper in this one.
 \newcommand{\WHERE}[1]{page \pageref{err:#1} (see \textcolor{blue}{#1})}
 
 \newcommand{\HERE}[1]{\label{err:#1}
- \reversemarginpar\marginnote{(#1)}}
+ \reversemarginpar\marginnote{\textcolor{blue}{(#1)}}}
 
 That is an  important clarification.
-We have fixed that, at \WHERE{Ed1}.
+We have fixed that, at \WHERE{Reviewer1a}.
 
 {\em "Secondly, it is not standard practice in software analytics for researchers to benchmark their latest results against some supposedly simpler "straw man" method." My guess would be that in many cases no such method is available making benchmarking impossible. When the domain starts to become more mature, this kind of comparisons are bing conducted (see, e.g., code cloning or a more recent work on tag inference for Stack Overflow posts).}
 
 Good comment--- which we added
-at \WHERE{Ed2}.
+at \WHERE{Reviewer1b}.
 
 
 
 
-As to your specific comments,
-Also
-you write {\em I'm also concerned about the choice of the datasets. Two of the datasets considered are affiliated with COCOMO, so they can provide a biased perspective on the power of the results. Are there additional datasets one might consider or are the COCOMO requirements so restrictive that no such datasets can be found unless at NASA?}. Our reply is that 
+As to your specific comments, you write {\em I'm
+  also concerned about the choice of the
+  datasets. Two of the datasets considered are
+  affiliated with COCOMO, so they can provide a
+  biased perspective on the power of the
+  results. Are there additional datasets one might
+  consider or are the COCOMO requirements so
+  restrictive that no such datasets can be found
+  unless at NASA?}. 
 \bi
 \item
-We have tried, most earnestly, for decades to collect
+  It is true that NASA contributed the data sets to NASA93 and NASA10.
+  But for effects from non-NASA sources, we direct the reviewer to the 93 projects
+  in the COC05
+  results. 
+\item
+  Also, as I'm sure the reviewer knows,
+  we have tried, most earnestly, for decades to collect
 and publish  data sets (see the 
 500+ data sets at openscience.us-- a web site we created and maintain for the SE community).
-\item
 Even with that resources, and even after years of work,
 these four data sets are all we can offer for this paper
 (there are more, of course, but their users have declined
 to let us use that other data).
 \item
-As to the ``NASA bias'', certainly that exists but...
-\bi
-\item
-Other empirical software engineering researchers publish
-results with a clear organizational bias (witness the results
-of Zimmermann and Bird from Microsoft data
-or Penix and Elbaum working from Google data.).  
-\item 
-Very little software comes
+  As to the ``NASA bias'' in the everything that is not COC05,
+  in practice, very little software comes
 ``from NASA''. NASA is not
 really a development organization. Rather it is a contractor
 management site where the real work gets done by external
@@ -238,21 +275,208 @@ for many other applications and many other clients. Hence we argue
 that lessons learned from data
 marked as ``NASA'' actually applies
 to a wide range of projects.
-\ei
-  
-  
-  
-  A third paper we are now writing
-explores the effects of different evaluation
-criteria in effort estimation. At the excellent suggestion
-of Reviewer2, we reran all our experiments using not MRE but 
-using the ratio of the squared difference between the estimate and actual divided by the squared difference between the actual and the average effort. In terms of the conclusions offered by this paper,
-it turns out that these two eval measures
-produce the same results. We would prefer NOT to show the
-equivalence of those results in this paper (since they add no
-information to the argument of this paper) but instead have
-added those charts in the private reply sections to our reviewers.
- 
+  \ei
+     {\em The authors should have been more careful with introducing the techniques the use. It is not very clear what the "triangle function of Walkerden and Jeffery [68]" is precisely. Is it merely an idea that three variables should be combined as a weighted sum? Or is this a particular approach that can be used to derive coefficients 50, 33 and 17? I've checked the paper by Walkerden and Jeffery [68] but the triangle function is not mentioned.}
+
+     You are right... we were far too clever in our write up at that
+     point.
+     P140 and p141 of the [68] describe how the estimates for the k-th
+     nearest items are ranked according to the ordering of their items.
+     What we should have written was $\frac{3a + 2b + 1c}{6}$. That has been fixed now at  \WHERE{Reviewer1c}.
+
+     {\em     Is $m.\mu$ the median of m (as suggested by the preceding discussion) or the mean of $m$ (as seems to follow from the paper by Mittas \& Angelis [52])?}
+
+Good catch. We use means (as recommended by Mittas     \& Angelis)\footnote{George???}
+
+{\em      Are the means reliable? Why wouldn't one use a one-shot multiple comparisons procedure such as T~ of Konietschke et al.?}
+
+Certainly, there are any number of possible analysis methods that might be used here.
+What we did in this paper is to search the liteature and find
+methods endorsed in the effort estimation liteature. Which in this case was
+the Mittas \& Angelis 
+IEEE TSE paper~\cite{mittas13} that gave us Scott-Knott.
+
+{\em 4.4 COCOMO with Incorrect Size Estimates "That
+  is, the parametric estimation method being
+  recommended here is not unduly affected by noise
+  where the KLOC values vary up to 50\% of their
+  original value." I wonder whether one can expect
+  estimation to be up to 50\% of the real
+  value. Laranjeira in "Software Size Estimation of
+  Object-Oriented Systems" (1990) has reported size
+  estimates that were 3-4 times higher or lower than
+  the actual system size; in two cases the estimates
+  were as bas as 6 times off. This makes me wonder
+  whether the "not unduly sensitive" in the
+  conclusion does not overstate the results.}
+
+Good catch- we increased the LOC estimation error study and found that
+COCOMO breaks down when LOC errors grow beyond 200\% (but still worked up
+to that point).
+
+Now we can include that result in this paper but, in keeping with the comments
+about needing to focus the paper better, we have removed them.
+
+Please advise if you want the ``up to 200\%'' results returned to this paper.
+
+{\em Minor\newline
+Section 3: reserach\newline
+Section 4.3.4: thse\newline
+Section 4.4: redundant )}
+
+Fixed (and thanks for pointing out those errors).
+
+
+{\em The entire second half of the PDF contains the output of the LaTeX compilation. I presume that something went wrong during the submission process.}
+
+Yes, that was strange. Sorry you had to deal with that.
+
+\noindent
+{\bf Comment to Reviewer\#2}
+
+\noindent
+Thank you for your details comments.  This new draft
+is significantly improved thanks to your  feedback. In particular,
+we made many changes as a result of your following comment:
+
+
+{\em  Generally, the paper has a large number of different elements  that makes it difficult to follow. If you are interested in the value of COCOMO-II why not stick to that.
+}
+
+To clarify and focus the paper we have removed (a)~all the non-COCOMO results;
+and (b)~all the COCOMO size error results.
+
+{\em A "strawman" should not be something that is so
+  foolish that it is impossible not to
+  outdo. Researchers in the past have used simple
+  regression without a logarithmic transformation
+  and MMRE as an accuracy measure for comparison
+  with new estimation methods.  Kitchenham \& Mendes
+  pointed out this was not a valid approach.}
+
+Thank you for the reference to the ATLM method from
+the Whigham paper (Whigham, P., Owen, C., and
+Macdonell, S. A baseline model for software effort
+estimation. ACM Trans. on Softw. Eng. \&
+Methodol. 24, 3 2015). We agree that the literature
+agrees that ATML is a suitable ``straw man''. We
+have included those results in this paper at
+\WHERE{Reviewer2a} and \WHERE{Reviewer2b} and  \WHERE{Reviewer2d}.
+
+Just as an aside, thanks for pointing us to
+the  Whigham paper. It turns out that  as a baseline method,
+it performs much worse than anything else we tried. So now we have another paper
+to write after this one ``A Better Baseline for Effort Estimation''-- which would
+not be happening without your input.
+
+For now, what we can say in this paper (which is a clear negative report) is
+that nothing we've tried (including the Whigham baseline and
+all the supposedly clever implementations
+we've built in the last decade) perform no better than old fashioned COCOMO.
+
+{\em RQ1 I don't think the issue was ever about "just lines of code" it was about simple regression rather than a complex  deterministic model. }
+
+Actually, our experience is a little different from yours on this point.
+I've been at SE conferences where Martin Shepperd  has said exactly that COCOMO
+runs no better than simple LOC.
+
+{\em However,  the function point community do recommend the taking the average of the productivity (Effort/FP) then multiplying by the FP estimate of a project needing a cost estimate.}
+
+\footnote{GEORGE XXX what do we have on this?}
+
+{\em 
+  This paper uses two proprietary data sets which means the results cannot be independently validated. This is not very satisfactory. We have too many data mining studies that cannot be reproduced....
+The results for NASA 10 and COC05 are hearsay.}
+
+We took your comment back to our business users and can report some success there (thank you for your comment).
+NASA10 is now publicly available (and included in this paper, \WHERE{Reviewer2c}.
+
+As to the remaining data set (COC05),
+we agree that it is not ideal that it remains closed source.  But
+we also think that it is not fatal to this paper. 
+Other empirical software engineering researchers publish
+results with a clear organizational bias (witness the results
+of Zimmermann and Bird from Microsoft data
+or Penix and Elbaum working from Google data).
+
+{\em Figure 2 . The Coc81 data set has 63 projects (or did you remove one of them?)}
+
+George. what?
+
+{\em Jorgensen didn't talk about "Delphi-based" methods he talked about  "expert-based" estimation.}
+
+You are right.. ``expert'' is a better term than Delphi. We have changed all those terms here.
+
+
+{\em Equation (3) You should not be using the biased
+  MRE measure. The poor behavior of MRE has been
+  well documented in leading journals (see ref [1],
+  [3] \& [4]. It doesn't matter whether you use the
+  median or mean MRE the metric is still
+  biased. Furthermore if you use it as a goodness of
+  fit measure as well as a performance measure you
+  compound the error [5].
+
+  If you really want a measure between 0 and 1 to
+  assess performance, use an R-squared equivalent
+  such as the ratio of the squared difference
+  between the estimate and actual divided by the
+  squared difference between the actual and the
+  average effort.  }
+
+We have re-run all the experiments using the measure you propose $r2=\frac{(a-e)^2}{(a - \overline{a})^2}$
+and the results are available for you to inspect at \footnote{GEORGE}.
+We can report that, compared to MRE, it effected our results {\em not at all}
+(the same conclusions held about the rankings of the different methods and, more importantly
+for this paper, the same negative conclusion about COCOMO working very well w.r.t. more recent methods,
+still holds up).
+
+Of course, we could change everything over to $r2$ if you prefer
+but since there is no conclusion change between MRE and $r2$, and since there is consensus amongst this paper's
+reviewers that the old draft had too much in it, we think we should not
+add  more experimental detail that
+only makes the same conclusions.
+
+Also, we think there is a {\em seperate} paper here revisiting effort estimation evaluationXXXX
+
+XXX include graphic
+
+But what do you think?
+
+{\em  Wingham et al.'s default model seems more appropriate as a useful strawman and is certainly better than lines of code.}
+
+ We agree and 
+have included those results from the Wingham this paper at
+\WHERE{Reviewer2a} and \WHERE{Reviewer2b} and \WHERE{Reviewer2d}. And please note, as we stated
+before, how badly
+Wingham performs in \WHERE{Reviewer2d}-- thanks to your comments on this matter, we know have
+another paper to write about a better baseline for effort estimation.
+
+
+{\em From your description it appears that TEAK  removes projects  - how then do you do a fair comparison with other methods ? }
+
+Note that TEAK and PEEKING2 only prunes the training set, not the test set so it is a fair comparison \footnote{George: when we get TEAK
+  back into the paper we have to make this note in the text}.
+
+{\em Since Barry Boehm is a co-author, it should be simple to confirm whether or not any of the NASA93 projects were used in the construction of COCOMO-II.}
+
+{\bf Ye. Jairus. Need some statement of overlap nasa93 and cocII}
+
+
+{\em  4.3.1 This seems like a good idea. There are too many levels (which should be treated as dummy variables) for a data-based calibration process to work well without a very large data base.}
+
+Thank you for that comment. We agree.
+
+{\em 4.4 It would be useful to plot the actual size against the recalculated size. If the revised size is still correlated with the actual size you may only have demonstrated that the exponential term in the COCOMO model is close to 1.}
+
+Please see above discussion with Reviewer1 on `` 4.4 COCOMO with Incorrect Size Estimates ''.
+In order to focus the paper better,  have removed it from this draft. However, at your direction, we would gladly return it.
+
+
+{\em Section 5: I am not clear why the authors felt it necessary to include Figures 13 \& 14 other than to have something positive to report. However, there does not appear to be much difference between PEEKING2 and Knear(3) at least not really sufficient to claim that PEEKING2 performed best.}
+
+We concur. We have that entire section about positive results on non-COCOMO data.
+
 \newpage
 \date{}
 %
@@ -387,7 +611,7 @@ standard operations procedure for science.
 
 
  
-\begin{BLUE}\HERE{Ed1} 
+\begin{BLUE}\HERE{Reviewer1a} 
 Given the above, it is troubling  that 
 there are very few negative results   in the field of software analytics. 
 What does happen, occasionally,  are  reports of small
@@ -403,7 +627,7 @@ superior method is actually overly complex. Hence it
 always useful  to compare methods
 against simpler alternative. 
 
-\begin{BLUE}\HERE{Ed2} That said,
+\begin{BLUE}\HERE{Reviewer1b} That said,
 in some  cases no such method is available making such  benchmarking impossible. What can happen,
 as a   domain starts to become more mature,
 these comparisons can be conducted; see, e.g. the
@@ -421,7 +645,7 @@ of data is available, then it should be collected and it should be processed usi
 
 
 To guide our exploration,
- this paper asks five research questions.  These
+ this paper asks four research questions.  These
  questions have been selected based  on our experience debating
  the merits of COCOMO vs alternate methods. Based on our experience,
  we assert that each of the following questions has been used to motivate
@@ -478,11 +702,11 @@ This comes from projects dating 1970 to 1980.
 NASA93 is NASA data collected  in the early 1990s
  about software that supported  the planning activities for the International
 Space Station. 
-Our two other data sets are COC05 and NASA10 (these data sets
-are proprietary and 
+Our other data sets are  NASA10 and COC05 (the latter is
+proprietary and 
 cannot be released to the research community). 
-The non-proprietary data  (COC81 and NASA93) is available at
-http://openscience.us/repo. 
+The non-proprietary data  (COC81 and NASA93 and NASA10) is available at
+http://openscience.us/repo or in \fig{nasa10}.
 }\label{fig:types}
 \end{figure}
 
@@ -496,6 +720,7 @@ overlap with the data used to define the version of COCOMO
 used in this paper. }}\label{fig:dataused}
 \end{figure} 
 
+\input{nasa10}
 
 \input{cocomoParams}
 ~{\bf RQ2: Has parametric estimation been superseded
@@ -513,9 +738,9 @@ COCOMO-II tunings from 2000 to a wide range of projects dating
 We try   tuning estimation models on  small training sets 
 as well as simplifying the specification of  projects.
 
-~{\bf RQ5: Are parametric estimates unduly sensitive to errors in the size estimate?}
-In the context of RQ4, we check what happens
-if there are large errors in the ``thousand lines of code''(KLOC) estimate.
+%~{\bf RQ5: Are parametric estimates unduly sensitive to errors in the size estimate?%}
+%In the context of RQ4, we check what happens
+%if there are large errors in the ``thousand lines of code''(KLOC) estimate.
  
  
 To explore these questions, we use  COCOMO since its
@@ -536,11 +761,11 @@ the answer to all  our  research questions is nearly always
 ``no''.  
 The RQ1 experiments show that good estimates use many variables
 and  poorer estimates result from   some trite calculation based on KLOC.   
-Hence, as seen in RQ5,  we can make some degree of
-error in our KLOC estimates without damaging the overall estimation process (the caveat here is that if the KLOC
-estimates grow too erroneous-- more than 200\%--
-then some degradation is seen).
-
+%Hence, as seen in RQ5,  we can make some degree of
+%error in our KLOC estimates without damaging the overall estimation process (the cav%eat here is that if the KLOC
+%estimates grow too erroneous-- more than 200\%--
+%then some degradation is seen).%
+%
 As to the other research questions (R2,R3,R4), those results mean that 
 the continued
 use of parametric estimation can still be endorsed-- at least for data expressed
@@ -695,22 +920,22 @@ Cost Modeling (see the websites goo.gl/u3q9Nq, goo.gl/8jxPrb, goo.gl/O01Pc6).
 
 Two of the myths of effort estimation is that 
 (1)~no one used model-based estimation like COCOMO;
-and (2)~estimates are always better done using expert-based guess-timation, a.k.a. {\em Delphi-based} methods\footnote{The mythological oracle of Delphi spoke for the god Apollo to answer questions  about colonization, religion, and power.}.
+and (2)~estimates are always better done using expert-based guess-timation.
 
 These myths are misleading.
 As seen above,  model-based
 parametric methods are  widely used in industry and
 are strongly advocated by professional societies.
 Also, 
-while it is true that Delphi-based estimation is a common practice~\cite{boehm00a}, this is not to say that this should be recommended as the {\em best} or {\em only} way to make estimates:
+while it is true that expert-based estimation is a common practice~\cite{boehm00a}, this is not to say that this should be recommended as the {\em best} or {\em only} way to make estimates:
 \bi 
 \item
 Jorgensen~\cite{Jorgensen2004} reviews studies 
-comparing  model- and Delphi- based estimation and concludes that there
-there is no clear case that Delphi-methods are better.
+comparing  model- and expert- based estimation and concludes that there
+there is no clear case that expert-methods are better.
 \item 
 Valerdi~\cite{valerdi11} lists the
-cognitive biases that can make an expert offer poor Delphi-estimates.
+cognitive biases that can make an expert offer poor expert-estimates.
 \item Passos et al. show that many
 commercial software engineers generalize from their
 first few projects for all future
@@ -718,29 +943,29 @@ projects~\cite{passos11}.
 \item
 Jorgensen \& Gruschke~\cite{jorgensen09} document how
   commercial  ``gurus'' rarely use lessons
-  from past projects to improve their future Delphi-estimates. 
+  from past projects to improve their future expert-estimates. 
  They offer examples where this
   failure to revise prior beliefs   leads to poor
- Delphi-based estimates.
+ expert-based estimates.
   \ei 
 Much research has concluded that the best estimations come from {\em combining} the predictions
 from {\em multiple oracles}~\cite{koc11a,chulani99,baker07,valerdi11}.  
 
-Note that it is far easy to apply this double-check strategy using Delphi+model-based methods 
-than by comparing the estimates from multiple Delphi teams.
+Note that it is far easy to apply this double-check strategy using expert+model-based methods 
+than by comparing the estimates from multiple expert teams.
 For example, all the model-based methods  studied in this paper can generate estimates
-in just a few seconds. In comparison, Delphi-based estimation is orders of magnitude slower-- as seen in  
+in just a few seconds. In comparison, expert-based estimation is orders of magnitude slower-- as seen in  
 Valerdi's  
-COSYSMO Delphi-method.
+COSYSMO expert-method.
 While a strong proponent of this approach, Valerdi concedes that 
 ``(it is)  extremely time
 consuming when large sample sizes are needed''~\cite{valerdi11}.
 For example, he once
-recruited 40 experts to three Delphi sessions, each of which ran for three hours.
+recruited 40 experts to three expert sessions, each of which ran for three hours.
 Assuming a 7.5 hour day,
 then that study took $3*3*40 /7.5 = 48\; \mathit{days}$.
 
-COSYSMO is an elaborate Delphi-based method. An alternate, more lightweight Delphi-method is  ``planning poker''~\cite{molokk08} where
+COSYSMO is an elaborate expert-based method. An alternate, more lightweight expert-method is  ``planning poker''~\cite{molokk08} where
 participants offer anonymous
 ``bids'' on the 
 completion time for a project. If  the bids are widely divergent, then the factors
@@ -760,7 +985,7 @@ the initial estimate as accurate as possible.
  
 
 \subsection{COCOMO: Origins and Development}
-These concerns with  Delphi  date
+These concerns with  expert-based estimation  date
 back many decades and were the genesis for  COCOMO. In 1976, Robert Walquist (a TRW division general manager)
 told  Boehm: \begin{quote}{\em ``Over the last three
 weeks, I've had to sign proposals that committed us
@@ -782,7 +1007,7 @@ engineering and scientific software involved in
 TRW's business base.  Having access to experts and
 data was a rare opportunity, and a team involving
 Ray Wolverton, Kurt Fischer, and Boehm conducted a
-series of meetings and Delphi exercises to find
+series of meetings and expert exercises to find
 the relative significance of various  cost
 drivers. Combining local expertise  and data, plus some prior results 
 such as~\cite{putnam76,black77,herd77,watson77},  and early versions of the RCA
@@ -933,55 +1158,55 @@ the project in 20 months.
 
 
 
-Note that, from \eq{cocII},
-the minimum  
-effort  is bounded by the  {\em sum} of the minimum scale factors
-and the {\em product} of the minimum effort multipliers.
-Similar expressions hold for the  maximum effort estimate. Hence,
-for a given KLOC, the range of values is given by:
-\[
-0.18*\mathit{KLOC}^{0.97}  \le \mathit{effort} \le 154*\mathit{KLOC}^{1.23}\]
-Dividing the minimum and maximum values results in an  expression showing
-how    effort can vary for any given KLOC.: 
-\begin{equation}\label{eq:ration}
-154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
-\end{equation}
-\begin{BLUE}
-From  \eq{ration}, we can make
-two observations. Firstly,   changes to the scale
-factors and effort multipliers have a large
-effect on effort (up to a factor of 856).
-Secondly, 
-the difference
-between the min and max estimate differs as a very low-order
-polynomial ($\mathit{KLOC}^{0.25}$). That is, we might expect
-changes other that KLOC to
-have a relatively larger impact on   COCOMO's
-estimates. 
+%% Note that, from \eq{cocII},
+%% the minimum  
+%% effort  is bounded by the  {\em sum} of the minimum scale factors
+%% and the {\em product} of the minimum effort multipliers.
+%% Similar expressions hold for the  maximum effort estimate. Hence,
+%% for a given KLOC, the range of values is given by:
+%% \[
+%% 0.18*\mathit{KLOC}^{0.97}  \le \mathit{effort} \le 154*\mathit{KLOC}^{1.23}\]
+%% Dividing the minimum and maximum values results in an  expression showing
+%% how    effort can vary for any given KLOC.: 
+%% \begin{equation}\label{eq:ration}
+%% 154/0.18 *\mathit{KLOC}^{1.23 - 0.97} = 856*\mathit{KLOC}^{0.25}
+%% \end{equation}
+%% \begin{BLUE}
+%% From  \eq{ration}, we can make
+%% two observations. Firstly,   changes to the scale
+%% factors and effort multipliers have a large
+%% effect on effort (up to a factor of 856).
+%% Secondly, 
+%% the difference
+%% between the min and max estimate differs as a very low-order
+%% polynomial ($\mathit{KLOC}^{0.25}$). That is, we might expect
+%% changes other that KLOC to
+%% have a relatively larger impact on   COCOMO's
+%% estimates. 
 
-To confirm this second possibility we ran two small experiments
-with the COCOMO equation. In both experiments,
-project size was varied from 0 to 1,000,000 lines of code.
-For each size, two estimates were generated using 
-by adjusting the effort/scale factors to their (1)~{\em least}
-and (2)~{\em most} values. As  shown in \fig{linear},
-the exponent on the KLOC term is very close to one while,
-in the worst case (on the orange curve) other factors
-can change the estimate by three orders of magnitude (as witnessed
-by the leading 1699.07 value). 
-\end{BLUE}
-
-
+%% To confirm this second possibility we ran two small experiments
+%% with the COCOMO equation. In both experiments,
+%% project size was varied from 0 to 1,000,000 lines of code.
+%% For each size, two estimates were generated using 
+%% by adjusting the effort/scale factors to their (1)~{\em least}
+%% and (2)~{\em most} values. As  shown in \fig{linear},
+%% the exponent on the KLOC term is very close to one while,
+%% in the worst case (on the orange curve) other factors
+%% can change the estimate by three orders of magnitude (as witnessed
+%% by the leading 1699.07 value). 
+%% \end{BLUE}
 
 
-\begin{figure}[!h]
-\includegraphics[width=5in]{linear.png}
-\caption{\textcolor{blue}{COCOMO estimates increase
-as very low-order power series.
-Assuming {\em most} / {\em least} values for
-effort and scale factors, the exponent
-on the KLOC term is 0.9723 and 1.23, respectively.}}\label{fig:linear}
-\end{figure}
+
+
+%% \begin{figure}[!h]
+%% \includegraphics[width=5in]{linear.png}
+%% \caption{\textcolor{blue}{COCOMO estimates increase
+%% as very low-order power series.
+%% Assuming {\em most} / {\em least} values for
+%% effort and scale factors, the exponent
+%% on the KLOC term is 0.9723 and 1.23, respectively.}}\label{fig:linear}
+%% \end{figure}
  
 \subsection{COCOMO and Local Calibration}\label{sect:coconut}
 When local data is scarce, approximations can be used to
@@ -1101,7 +1326,7 @@ def RIG():
 
 \section{Experimental Methods} 
 
-In this section, we discuss the methods used to explore the reserach questions defined
+In this section, we discuss the methods used to explore the research questions defined
 in the introduction.
 %% \begin{figure*}
 %% {\scriptsize
@@ -1212,12 +1437,14 @@ function of  Walkerden
 and Jeffery~\cite{Walkerden1999}; 
 e.g.. for $loc(3)$, the  estimate
 from the first, second and third closest neighbor with estimates
-$a,b$ and $c$ respectively is 
+$a,b$ and $c$ respectively is
+\HERE{Reviewer1c}
 \begin{equation}\label{eq:tri}
-\mathit{effort} = (50a + 33b + 17c)/100
+\mathit{effort} = (3a + 2b + 1c)/6
 \end{equation}
 
 \begin{BLUE}
+  \HERE{Reviewer2a}
 We also baseline the COCOMO-II and COCONUT models using the \textit{Automatically Transformed Linear Baseline Model}(ATLM) proposed by Whigham et al. \cite{whigham15}. ATLM is a form of multiple linear regression of the form
 
 \begin{equation}
@@ -1631,7 +1858,7 @@ estimation.
 
 
 \begin{figure}[!t]
- 
+ \HERE{Reviewer2d}
 {\small
 
 \noindent {\bf NASA10: (new NASA data up to 2010):}
@@ -1709,8 +1936,12 @@ and {\bf R3: Are the old parametric tunings irrelevant to
 more recent projects?}
 
 \fig{standard} compares COCOMO and COCONUT with  
-traditional effort estimation methods
-from the 1990s (CART and Knear(n)).
+standard effort estimation methods
+from the 1990s (CART and Knear(n))
+\begin{BLUE}\HERE{Reviewer2b}
+  as well as  ATML (the baseline effort estimation method
+  proposed in 2015 by Whigham et.al.~\cite{whigham15}).
+  \end{BLUE}
 In that comparison, nothing was ever ranked better than COCOMO-II
 (sometimes
 CART or COCONUT had a slightly lower median MRE but that difference was small: $\le 4$\%).
@@ -1923,7 +2154,7 @@ above}, while ignoring 50\% of the columns.
 
 In \fig{fss}, all the {\em r4} results are ranked
 comparatively worse than the other treatments.  That
-is, thse results do not condone learning from just
+is, these results do not condone learning from just
 four projects.
 
 On the other hand \fig{fss} suggests that it is defensible
@@ -2064,65 +2295,65 @@ Displayed as per \fig{loc}.}\label{fig:fss}
 
 
 
-\subsection{COCOMO with Incorrect Size Estimates}\label{sect:nonoise}
+%% \subsection{COCOMO with Incorrect Size Estimates}\label{sect:nonoise}
 
-This section explores
-{\bf RQ5: Are parametric estimates unduly sensitive to
-errors in the size estimate?}
-
-
-Before endorsing a KLOC-based estimation method,
-it is important to understand the effects of noise
-within the KLOC samples. 
-Test projects to be estimated may have noisy KLOC values if
-the development team incorrectly guesstimated the size of
-the code.
-Training data may have noisy KLOC
-for many reasons such as
-\bi
-\item How was reused code accounted
-for in the KLOC?
-\item  Was LOC measured from end-statement
-or end-of-line symbols?
-\item Or how were lines of comments handled?
-\ei
-Another factor that introduces noise into training and test
-data are systems built from multiple languages. 
-To make estimates from  those kind
-of systems, KLOC in one language needs to be translated (in a possibly incorrect way) to KLOC in another language.
-
-In theory, the  problem of noisy KLOC measures seem particularly acute in our work.
-The core of COCOMO  is an estimate that is exponential on KLOC.
-This means that 
- KLOC will be magnified in a non-linear way). 
-Also, if we train on just eight rows, as proposed above,
-then any noise in that small training data could be highly
-detrimental to the estimation process.
-
-To check the effects of noise, we repeated the reduction
-experiments of the last section while also injecting
-noise into the KLOC values.
-That is, as above, 
-(1)~the ranges were reduced to three;
-(2)~half the columns were reduced;
-(3)~we trained on only eight randomly selected projects; and 
-(4)~prior to train and test, all KLOC values were adjusted
-to
-\[\mathit{KLOC} = \mathit{KLOC}*((1- n) + (2*n*r))\]
-where $n \in \{0.25,0.5\}$ is the level of noise we are exploring and $r$ is a random number
-$0 \le r \le 1$.
-
-In \fig{noise}, any result
-marked with {\em n/2} or {\em n/4} shows what happens
-when the KLOCs were varied by 50\% or 25\% respectively.
-In only one case (COC81) were the noisy results statistically
-different from using data without noise. That is,
-the parametric estimation method being recommended here is
-not unduly affected by noise where the KLOC values
-vary up to 50\% of their original value.
+%% This section explores
+%% {\bf RQ5: Are parametric estimates unduly sensitive to
+%% errors in the size estimate?}
 
 
-\input{noise}
+%% Before endorsing a KLOC-based estimation method,
+%% it is important to understand the effects of noise
+%% within the KLOC samples. 
+%% Test projects to be estimated may have noisy KLOC values if
+%% the development team incorrectly guesstimated the size of
+%% the code.
+%% Training data may have noisy KLOC
+%% for many reasons such as
+%% \bi
+%% \item How was reused code accounted
+%% for in the KLOC?
+%% \item  Was LOC measured from end-statement
+%% or end-of-line symbols?
+%% \item Or how were lines of comments handled?
+%% \ei
+%% Another factor that introduces noise into training and test
+%% data are systems built from multiple languages. 
+%% To make estimates from  those kind
+%% of systems, KLOC in one language needs to be translated (in a possibly incorrect way) to KLOC in another language.
+
+%% In theory, the  problem of noisy KLOC measures seem particularly acute in our work.
+%% The core of COCOMO  is an estimate that is exponential on KLOC.
+%% This means that 
+%%  KLOC will be magnified in a non-linear way). 
+%% Also, if we train on just eight rows, as proposed above,
+%% then any noise in that small training data could be highly
+%% detrimental to the estimation process.
+
+%% To check the effects of noise, we repeated the reduction
+%% experiments of the last section while also injecting
+%% noise into the KLOC values.
+%% That is, as above, 
+%% (1)~the ranges were reduced to three;
+%% (2)~half the columns were reduced;
+%% (3)~we trained on only eight randomly selected projects; and 
+%% (4)~prior to train and test, all KLOC values were adjusted
+%% to
+%% \[\mathit{KLOC} = \mathit{KLOC}*((1- n) + (2*n*r))\]
+%% where $n \in \{0.25,0.5\}$ is the level of noise we are exploring and $r$ is a random number
+%% $0 \le r \le 1$.
+
+%% In \fig{noise}, any result
+%% marked with {\em n/2} or {\em n/4} shows what happens
+%% when the KLOCs were varied by 50\% or 25\% respectively.
+%% In only one case (COC81) were the noisy results statistically
+%% different from using data without noise. That is,
+%% the parametric estimation method being recommended here is
+%% not unduly affected by noise where the KLOC values
+%% vary up to 50\% of their original value.
+
+
+%% \input{noise}
 
 
 \newcommand{\crule}[3][darkgray]{\textcolor{#1}{\rule{#2}{#3}}}
@@ -2138,42 +2369,42 @@ vary up to 50\% of their original value.
 \newcommand{\rfive}{\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}\hspace{0.3pt}\crule{1mm}{1.95mm}}
 
 
-\section{Discussion}
-From the above, there are several open issues.
-Firstly,
-how can an estimation method based
-on lines of code be immune to errors in measures of those lines of code? 
-Secondly, 
-all the above assumes that it is possible to collect project data using the COCOMO
-attributes of \fig{cparems}. What if that is not true?
+%% \section{Discussion}
+%% From the above, there are several open issues.
+%% Firstly,
+%% how can an estimation method based
+%% on lines of code be immune to errors in measures of those lines of code? 
+%% Secondly, 
+%% all the above assumes that it is possible to collect project data using the COCOMO
+%% attributes of \fig{cparems}. What if that is not true?
  
 
-\subsection{KLOC Noise Immunity}
+%% \subsection{KLOC Noise Immunity}
 
-At first glance, the above KLOC noise immunity result seems strange. However,
-it can be shown that this result can be explained by the underlying theory of COCOMO.
- \eq{ration} commented that there is much more to effort estimation than just KLOC.
- Recall that \eq{ration} showed
-how    effort   varies for a given KLOC. While KLOC was a factor in that equation,
-all the other COCOMO variables have a large influence on effort estimation. This means that even if there are errors in the KLOC measure, the other COCOMO variables can ``step in'' to comment on effort estimation.
+%% At first glance, the above KLOC noise immunity result seems strange. However,
+%% it can be shown that this result can be explained by the underlying theory of COCOMO.
+%%  \eq{ration} commented that there is much more to effort estimation than just KLOC.
+%%  Recall that \eq{ration} showed
+%% how    effort   varies for a given KLOC. While KLOC was a factor in that equation,
+%% all the other COCOMO variables have a large influence on effort estimation. This means that even if there are errors in the KLOC measure, the other COCOMO variables can ``step in'' to comment on effort estimation.
 
-Another thing to be said about \fig{noise} is that that noise does
-degrades predicted
-performance to some degree (observe how the non-noisy result from COCOMO-II always
-have better medians than once noise is injected). So it is not true to
-say that KLOC noise has no effect on effort estimation.
-That said, it should also be noted
-that statistically, the size of that effect is usually very small  or not
-significant (as defined by the statistical tests of \tion{stats}).
-This could mean that our statistical tests are failing. However, looking at the large variances
-of the COCOMO-II results in \fig{noise}, another explanation might be that
-that large variances seen with COCOMO-II shows the inherent imprecision of effort
-estimation. 
+%% Another thing to be said about \fig{noise} is that that noise does
+%% degrades predicted
+%% performance to some degree (observe how the non-noisy result from COCOMO-II always
+%% have better medians than once noise is injected). So it is not true to
+%% say that KLOC noise has no effect on effort estimation.
+%% That said, it should also be noted
+%% that statistically, the size of that effect is usually very small  or not
+%% significant (as defined by the statistical tests of \tion{stats}).
+%% This could mean that our statistical tests are failing. However, looking at the large variances
+%% of the COCOMO-II results in \fig{noise}, another explanation might be that
+%% that large variances seen with COCOMO-II shows the inherent imprecision of effort
+%% estimation. 
 
-These large variances are an important and open issue in effort estimation.
-It is hard to make precise statements about effort estimation when the estimates themselves
-are so imprecise. Perhaps the research community should spend a few years  working
-on variance reduction, after which, they can better explore reducing median error values.
+%% These large variances are an important and open issue in effort estimation.
+%% It is hard to make precise statements about effort estimation when the estimates themselves
+%% are so imprecise. Perhaps the research community should spend a few years  working
+%% on variance reduction, after which, they can better explore reducing median error values.
 
 
 \section{Threats to Validity}
@@ -2225,8 +2456,8 @@ that parametric estimation over many attributes (see \tion{justloc});
 \item {\bf RQ3}: Old parametric tunings are not out-dated (see \tion{othermethods});
 \item {\bf RQ4}: It is possible to simplify parametric estimation with some range, row and column pruning to reduce the cost
 of deploying those methods at a new site (see \tion{simpler});
-\item {\bf RQ5}: Parametric estimation methods like COCOMO that assume effort is exponential on lines of code are {\em not} unduly
-sensitive to errors in the LOC measure (see \tion{nonoise});.
+%\item {\bf RQ5}: Parametric estimation methods like COCOMO that assume effort is exp%onential on lines of code are {\em not} unduly
+%sensitive to errors in the LOC measure (see \tion{nonoise});.
 \ei
 Hence, we conclude that in 2016, it is still a valid and a recommended practice to {\em first} try parametric estimation. This conclusion comes with a caveat; It can sometimes be useful to augment standard COCOMO with 
 a local calibration method like COCONUT

@@ -1,5 +1,5 @@
-Src=phaseDelay
-Name=15phaseDelay
+Src=cocreport-ESE-revised-v1
+Name=16emse2
 Bib=refs.bib 
 
 all : dirs tex bib  tex tex embedfonts done
@@ -26,6 +26,9 @@ one : dirs tex done
 
 ready :
 	mkdir -p $(HOME)/tmp
+
+skim:
+	/Applications/Skim.app/Contents/MacOS/Skim $(HOME)/tmp/$(Src).pdf &
 
 done :
 	@printf "\n\n\n==============================================\n"
