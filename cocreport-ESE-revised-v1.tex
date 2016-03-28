@@ -175,15 +175,16 @@ We offer those those clarifications below, and several large changes:
 \be
 \item All the non-negative results in the last draft have been moved to another paper
   (so this paper now focuses on the negative);
-
-  (so this paper now focuses on the negative);
 \item Also removed were the experiments on errors in LOC (which is
   not really essential for our discussion).
   
 \item
   At the suggestion of Reviewer\#2, we now include results from the
   \textit{Automatically Transformed Linear Baseline Model}(ATLM) proposed by Whigham et al. \cite{whigham15}.
-\item Also, at the suggestion of Reviewer\#2, we re-ran all our results
+\item Also, at the suggestion of Reviewer\#2, we pushed our business users to make
+  more data available. We are happy to report that this draft now contains a full listing the Nasa10
+  data set (that was unavailable to the general public at the time of writing the last draft).
+\item Further, at the suggestion of Reviewer\#2, we re-ran all our results
   using another evalaution measure (not MRE). Those results did not change
   the conclusions of this paper... which is an interesting result in of itself
   (different statistical measures are surprisingly blunt in the face
@@ -372,7 +373,7 @@ not be happening without your input.
 For now, what we can say in this paper (which is a clear negative report) is
 that nothing we've tried (including the Whigham baseline and
 all the supposedly clever implementations
-we've built in the last decade) perform no better than old fashioned COCOMO.
+we've built in the last decade) perform any better than old fashioned COCOMO.
 
 {\em RQ1 I don't think the issue was ever about "just lines of code" it was about simple regression rather than a complex  deterministic model. }
 
@@ -389,7 +390,7 @@ runs no better than simple LOC.
 The results for NASA 10 and COC05 are hearsay.}
 
 We took your comment back to our business users and can report some success there (thank you for your comment).
-NASA10 is now publicly available (and included in this paper, \WHERE{Reviewer2c}.
+NASA10 is now publicly available (and included in this paper, \WHERE{Reviewer2c}).
 
 As to the remaining data set (COC05),
 we agree that it is not ideal that it remains closed source.  But
@@ -397,11 +398,12 @@ we also think that it is not fatal to this paper.
 Other empirical software engineering researchers publish
 results with a clear organizational bias (witness the results
 of Zimmermann and Bird from Microsoft data
-or Penix and Elbaum working from Google data).
+or Penix and Elbaum working from Google data). What is important, and what is done by Zimmermann, Bird,
+Penix, Elbaum and this paper is to clearly state the source of any such bias.
 
 {\em Figure 2 . The Coc81 data set has 63 projects (or did you remove one of them?)}
 
-George. what?
+\footnote{George.} what?
 
 {\em Jorgensen didn't talk about "Delphi-based" methods he talked about  "expert-based" estimation.}
 
@@ -424,24 +426,19 @@ You are right.. ``expert'' is a better term than Delphi. We have changed all tho
   squared difference between the actual and the
   average effort.  }
 
-We have re-run all the experiments using the measure you propose $r2=\frac{(a-e)^2}{(a - \overline{a})^2}$
-and the results are available for you to inspect at \footnote{GEORGE}.
-We can report that, compared to MRE, it effected our results {\em not at all}
-(the same conclusions held about the rankings of the different methods and, more importantly
-for this paper, the same negative conclusion about COCOMO working very well w.r.t. more recent methods,
-still holds up).
+As part of a revised threats to validity section on \WHERE{Reviewer2e}, we 
+re-run all the experiments using the measure you propose $r2=\frac{(a-e)^2}{(a - \overline{a})^2}$.
+A sample of those results are shown in this paper and the rest available for
+your  inspection \footnote{GEORGE}. In summary, the change of evaluation measure
+changed our conclusions not at all.
 
-Of course, we could change everything over to $r2$ if you prefer
-but since there is no conclusion change between MRE and $r2$, and since there is consensus amongst this paper's
+
+If you prefer,  we could add all the $r2$ to this paper.
+But since there is no conclusion change between MRE and $r2$, and since there is consensus amongst this paper's
 reviewers that the old draft had too much in it, we think we should not
 add  more experimental detail that
 only makes the same conclusions.
 
-Also, we think there is a {\em seperate} paper here revisiting effort estimation evaluationXXXX
-
-XXX include graphic
-
-But what do you think?
 
 {\em Whingham et al.'s default model seems more
   appropriate as a useful strawman and is certainly
@@ -460,7 +457,7 @@ another paper to write about a better baseline for effort estimation.
   comparison with other methods ? }
 
 Note that TEAK and PEEKING2 only prunes the training set, not the test set so it is a fair comparison.
-We have added a note to this effect at \WHERE{Reviewer2e}
+We have added a note to this effect at \WHERE{Reviewer2e}.
 
 {\em Since Barry Boehm is a co-author, it should be simple to confirm whether or not any of the NASA93 projects were used in the construction of COCOMO-II.}
 
@@ -473,6 +470,7 @@ Thank you for that comment. We agree.
 
 {\em 4.4 It would be useful to plot the actual size against the recalculated size. If the revised size is still correlated with the actual size you may only have demonstrated that the exponential term in the COCOMO model is close to 1.}
 
+This remark refers to material that has now been deleted from this version.
 Please see above discussion with Reviewer1 on `` 4.4 COCOMO with Incorrect Size Estimates ''.
 In order to focus the paper better,  have removed it from this draft. However, at your direction, we would gladly return it.
 
@@ -480,8 +478,11 @@ In order to focus the paper better,  have removed it from this draft. However, a
 {\em Section 5: I am not clear why the authors felt it necessary to include Figures 13 \& 14 other than to have something positive to report. However, there does not appear to be much difference between PEEKING2 and Knear(3) at least not really sufficient to claim that PEEKING2 performed best.}
 
 We concur. We have removed that entire section about positive results on non-COCOMO data.
-The resulting paper is much clearer, in our opinion.
+The resulting paper is much clear, in our opinion.
 
+As a final note, thank you again for your comments. This draft is now 6 pages shorter (since it has dispensed
+with much superfluous material), contains numerous important extensions (e.g. the full inclusion of the Nasa10 data),
+as well as important comments on external validity and other matters.
 \newpage
 \date{}
 %
@@ -725,7 +726,7 @@ overlap with the data used to define the version of COCOMO
 used in this paper. }}\label{fig:dataused}
 \end{figure} 
 
-\input{nasa10}
+  \input{nasa10}
 
 \input{cocomoParams}
 ~{\bf RQ2: Has parametric estimation been superseded
@@ -776,7 +777,7 @@ the continued
 use of parametric estimation can still be endorsed-- at least for data expressed
 in terms of the 22 COCOMO attributes. 
 
-
+For a sample of our data  see the NASA10 data set in \fig{nasa10}.
 
  \section{About Effort Estimation}
  \subsection{History}
@@ -2150,64 +2151,10 @@ Note that, due to the results of \fig{loc}, LOC was excluded from column reducti
 
 
 
-\subsubsection{Results}
+\begin{figure}[!b]
 
-\fig{fss} compares results found when either
-{\em all} or some {\em reduced} set of ranges, rows,
-and columns are used. Note our nomenclature:  the
-COCONUT:c0.5,r8  results are those
-seen after training on eight randomly selected
-training examples reduced to {\em below, nominal,
-above}, while ignoring 50\% of the columns. 
-
-In \fig{fss}, all the {\em r4} results are ranked
-comparatively worse than the other treatments.  That
-is, these results do not condone learning from just
-four projects.
-
-On the other hand \fig{fss} suggests that it is defensible
-to learn a COCOMO model from eight projects. All the
-{\em r8} results are top-ranked with the exception
-of the COC81 results (but even there, the absolute
-difference between the top {\em r8} results and
-standard COCOMO is very small).
-
-Overall, \fig{fss} suggests that the modeling
-effort associated with COCOMO-II could be reduced. Hence,
-it need not be expensive to deploy parametric estimation
-at some new site.
-Projects attributes
-do not need to be specified in great detail:
-a simple three point scale will suffice:
- {\em below, nominal, above}. As to how much data is
-required for modeling, 
-the results
-from COCONUT:c0.5,r8 are ranked either the same as
-COCOMO-II or (in the case of COC81) fall very close
-to the median and IQR seen for COCOMO-II.
-That is, 
-a mere eight projects can
-suffice for calibration.
-Hence, it
-should be possible to quickly build many COCOMO-like
-models for various specialized sub-groups using just
-a three-point scale
-
-That said, some column pruning should be employed
-when working with very small training sets (e.g.
-the eight rows used in \fig{fss}. 
-Note that
-in all data sets that generated multiple rankings,
-the {\em c1} results (that used all the attributes)
-were not top-ranked. That is, in a result that might
-have been predicted by Miller or Chen et al., when
-working with just a few rows it is useful to
-reflect on what columns might be ignored.
-
-
-
-\begin{figure}
- 
+  ~\\
+  
 {\small
 {\bf NASA10 (new NASA data up to 2010):}
 
@@ -2300,6 +2247,63 @@ reflect on what columns might be ignored.
 \caption{COCOMO vs simpler COCOMO.  
 Displayed as per \fig{loc}.}\label{fig:fss}
 \end{figure}
+
+
+
+
+\subsubsection{Results}
+
+\fig{fss} compares results found when either
+{\em all} or some {\em reduced} set of ranges, rows,
+and columns are used. Note our nomenclature:  the
+COCONUT:c0.5,r8  results are those
+seen after training on eight randomly selected
+training examples reduced to {\em below, nominal,
+above}, while ignoring 50\% of the columns. 
+
+In \fig{fss}, all the {\em r4} results are ranked
+comparatively worse than the other treatments.  That
+is, these results do not condone learning from just
+four projects.
+
+On the other hand \fig{fss} suggests that it is defensible
+to learn a COCOMO model from eight projects. All the
+{\em r8} results are top-ranked with the exception
+of the COC81 results (but even there, the absolute
+difference between the top {\em r8} results and
+standard COCOMO is very small).
+
+Overall, \fig{fss} suggests that the modeling
+effort associated with COCOMO-II could be reduced. Hence,
+it need not be expensive to deploy parametric estimation
+at some new site.
+Projects attributes
+do not need to be specified in great detail:
+a simple three point scale will suffice:
+ {\em below, nominal, above}. As to how much data is
+required for modeling, 
+the results
+from COCONUT:c0.5,r8 are ranked either the same as
+COCOMO-II or (in the case of COC81) fall very close
+to the median and IQR seen for COCOMO-II.
+That is, 
+a mere eight projects can
+suffice for calibration.
+Hence, it
+should be possible to quickly build many COCOMO-like
+models for various specialized sub-groups using just
+a three-point scale
+
+That said, some column pruning should be employed
+when working with very small training sets (e.g.
+the eight rows used in \fig{fss}. 
+Note that
+in all data sets that generated multiple rankings,
+the {\em c1} results (that used all the attributes)
+were not top-ranked. That is, in a result that might
+have been predicted by Miller or Chen et al., when
+working with just a few rows it is useful to
+reflect on what columns might be ignored.
 
 
 
@@ -2430,13 +2434,9 @@ Displayed as per \fig{loc}.}\label{fig:fss}
 
 
 
-One source of bias in this study
-are the learners used for the defect prediction
-studies. Data mining is a large and active field and
-any single study can only use a small subset of the
-known data mining algorithms.  
 
-Questions of validity also arise in terms of how the
+
+Questions of validity arise in terms of how the
 projects (data-sets) are chosen for our experiments.
 While we used all the data sets that could be shared
 between our team, it is not clear if our results
@@ -2445,130 +2445,48 @@ data-sets. One the other hand, in terms of the
 parametric estimation literature, this is one of the most extensive
 and elaborate studies yet published.
 
+To increase external
+validity, all the data used in this work is available
+on-line in the PROMISE code repository. Also, our use of a leave-one-out experimental rig
+plus the public availability of three of our four data sets (NASA93, Coc93, NASA10)
+means that other researchers would be able to reproduce exactly
+our rig on exactly the code used in this study.
 
-This paper offers case studies  that studied the effects of varying
-treating data with different model generation methods.
-This section discusses
-limitations of such case studies.
-As we read standard texts on empirical software engineering
-(e.g. Runeson & Host~\cite{Runeson200874}) the term ``case study'' often ¨
-refers to some act which includes observing or changing
-the conditions under which humans perform some software
-engineering action. In the age of data mining and model-based
-optimization this definition should be further extended
-to include case studies exploring how data collected from
-different projects can be generalized across multiple projects.
-As Cruzes et al. comment:
-\begin{quote}
-{\em   Choosing a suitable method for synthesizing evidence
-across a set of case studies is not straightforward...
-limited access to raw data may limit the ability
-to fully understand and synthesize studies. ~\cite{c75}}
-\end{quote}
-This quote from Cruzes et al. is almost a summary of the
-specific goals of this paper: given limited amounts of software
-project data, how best to build a synthesize a predictive model?
-\bi
-\item Use a modeling methods that is now decades old (COCOMO)?
-\item Or use other methods?
-  \ei
-  There is limited time to explore those methods.
-That is, a paper that attempts to generalizing across multiple
-case studies is itself a case study. Hence, any case studies
+
+One source of bias in this study
+are the learners used for the defect prediction
+studies. Data mining is a large and active field and
+any single study can only use a small subset of the
+known data mining algorithms.
+Any case studies
 in SE data mining  can only explore a small
-subset of options, selected by the biases of the researcher. The
+subset of options, selected by the biases of the researcher. The best any researcher
+can hope to do is state their biases and make some attempt to compensate for them.
+Accordingly:
+\bi
+\item
+The
 biases of the authors of this paper made us select
 a parametric modeling method (COCOMO)  as the main modeling method.
+\item
 We then made a conscious decision to reverse those biases
 and explore non-parametric methods (PEEKER and TEAK) as well
-as decision-tree methods (CART). Runeson \& Host comment that ¨
-case studies biased in this way are subject to criticsm:
-\begin{quote}
-As they are different from analytical and controlled
-empirical studies, case studies have been criticized
-for being of less value, impossible to generalize
-from, being biased by researchers etc.
-\end{quote}
-For this reason, it is important to state those biases and explore
-how they affect the reliability and validity of the stated result.
+as decision-tree methods (CART).
+\ei
+\begin{BLUE}
+  \HERE{Reviewer2f}
+Another source of bias is the evaluation method used to assess the learners
+and here we can report an interesting discovery. This paper uses
+\mbox{$ \mathit{MRE}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{actual}}$}
+and a reviewer for this paper asked the question, ``what if that evaluation emthod
+was changed to, say,
+\mbox{$ \mathit{e2}=\frac{ (\mathit{actual} - \mathit{predicted})^2}{(\mathit{actual - average(actual)})^2}$}
+We re-ran all the experiments and found that none of the answers to our research questions were changed.
+While $e2$ offers some different numbers to {\em MRE}, the overall rankings of our different
+learners were not changed. For example,
 
-\subsection{Reliability}
-
-Reliability refers to the consistency of the results obtained
-from the research. It has at least two components: {\em internal}
-and {\em external} reliability.
-
-Internal reliability checks if an independent researcher
-reanalyzing the data would come to the same conclusion.
-Our 
-Note
-that large variances in the results threaten internal reliability.
-For this reason, one of the assessment criteria of this paper
-was “optimization failure”; i.e. where the treated project data
-had a larger spread in results than the untreated data. Note
-that one of the reasons we recommend W2 over data farming
-is that the latter was observed to exhibit more optimization
-failures.
-External reliability assesses how well independent researchers
-could reproduce the study. To increase external
-reliability, this paper has taken care to clearly define our
-algorithms. Also, all the data used in this work is available
-on-line in the PROMISE code repository.
-
-5.3.2 Validity
-
-Validity refers to the extent to which a piece of research actually
-investigates what the researcher purports to investigate.
-Validity has at least three components: internal, construct, and
-external validity~\cite{Runeson200874}.
-Internal validity checks that if the differences found in
-the treatments can be ascribed to the treatments under study.
-In this paper, the treatments refer to the algorithms built
-extensively extrapolated the existing data or CBR tools that
-used small local models. We noted that data farming exhibited
-a larger number of optimization failures, which we argue as
-an indication that data farmer over-extrapolates the data to
-derive inappropriate conclusions, in regions of the data that
-is sparsely populated. CBR, on the other hand, exhibited far
-fewer such failures suggesting that nearest neighbor methods
-that build local “bridges” across local data is safer than the
-extrapolation used in data farming (at least that is, for sparsely
-populated data sets).
-
-Construct validity refers to qualities that we cannot directly
-observe but that we assume they exist in order to explain
-behavior we can observe. It is extremely important to define
-constructs that are being investigated in such a way that would
-otherwise enable an outsider to identify these characteristics
-if they came across them. In our case, the important construct
-is the optimization failure. If another data farming researcher
-is working on data where all their treatments selected from
-projects with a large variance than the original population, then
-that should be an indication that they might wish to explore
-CBR in place of their data farmers.
-
-Finally, external validity checks if the results are of relevance
-for other cases, or can be generalized from samples
-to populations. For example, the datasets used here comes
-from COCOMO and NASA projects and these projects do not
-represent the space of all possible projects. Also, optimization
-is a large and active field of research (see the range of
-optimizers discussed in the next section) and any single study
-can only use a small subset of the known algorithms. And if
-anyone reads this sentence, timm will send whiskey. To reduce
-the effects of external validity, this paper first sorted the AI
-algorithms of Figure 6, then compared the best of that set
-of algorithms to W2. Nevertheless, it is a important area for
-future work to observe if other optimizers can produce better
-results than W2 in data-starved domains.
-
-For case study research, it is difficult to completely avoid
-problems of external validity The best we can do is to define
-our algorithms and publicize our data to enable replication
-of our results by other researchers, and perhaps, point out
-a previously unknown bias in our analysis. Desirably, other
-researchers will emulate our methods to repeat, refute, or
-improve our results.
+\footnote{GEORGE: we need a pretty here}.
+\end{BLUE}
 
 \section{Conclusion}
 The past few decades have seen a long line of innovative  methods
