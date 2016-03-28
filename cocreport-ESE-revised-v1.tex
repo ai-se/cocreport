@@ -107,7 +107,7 @@
 
 
 \usepackage{marginnote}
-\setlength{\marginparwidth}{5cm}
+%\setlength{\marginparwidth}{5cm}
 
 \definecolor{darkgreen}{rgb}{0,0.3,0}
 
@@ -183,30 +183,27 @@ non-COCOMO results).
 
 {\em There are more software engineering papers that have published errata in the recent years (but not necessarily via the main stream venues such as conferences and journals): JungWon Byun , SungYul Rhew, ManSoo Hwang, Vijayan Sugumaran, SooYong Park, SooJin Park Erratum to: Metrics for measuring the consistencies of requirements with objectives and constraints. Requirements Engineering March 2014, Volume 19, Issue 1`}
 
-We read this paper (see http://goo.gl/6mZnk1). This paper
+That paper, at http://goo.gl/6mZnk1,
 is an errata on the author names
 and not on technical content. Hence, unless you direct us otherwise,
 we will not reference that paper in this one.
 
 {\em Failure report, negative result and report on a previously published error are not the same; the introduction somehow puts them all together and tries to explain them with the same reasons.}
 
-We have fixed that, on page \pageref{err:ed1}.
+\newcommand{\WHERE}[1]{page \pageref{err:#1} (see \textcolor{blue}{#1})}
+
+\newcommand{\HERE}[1]{\label{err:#1}
+ \reversemarginpar\marginnote{(#1)}}
+
+That is an  important clarification.
+We have fixed that, at \WHERE{Ed1}.
 
 {\em "Secondly, it is not standard practice in software analytics for researchers to benchmark their latest results against some supposedly simpler "straw man" method." My guess would be that in many cases no such method is available making benchmarking impossible. When the domain starts to become more mature, this kind of comparisons are bing conducted (see, e.g., code cloning or a more recent work on tag inference for Stack Overflow posts).}
 
-We have fixed that, on page \pageref{err:ed2}.
+Good comment--- which we added
+at \WHERE{Ed2}.
 
-A third paper we are now writing
-explores the effects of different evaluation
-criteria in effort estimation. At the excellent suggestion
-of Reviewer2, we reran all our experiments using not MRE but 
-using the ratio of the squared difference between the estimate and actual divided by the squared difference between the actual and the average effort. In terms of the conclusions offered by this paper,
-it turns out that these two eval measures
-produce the same results. We would prefer NOT to show the
-equivalence of those results in this paper (since they add no
-information to the argument of this paper) but instead have
-added those charts in the private reply sections to our reviewers.
-\ee
+
 
 
 As to your specific comments,
@@ -231,14 +228,31 @@ results with a clear organizational bias (witness the results
 of Zimmermann and Bird from Microsoft data
 or Penix and Elbaum working from Google data.).  
 \item 
-FYI- NASA is not
+Very little software comes
+``from NASA''. NASA is not
 really a development organization. Rather it is a contractor
 management site where the real work gets done by external
 contractors (e.g. Rockwell Collins or Boeing). So a ``NASA app''
 is really build by an exterior teams who deliver software
-for many other applications and many other clients.
+for many other applications and many other clients. Hence we argue
+that lessons learned from data
+marked as ``NASA'' actually applies
+to a wide range of projects.
 \ei
   
+  
+  
+  A third paper we are now writing
+explores the effects of different evaluation
+criteria in effort estimation. At the excellent suggestion
+of Reviewer2, we reran all our experiments using not MRE but 
+using the ratio of the squared difference between the estimate and actual divided by the squared difference between the actual and the average effort. In terms of the conclusions offered by this paper,
+it turns out that these two eval measures
+produce the same results. We would prefer NOT to show the
+equivalence of those results in this paper (since they add no
+information to the argument of this paper) but instead have
+added those charts in the private reply sections to our reviewers.
+ 
 \newpage
 \date{}
 %
@@ -371,7 +385,9 @@ since they help a researcher (1)~find flaws in old ideas and (2)~evolve better
 new ideas. That is, finding and acknowledging mistakes should be regarded as a routine part of
 standard operations procedure for science. 
 
-\begin{BLUE}\label{err:ed1}
+
+ 
+\begin{BLUE}\HERE{Ed1} 
 Given the above, it is troubling  that 
 there are very few negative results   in the field of software analytics. 
 What does happen, occasionally,  are  reports of small
@@ -387,11 +403,12 @@ superior method is actually overly complex. Hence it
 always useful  to compare methods
 against simpler alternative. 
 
-\textcolor{blue}{\label{err:ed2} That said,
+\begin{BLUE}\HERE{Ed2} That said,
 in some  cases no such method is available making such  benchmarking impossible. What can happen,
 as a   domain starts to become more mature,
 these comparisons can be conducted; see, e.g. the
-many experiments on defect prediction~\cite{Scanniello2013} or tag inference for Stack Overflow posts~\cite{stanley2013predicting}.}
+many experiments on defect prediction~\cite{Scanniello2013} or tag inference for Stack Overflow posts~\cite{stanley2013predicting}.
+\end{BLUE}
 Accordingly, this paper checks an interesting,
 but currently unexplored aspect of effort estimation.
 We check
@@ -1212,13 +1229,9 @@ where $effort_i$ is referred as the quantitative response(effort) for project $i
 
 \end{BLUE}
 
-Apart from the LOC ``straw man'',
-we also compare COCOMO-II and COCONUT with CART,
-Knear(n), TEAK, and PEEKING2. 
-These  methods were  selected, for the following reasons.
-TEAK  and PEEKING2   represent   recent innovations in effort
-estimation~\cite{koc11b,papa13}.  
-CART and Knear(n) are more traditional methods  that proved their value  in the 1990s~\cite{shepperd97,Walkerden1999}. That said, CART and Knear(n)
+Apart from the LOC ``straw man'' and the ATLM baseline
+we also compare COCOMO-II and COCONUT with CART
+and Knear(n) as they proved their value  in the 1990s~\cite{shepperd97,Walkerden1999}. That said, CART and Knear(n)
 still have currency: 
 recent results from IEEE TSE 2008 and 2012 still endorse their  use for effort estimation~\cite{dejaeger12,koc11a,keung2008b}).
 Also, according to the Shaw's timetable for industry adoption of research innovations
@@ -1255,60 +1268,60 @@ Secondly,
 unlike other predictors, it makes no assumptions about data
 distributions or some  underlying parametric model. 
 
-\begin{changed}
-TEAK is built
-on the assumption that spurious noise leads to large variance in the recorded efforts~\cite{koc11b}.
-TEAK's pre-processor removes such regions of high variance as follows.
-First, it  applies greedy agglomerate clustering  to generate a tree of clusters.
-Next, it reflects on the variance
-of the efforts seen in each sub-tree and discards the sub-trees with largest variance. Estimation is then performed
-on the surviving examples.
+% \begin{changed}
+% TEAK is built
+% on the assumption that spurious noise leads to large variance in the recorded efforts~\cite{koc11b}.
+% TEAK's pre-processor removes such regions of high variance as follows.
+% First, it  applies greedy agglomerate clustering  to generate a tree of clusters.
+% Next, it reflects on the variance
+% of the efforts seen in each sub-tree and discards the sub-trees with largest variance. Estimation is then performed
+% on the surviving examples.
 
-PEEKING2~\cite{papa13} is a far more aggressive ``data pruner'' than TEAK and combines   data reduction operators, 
-feature weighting, and Principal Component Analysis(PCA). PEEKING2 is described in  \fig{peeking}.
-\end{changed}
+% PEEKING2~\cite{papa13} is a far more aggressive ``data pruner'' than TEAK and combines   data reduction operators, 
+% feature weighting, and Principal Component Analysis(PCA). PEEKING2 is described in  \fig{peeking}.
+% \end{changed}
 
 
-\begin{figure}[!t]
-\small
-\begin{tabular}{|p{.95\linewidth}|}\hline
-\bi
-\item
-PEEKING2's feature weighting scheme changes  $w_i$ in \eq{dist}  according to how much an attribute
-can divide and reduce the variance of the effort data (the {\em greater} the reduction, the
-{\em larger} the $w_i$ score).  
-\item
-PEEKING2's PCA tool uses an accelerated   principle component analysis that synthesises  new
-attributes $e_i, e_2,...$
-that extends across the dimension of greatest  variance in the data  with attributes $d$.  
-PCA  combines
-redundant  variables into a smaller set of variables  (so $e \ll d$) since those
-redundancies become (approximately) parallel lines
-in $e$ space. For all such redundancies \mbox{$i,j \in d$}, we 
-can ignore $j$ 
-since effects that change over $j$ also
-change in the same way over $i$.
-PCA is also useful for skipping over noisy variables from $d$-- these
-variables are effectively ignored since    they  do not contribute to the variance in the data.
-\item
-PEEKING2's prototype generator  clusters the data along the dimensions
-found by accelerated PCA. Each cluster is then replaced with a ``prototype'' generated from
-the median value of all attributes in that cluster. Prototype generation is a useful tool for
-handling outliers: large groups of outliers get their own cluster; small sets of outliers
-get ignored via median prototype generation.
-\item
-PEEKING2 generates estimates for a test case by finding its nearest cluster,
-then the two nearest neighbors within that cluster  (where ``near''
-is computed using \eq{dist} plus feature weighting). If these neighbors are found at distance
-$n_1,n_2, n_1 < n_2$ and have effort values $E_1,E_2$ then the final estimate is an extrapolation
-favoring the closest one:
-\ei
-\[
-n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
-\]\\\hline
-\end{tabular} 
-\caption{Inside PEEKING2~\cite{papa13}.}\label{fig:peeking}
-\end{figure}
+% \begin{figure}[!t]
+% \small
+% \begin{tabular}{|p{.95\linewidth}|}\hline
+% \bi
+% \item
+% PEEKING2's feature weighting scheme changes  $w_i$ in \eq{dist}  according to how much an attribute
+% can divide and reduce the variance of the effort data (the {\em greater} the reduction, the
+% {\em larger} the $w_i$ score).  
+% \item
+% PEEKING2's PCA tool uses an accelerated   principle component analysis that synthesises  new
+% attributes $e_i, e_2,...$
+% that extends across the dimension of greatest  variance in the data  with attributes $d$.  
+% PCA  combines
+% redundant  variables into a smaller set of variables  (so $e \ll d$) since those
+% redundancies become (approximately) parallel lines
+% in $e$ space. For all such redundancies \mbox{$i,j \in d$}, we 
+% can ignore $j$ 
+% since effects that change over $j$ also
+% change in the same way over $i$.
+% PCA is also useful for skipping over noisy variables from $d$-- these
+% variables are effectively ignored since    they  do not contribute to the variance in the data.
+% \item
+% PEEKING2's prototype generator  clusters the data along the dimensions
+% found by accelerated PCA. Each cluster is then replaced with a ``prototype'' generated from
+% the median value of all attributes in that cluster. Prototype generation is a useful tool for
+% handling outliers: large groups of outliers get their own cluster; small sets of outliers
+% get ignored via median prototype generation.
+% \item
+% PEEKING2 generates estimates for a test case by finding its nearest cluster,
+% then the two nearest neighbors within that cluster  (where ``near''
+% is computed using \eq{dist} plus feature weighting). If these neighbors are found at distance
+% $n_1,n_2, n_1 < n_2$ and have effort values $E_1,E_2$ then the final estimate is an extrapolation
+% favoring the closest one:
+% \ei
+% \[
+% n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
+% \]\\\hline
+% \end{tabular} 
+% \caption{Inside PEEKING2~\cite{papa13}.}\label{fig:peeking}
+% \end{figure}
 
 
 
@@ -1631,6 +1644,7 @@ estimation.
 \hline  3 &     Knear(3) &    50  &  77 & \quart{3}{96}{32}{94} \\
   3 &     Knear(1) &    57  &  49 & \quart{0}{61}{41}{94} \\
   3 &         CART &    61  &  32 & \quart{21}{40}{46}{94} \\ 
+\hline 4 &         ATLM &    73  &  53 & \quart{20}{55}{60}{94} \\ 
 \end{tabular}}
 ~\\
 
@@ -1646,6 +1660,7 @@ estimation.
   1 &     Knear(1) &    55  &  70 & \quart{0}{47}{24}{55} \\
   1 &     Knear(3) &    63  &  99 & \quart{5}{67}{30}{55} \\
   1 &      COCONUT &    66  &  34 & \quart{18}{23}{32}{55} \\ 
+\hline 2 &         ATLM &    801  &  1917 & \quart{0}{100}{99}{94} \\ 
 \end{tabular}}
 
 ~\\
@@ -1660,6 +1675,7 @@ estimation.
 \hline  2 &         CART &    40  &  55 & \quart{1}{57}{26}{89} \\ 
 \hline  3 &     Knear(3) &    54  &  66 & \quart{9}{69}{41}{89} \\
   3 &     Knear(1) &    56  &  77 & \quart{1}{81}{43}{89} \\ 
+\hline 4 &         ATLM &    101  &  270 & \quart{0}{100}{90}{94} \\
 \end{tabular}}
 
 ~\\
@@ -1674,7 +1690,7 @@ estimation.
 \hline  2 &         CART &    66  &  95 & \quart{8}{33}{17}{29} \\
 \hline  3 &     Knear(3) &    85  &  260 & \quart{10}{89}{24}{29} \\
   3 &     Knear(1) &    87  &  236 & \quart{10}{81}{24}{29}\\ 
-  
+\hline 4 &         ATLM &    955  &  2700 & \quart{0}{100}{99}{94} \\
 \end{tabular}}}
 
 \caption{COCOMO vs standard methods.
