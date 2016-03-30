@@ -232,7 +232,8 @@
 \vspace{-1in}
 \begin{abstract}
 %\boldmath
-{\em Context:} More than half the literature on software effort estimation (SEE) focuses on 
+
+ {\em Context:} More than half the literature on software effort estimation (SEE) focuses on 
 comparisons of new estimation methods. Surprisingly, there are no studies comparing 
 state of the art latest methods with decades-old approaches.
 
@@ -434,7 +435,7 @@ COCOMO model.
 Further, we have access to numerous interesting  COCOMO data
 sets: see \fig{types} and \fig{dataused}.
 \begin{BLUE}
-\HERE{Reviewer2m}
+\HERE{Reviewer2g}
 With one exception, our learning experiments do not use the data
 that generated   standard COCOMO.
 That exception is the  COC81 data-- which  lets us  compare new methods
@@ -1683,6 +1684,7 @@ those tunings (NASA10).
   2 & PEEKING2 &    74  &  51 & \quart{29}{22}{39}{111}  
 \end{tabular}}
 
+~\\
 
 {\bf COC05 (new COCOMO data up to 2005):}
 
@@ -2158,18 +2160,36 @@ as decision-tree methods (CART).
 \ei
 \begin{BLUE}
   \HERE{Reviewer2f}
-Another source of bias is the evaluation method used to assess the learners
-and here we can report an interesting discovery. This paper uses
-\mbox{$ \mathit{MRE}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{actual}}$}
-and a reviewer for this paper asked the question, ``what if that evaluation emthod
-was changed to, say,
-\mbox{$ \mathit{e2}=\frac{ (\mathit{actual} - \mathit{predicted})^2}{(\mathit{actual - average(actual)})^2}$}
+Another source of bias is the evaluation method used to assess 
+prediction error. This paper uses
+the MRE error measure defined in \eq{mre}.
+and a reviewer for this paper asked 
+what happens if that evaluation measure
+is changed to, say,
+\begin{equation}\label{eq:e2}
+\mathit{e2}=\frac{ (\mathit{actual} - \mathit{predicted})^2}{(\mathit{actual - average(actual)})^2}
+\end{equation}
 We re-ran all the experiments and found that none of the answers to our research questions were changed.
-While $e2$ offers some different numbers to {\em MRE}, the overall rankings of our different
-learners were not changed. For example\footnote{GEORGE: @timm, let me know if figure 13 is decent enough or if we should do something else.}, figure \ref{fig:loc_e2} represents the results shown \ref{fig:loc} redone using \textit{e2} for measuring the error.
-
+For example:
+\bi
+\item
+\fig{loc_e2} repeats \fig{loc} with 
+\eq{mre} changed to \eq{e2}. 
+\item
+\fig{loc} was used to answer the question ``is COCOMO no better than just
+using lines of code'' and , in that figure, the lines of code measures
+often had worse errors than standard COCOMO.
+\item
+\fig{loc_e2} offers the same conclusion: the loc measures were never
+as good as COCOMO.
+\ei
+The same pattern holds for all other results; i.e. changing
+the performance measure from \eq{mre} to  \eq{e2}. does
+not change our conclusion. Hence, we can report that our
+conclusion are external valid across at least two error measures.
+\end{BLUE}
 \begin{figure}[!t]
- 
+ \begin{BLUE}
 {\small
 {\bf NASA10 (new NASA data up to 2010):}
 
@@ -2229,8 +2249,11 @@ learners were not changed. For example\footnote{GEORGE: @timm, let me know if fi
 
 
 }
-\caption{COCOMO vs just lines
-of code using \textit{e2} as error measure
+\end{BLUE}
+\caption{\textcolor{blue}{Using the \eq{e2} error message, COCOMO vs just lines
+of code using \textit{e2} as error measure. 
+These results should be compared to \fig{loc}, which
+used \eq{mre}.}
 }\label{fig:loc_e2}
 \end{figure}
 
@@ -2421,8 +2444,7 @@ or imply its endorsement by the US Government.
 
 
 % That's all folks!
-\vspace*{0.5mm}
-\small
+\vspace*{0.5mm} 
 
 \bibliographystyle{plain}
 
@@ -2435,14 +2457,14 @@ or imply its endorsement by the US Government.
     \noindent
 {\bf Comments from the special issue editor}
 
-{\em     The reviewers identify a number of strong points about your submission..}
+\begin{quote}{\em     The reviewers identify a number of strong points about your submission..}\end{quote}
 
+\noindent
 Thank you for that comment.
 
-{\em ... but also a number of issues related to presentation, emphasis (i.e., more emphasis of the 'negative' result is needed) and clarification of related work. Please take these comments into account when preparing your revision.}
+\begin{quote}{\em ... but also a number of issues related to presentation, emphasis (i.e., more emphasis of the 'negative' result is needed) and clarification of related work. Please take these comments into account when preparing your revision.}\end{quote}
 
-We offer those those clarifications below, and several large changes:
-
+\noindent We offer those those clarifications below, and several large changes:
 \be
 \item All the non-negative results in the last draft have been moved to another paper
   (so this paper now focuses on the negative);
@@ -2461,7 +2483,7 @@ We offer those those clarifications below, and several large changes:
   (different statistical measures are surprisingly blunt in the face
   of the large variances seen in effort estimation results). That finding (of
   equivalent conclusions despite different eval measures) is now on-line for
-  you and the reviewers to inspect\footnote{George: \url{https://goo.gl/9KvvOa}}-- but it adds no information to this
+  you and the reviewers to inspect (at \url{https://goo.gl/9KvvOa})-- but it adds no information to this
   paper (do not change any of our conclusions). We think we can write
   that up as a seperate paper so we ask that we do not
   present here.  Do you concur?
@@ -2474,41 +2496,50 @@ We offer those those clarifications below, and several large changes:
 Thank you for your details comments.  This new draft
 contains many corrections and extensions as directed by your feedback.
 
+All our changes are marked in the body of the paper in \textcolor{blue}{blue text}.
+ 
+
 As to your specific comments: 
  
-{\em One of the puzzling claims of the paper is "For the non-COCOMO data sets, our newer estimation methods performed better than older methods". }. 
+\begin{quote}{\em One of the puzzling claims of the paper is "For the non-COCOMO data sets, our newer estimation methods performed better than older methods". }. \end{quote}
 
+\noindent
 We have removed
 that material.
 
-{\em ...more emphasis of the 'negative' result is needed}
+\begin{quote}{\em ...more emphasis of the 'negative' result is needed}\end{quote}
 
+\noindent
 This was another good reason to remove the
 non-COCOMO results).
 
-{\em There are more software engineering papers that have published errata in the recent years (but not necessarily via the main stream venues such as conferences and journals): JungWon Byun , SungYul Rhew, ManSoo Hwang, Vijayan Sugumaran, SooYong Park, SooJin Park Erratum to: Metrics for measuring the consistencies of requirements with objectives and constraints. Requirements Engineering March 2014, Volume 19, Issue 1`}
+\begin{quote}{\em There are more software engineering papers that have published errata in the recent years (but not necessarily via the main stream venues such as conferences and journals): JungWon Byun , SungYul Rhew, ManSoo Hwang, Vijayan Sugumaran, SooYong Park, SooJin Park Erratum to: Metrics for measuring the consistencies of requirements with objectives and constraints. Requirements Engineering March 2014, Volume 19, Issue 1`}\end{quote}
 
+\noindent
 That paper, at http://goo.gl/6mZnk1,
 is an errata on the author names
 and not on technical content. Hence, unless you direct us otherwise,
 we will not reference that paper in this one.
 
-{\em Failure report, negative result and report on a previously published error are not the same; the introduction somehow puts them all together and tries to explain them with the same reasons.}
+\begin{quote}{\em Failure report, negative result and report on a previously published error are not the same; the introduction somehow puts them all together and tries to explain them with the same reasons.}\end{quote}
 
 
 
+\noindent
 That is an  important clarification.
 We have fixed that, at \WHERE{Reviewer1a}.
 
-{\em "Secondly, it is not standard practice in software analytics for researchers to benchmark their latest results against some supposedly simpler "straw man" method." My guess would be that in many cases no such method is available making benchmarking impossible. When the domain starts to become more mature, this kind of comparisons are bing conducted (see, e.g., code cloning or a more recent work on tag inference for Stack Overflow posts).}
+\begin{quote}{\em "Secondly, it is not standard practice in software analytics for researchers to benchmark their latest results against some supposedly simpler "straw man" method." My guess would be that in many cases no such method is available making benchmarking impossible. When the domain starts to become more mature, this kind of comparisons are bing conducted (see, e.g., code cloning or a more recent work on tag inference for Stack Overflow posts).}\end{quote}
 
+\noindent
 Good comment--- which we added
 at \WHERE{Reviewer1b}.
 
 
 
 
-As to your specific comments, you write {\em I'm
+\noindent
+As to your specific comments, you write \begin{quote}{\em I'm
   also concerned about the choice of the
   datasets. Two of the datasets considered are
   affiliated with COCOMO, so they can provide a
@@ -2516,23 +2547,22 @@ As to your specific comments, you write {\em I'm
   results. Are there additional datasets one might
   consider or are the COCOMO requirements so
   restrictive that no such datasets can be found
-  unless at NASA?}. 
-\bi
-\item
-  It is true that NASA contributed the data sets to NASA93 and NASA10.
+  unless at NASA?}. \end{quote}
+ 
+ \noindent It is true that NASA contributed the data sets to NASA93 and NASA10.
   But for effects from non-NASA sources, we direct the reviewer to the 93 projects
   in the COC05
   results. 
-\item
+
   Also, as I'm sure the reviewer knows,
   we have tried, most earnestly, for decades to collect
 and publish  data sets (see the 
-500+ data sets at openscience.us-- a web site we created and maintain for the SE community).
+500+ data sets at openscience.us-- a web site we created and maintain for the SE community.
 Even with that resources, and even after years of work,
 these four data sets are all we can offer for this paper
 (there are more, of course, but their users have declined
 to let us use that other data).
-\item
+ 
   As to the ``NASA bias'' in the everything that is not COC05,
   in practice, very little software comes
 ``from NASA''. NASA is not
@@ -2544,8 +2574,8 @@ for many other applications and many other clients. Hence we argue
 that lessons learned from data
 marked as ``NASA'' actually applies
 to a wide range of projects.
-  \ei
-     {\em The authors should have been more careful with introducing the techniques the use. It is not very clear what the "triangle function of Walkerden and Jeffery [68]" is precisely. Is it merely an idea that three variables should be combined as a weighted sum? Or is this a particular approach that can be used to derive coefficients 50, 33 and 17? I've checked the paper by Walkerden and Jeffery [68] but the triangle function is not mentioned.}
+ 
+     \begin{quote}{\em The authors should have been more careful with introducing the techniques the use. It is not very clear what the "triangle function of Walkerden and Jeffery [68]" is precisely. Is it merely an idea that three variables should be combined as a weighted sum? Or is this a particular approach that can be used to derive coefficients 50, 33 and 17? I've checked the paper by Walkerden and Jeffery [68] but the triangle function is not mentioned.}\end{quote}
 
      You are right... we were far too clever in our write up at that
      point.
@@ -2553,19 +2583,12 @@ to a wide range of projects.
      nearest items are ranked according to the ordering of their items.
      What we should have written was $\frac{3a + 2b + 1c}{6}$. That has been fixed now at  \WHERE{Reviewer1c}.
 
-     {\em     Is $m.\mu$ the median of m (as suggested by the preceding discussion) or the mean of $m$ (as seems to follow from the paper by Mittas \& Angelis [52])?}
+     \begin{quote}{\em     Is $m.\mu$ the median of m (as suggested by the preceding discussion) or the mean of $m$ (as seems to follow from the paper by Mittas \& Angelis [52])?}\end{quote}
 
-Good catch. We use means (as recommended by Mittas     \& Angelis)\footnote{George: YES, we perform the recursive split looking to minimize the \textit{means}.}
+\noindent No... we wrote $\mu$ and we meant mean (as recommended by Mittas     \& Angelis).
+ 
 
-{\em      Are the means reliable? Why wouldn't one use a one-shot multiple comparisons procedure such as T~ of Konietschke et al.?}
-
-Certainly, there are any number of possible analysis methods that might be used here.
-What we did in this paper is to search the liteature and find
-methods endorsed in the effort estimation liteature. Which in this case was
-the Mittas \& Angelis 
-IEEE TSE paper~\cite{mittas13} that gave us Scott-Knott.
-
-{\em 4.4 COCOMO with Incorrect Size Estimates "That
+\begin{quote}{\em 4.4 COCOMO with Incorrect Size Estimates "That
   is, the parametric estimation method being
   recommended here is not unduly affected by noise
   where the KLOC values vary up to 50\% of their
@@ -2577,51 +2600,60 @@ IEEE TSE paper~\cite{mittas13} that gave us Scott-Knott.
   the actual system size; in two cases the estimates
   were as bas as 6 times off. This makes me wonder
   whether the "not unduly sensitive" in the
-  conclusion does not overstate the results.}
+  conclusion does not overstate the results.}\end{quote}
 
-Good catch- we increased the LOC estimation error study and found that
+\noindent Good catch- we increased the LOC estimation error study and found that
 COCOMO breaks down when LOC errors grow beyond 200\% (but still worked up
 to that point).
 
-Now we can include that result in this paper but, in keeping with the comments
+  Now we can include that result in this paper but, in keeping with the comments
 about needing to focus the paper better, we have removed them.
 
-Please advise if you want the ``up to 200\%'' results returned to this paper.
+ Please advise if you want the ``up to 200\%'' results returned to this paper.
 
-{\em Minor\newline
+\begin{quote}{\em Minor\newline
 Section 3: reserach\newline
 Section 4.3.4: thse\newline
-Section 4.4: redundant )}
+Section 4.4: redundant )}\end{quote}
 
-Fixed (and thanks for pointing out those errors).
+\noindentFixed (and thanks for pointing out those errors).
 
 
-{\em The entire second half of the PDF contains the output of the LaTeX compilation. I presume that something went wrong during the submission process.}
+\begin{quote}{\em The entire second half of the PDF contains the output of the LaTeX compilation. I presume that something went wrong during the submission process.}\end{quote}
 
-Yes, that was strange. Sorry you had to deal with that.
+\noindent Yes, that was strange. Sorry you had to deal with that.
 
 \noindent
 {\bf Comment to Reviewer\#2}
 
 \noindent
 Thank you for your details comments.  This new draft
-is significantly improved thanks to your  feedback. In particular,
-we made many changes as a result of your following comment:
+is significantly improved thanks to your  feedback. 
 
+All our changes are marked in the body of the paper in \textcolor{blue}{blue text}.
+Several large (and confusing) parts of the previous draft have been deleted since,
+as you wrote:
 
-{\em  Generally, the paper has a large number of different elements  that makes it difficult to follow. If you are interested in the value of COCOMO-II why not stick to that.
+\begin{quote}{\em  Generally, the paper has a large number of different elements  that makes it difficult to follow. If you are interested in the value of COCOMO-II why not stick to that.\end{quote}
 }
 
-To clarify and focus the paper we have removed (a)~all the non-COCOMO results;
+At your suggestion, to clarify and focus the paper we have removed (a)~all the non-COCOMO results;
 and (b)~all the COCOMO size error results.
 
-{\em A "strawman" should not be something that is so
+Also, at your suggestion, we ran more experiments (with different error messages,
+with the Whigham methods, using Effort/FP). As remarked below, those
+changes did not change our conclusions. Nevertheless, it was useful proposing
+those new experiments since it increases the external validity of this paper.
+
+As to your specific comments:
+
+\begin{quote}{\em A "strawman" should not be something that is so
   foolish that it is impossible not to
   outdo. Researchers in the past have used simple
   regression without a logarithmic transformation
   and MMRE as an accuracy measure for comparison
   with new estimation methods.  Kitchenham \& Mendes
-  pointed out this was not a valid approach.}
+  pointed out this was not a valid approach.}\end{quote}
 
 Thank you for the reference to the ATLM method from
 the Whigham paper (Whigham, P., Owen, C., and
@@ -2643,19 +2675,22 @@ that nothing we've tried (including the Whigham baseline and
 all the supposedly clever implementations
 we've built in the last decade) perform any better than old fashioned COCOMO.
 
-{\em RQ1 I don't think the issue was ever about "just lines of code" it was about simple regression rather than a complex  deterministic model. }
+\begin{quote}{\em RQ1 I don't think the issue was ever about "just lines of code" it was about simple regression rather than a complex  deterministic model. }\end{quote}
 
 Actually, our experience is a little different from yours on this point.
 I've been at SE conferences where Martin Shepperd  has said exactly that COCOMO
 runs no better than simple LOC.
 
-{\em However,  the function point community do recommend the taking the average of the productivity (Effort/FP) then multiplying by the FP estimate of a project needing a cost estimate.}
+\begin{quote}{\em However,  the function point community do recommend the taking the average of the productivity (Effort/FP) then multiplying by the FP estimate of a project needing a cost estimate.}\end{quote}
 
-\footnote{GEORGE XXX what do we have on this?. The results can be found here \url{https://goo.gl/5Vnocl}}
+Thank you for that suggestion. We tried that treatment of  effort
+and found it made all our predictions much worse. For those results,
+please  see https://goo.gl/5Vnocl.  
 
-{\em 
+
+\begin{quote}{\em 
   This paper uses two proprietary data sets which means the results cannot be independently validated. This is not very satisfactory. We have too many data mining studies that cannot be reproduced....
-The results for NASA 10 and COC05 are hearsay.}
+The results for NASA 10 and COC05 are hearsay.}\end{quote}
 
 We took your comment back to our business users and can report some success there (thank you for your comment).
 NASA10 is now publicly available (and included in this paper, \WHERE{Reviewer2c}).
@@ -2669,16 +2704,16 @@ of Zimmermann and Bird from Microsoft data
 or Penix and Elbaum working from Google data). What is important, and what is done by Zimmermann, Bird,
 Penix, Elbaum and this paper is to clearly state the source of any such bias.
 
-{\em Figure 2 . The Coc81 data set has 63 projects (or did you remove one of them?)}
+\begin{quote}{\em Figure 2 . The Coc81 data set has 63 projects (or did you remove one of them?)}\end{quote}
 
-\footnote{George. what? The Coc81 has 63 projects. Our figure has a typo } 
+Our mistable. fixed.
 
-{\em Jorgensen didn't talk about "Delphi-based" methods he talked about  "expert-based" estimation.}
+\begin{quote}{\em Jorgensen didn't talk about "Delphi-based" methods he talked about  "expert-based" estimation.}\end{quote}
 
 You are right.. ``expert'' is a better term than Delphi. We have changed all those terms here.
 
 
-{\em Equation (3) You should not be using the biased
+\begin{quote}{\em Equation (3) You should not be using the biased
   MRE measure. The poor behavior of MRE has been
   well documented in leading journals (see ref [1],
   [3] \& [4]. It doesn't matter whether you use the
@@ -2692,13 +2727,18 @@ You are right.. ``expert'' is a better term than Delphi. We have changed all tho
   such as the ratio of the squared difference
   between the estimate and actual divided by the
   squared difference between the actual and the
-  average effort.  }
+  average effort.  }\end{quote}
 
 As part of a revised threats to validity section on \WHERE{Reviewer2e}, we 
 re-run all the experiments using the measure you propose $r2=\frac{(a-e)^2}{(a - \overline{a})^2}$.
-A sample of those results are shown in this paper and the rest available for
-your  inspection \footnote{GEORGE: \url{https://goo.gl/9KvvOa}}. In summary, the change of evaluation measure
-changed our conclusions not at all.
+A sample of those results are shown in this paper 
+In summary, the change of evaluation measure
+changed our conclusions not at all, something we commented on 
+at \WHERE{Reviewer2f}. 
+
+In the text of this paper we   include one chart comparing $e2$ to MRE
+(and the rest of those comparisons are available for
+your  inspection at \url{https://goo.gl/9KvvOa}). 
 
 
 If you prefer,  we could add all the $r2$ to this paper.
@@ -2708,9 +2748,9 @@ add  more experimental detail that
 only makes the same conclusions.
 
 
-{\em Whingham et al.'s default model seems more
+\begin{quote}{\em Whingham et al.'s default model seems more
   appropriate as a useful strawman and is certainly
-  better than lines of code.}
+  better than lines of code.}\end{quote}
 
  We agree and 
 have included those results from the Wingham this paper at
@@ -2720,33 +2760,35 @@ Whingham performs in \WHERE{Reviewer2d}-- thanks to your comments on this matter
 another paper to write about a better baseline for effort estimation.
 
 
-{\em From your description it appears that TEAK
+\begin{quote}{\em From your description it appears that TEAK
   removes projects - how then do you do a fair
-  comparison with other methods ? }
+  comparison with other methods ? }\end{quote}
 
 Note that TEAK and PEEKING2 only prunes the training set, not the test set so it is a fair comparison.
 We have added a note to this effect at \WHERE{Reviewer2e}.
 
-{\em Since Barry Boehm is a co-author, it should be simple to confirm whether or not any of the NASA93 projects were used in the construction of COCOMO-II.}
+\begin{quote}{\em Since Barry Boehm is a co-author, it should be simple to confirm whether or not any of the NASA93 projects were used in the construction of COCOMO-II.}\end{quote}
 
 We double checked the raw data (KLOCs and effort)
 and can confirm that none of NASA93 was uses
 to tune COCOMO 2000 (a comment we add at 
-\WHERE{Reviewer2m}).
+\WHERE{Reviewer2g}).
 
 
-{\em  4.3.1 This seems like a good idea. There are too many levels (which should be treated as dummy variables) for a data-based calibration process to work well without a very large data base.}
+\begin{quote}{\em  4.3.1 This seems like a good idea. There are too many levels (which should be treated as dummy variables) for a data-based calibration process to work well without a very large data base.}\end{quote}
 
+\noindent
 Thank you for that comment. We agree.
 
-{\em 4.4 It would be useful to plot the actual size against the recalculated size. If the revised size is still correlated with the actual size you may only have demonstrated that the exponential term in the COCOMO model is close to 1.}
+\begin{quote}{\em 4.4 It would be useful to plot the actual size against the recalculated size. If the revised size is still correlated with the actual size you may only have demonstrated that the exponential term in the COCOMO model is close to 1.}
 
+\noindent
 This remark refers to material that has now been deleted from this version.
 Please see above discussion with Reviewer1 on `` 4.4 COCOMO with Incorrect Size Estimates ''.
 In order to focus the paper better,  have removed it from this draft. However, at your direction, we would gladly return it.
 
 
-{\em Section 5: I am not clear why the authors felt it necessary to include Figures 13 \& 14 other than to have something positive to report. However, there does not appear to be much difference between PEEKING2 and Knear(3) at least not really sufficient to claim that PEEKING2 performed best.}
+\begin{quote}{\em Section 5: I am not clear why the authors felt it necessary to include Figures 13 \& 14 other than to have something positive to report. However, there does not appear to be much difference between PEEKING2 and Knear(3) at least not really sufficient to claim that PEEKING2 performed best.}\end{quote}
 
 We concur. We have removed that entire section about positive results on non-COCOMO data.
 The resulting paper is much clear, in our opinion.
