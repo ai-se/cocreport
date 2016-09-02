@@ -1,0 +1,126 @@
+
+\subsection*{Comments from editor}
+
+\noindent
+{\em Thanks for your re-submisson. Please review the following minor comments when re-submitting your manuscript.}
+
+We trust that this
+new draft addresses the remaining reviewer concerns.
+\subsection*{Reviewer \#1}
+
+\noindent{\em The authors have adequately addressed most of my comments. Publication of the NASA10 dataset is a valuable addition to the effort estimation data.}
+
+Thank you for that comment
+
+
+\noindent{\em p.8 Fig.5 What is xhigh? Why are some parameters scored on the five-point scale and some others on a six-point scale (the paper mentions the five-point scale only).}
+
+Caption of Fig.5 extended with those definitions.
+
+\noindent{\em p.10 effort in (5) should be typeset differently}
+
+You are quite correct. Now fixed.
+
+\noindent{\em p.11-12 Discussion of the Scott-Knott procedure should be more elaborate. How are the rx treatments in the example related to l, m and n from the preceding explanation?  }
+
+
+We've rewritten the text at the start of section 3.3 to better illustrate that nomenclature using some
+example from our RQ1 results.
+
+
+\subsection*{Reviewer \#2}
+\noindent{\em There do seem to be a few outstanding issues;}
+
+\noindent{\em 1. Page 2 Lines 27-30 It surprising that the authors have decided to use Whingham et al.'s benchmark, but do not note that their study was motivated by a failure to replicate previous studies.}
+
+Added.
+
+
+\noindent{\em 2. The authors seem to have got the equation for R2 (the Multiple Correlation Coefficient) wrong. Its 1 - the SUM of the squared differences between the each actual and its predicted value divided by the SUM of the squared differences between the actuals and the average of the actuals. (By squaring the differences you avoid the need for applying the abs function.) It is interpreted as proportion of the variance in the outcome variable accounted for by the model. I am sorry I didn't specify it exactly but its hard to specify equations in text. See http://imgur.com/a/f3oAm }
+
+Fixed. Sorry for that error.
+
+\noindent{\em 3. MRE should be depreciated in all cost estimation studies because it can be biased. Its major problems occur when researchers use machine learning methods and adopt MRE as a fitness function which will lead to developing predictions that are biased towards underestimation but will have "better" values of MRE than unbiased models. Its not a problem if you use statistically derived models because they are always unbiased (I understood that COCOMO-II used a Bayesian development method, so it should produce unbiased estimates). Nonetheless we should NOT encourage other researchers to use a metric that can be unreliable. }
+
+As per your suggestion, we have switched to SE \eq{se}.
+
+\subsection*{Reviewer #3}
+
+\noindent{\em The premise that COCOMO inputs are available remains an unnecessary burden to limit this research. This assumption immediately biases the research comparison and limits the comparison to what many practitioners would expect, knowing that there a many different estimation methods and tools in widespread use today.}
+
+Not sure that we agree with the reviewer that COCOMO is an unnecessary burden. We show in {\bf RQ4}
+that we can run COCOMO with up to half the COCOMO
+input missing.
+
+Also, in our experience, with one exception it takes about an hour to a half day to collect COCOMO data per project (given access to local developers).
+The one exception is accessing the actual development effort-- which is a problem not just for COCOMO
+but for many modeling methods.
+
+\noindent{\em 2) A proper comparison that I had expected to see was a comparison of the most widely adopted tools and methods in use today using real data sets collected in the recent past.  The research could then be more generalizable and not suffer the extent of internal and external validity suffered by this research as is.}
+
+Please recall that an earlier version of this
+paper had something like that-- we had a final
+section offering recommendations of what was ``best of breed'' for non-COCOMO data sets. But reviewers
+in prior rounds asked us to remove that section in order to better focus the paper.
+
+
+\noindent{\em 3) Most of the second paragraph of the Introduction section (beginning with numbered line 12)is unnecessarily provocative and advertises the author's bias,}
+
+For this reviewer we make the offer that the following text could be removed from this paper. Note
+that we do not recommend this but it is an option open to this reviewer:
+
+\begin{quote}{\textcolor{blue}{
+\bi
+\item
+``This conclusion comes with two caveats. Firstly, not all projects can be expressed in terms of COCOMO– but when there is a choice, the results of this paper argue that there is value in using that format. Secondly, our conclusion is about solo prediction methods which is different to the ensemble approach [35, 48, 53, 54]– but if using ensembles, this paper shows that parametric estimation would be a viable ensemble member.''
+\item
+``For pragmatic and methodological reasons,it is important to report negative results like the one described above. Pragmatically, it is important for industrial practitioners to know that (sometimes) they do not need to waste time straining to understand bleeding-edge technical papers. In the following, we precisely define the class of project data that does not respond well to bleeding-edge effort estimation techniques. For those kinds of data sets,practitioners can be rest assured that it is reasonable and responsible and useful to use sim-ple traditional methods.''
+\item ``Also,'' 
+\ei}
+\end{quote}
+
+\noindent{\em 4) The third paragraph beginning at numbered line 19 seems out of place and unconnected with the discussion.   It would help if there was a leadin or summary sentence that cemented the place this paragraph should take in the overall story of the paper.}
+
+We think this connects the paper with the goals of the
+paper. But, as we say for the last comment, it could be removed. Please advise
+
+\noindent{\em 5) On numbered line 48 of the Introduction section, a very strong "if" occurs which seems unreasonable.}
+
+Given the results of this paper, we might expect more ways to satisfy this ``if''.
+
+
+\noindent{\em 6) On page 3, the four research questions should be restated to repace parametric estimation with "COCOMO".  It is quite bold to presume that COCOMO represents the entire class of parametric models for SEE considering the widespread adoption of PRICE-S, SEER-SEM, and SLIM.}
+
+Not to be contrary, but there is a known
+strong association between these models.
+Ray Madachy's paper http://csse.usc.edu/TECHRPTS/2008/usc-csse-2008-816/usc-csse-2008-816.pdf
+compares COCOMO-II with SEER-SEM and Price-S (now called True S), which mentioned that the underlying cost estimation relationships in SEER-SEM and true S share  common aspects with COCOMO-II, though each offer some difference commercial features. See section 2.1 for further info.
+
+So we think it is valid to say that COCOMO is an example of parametric estimation.
+
+
+\noindent{\em I would have preferred to see these other models included in the research because they represent the ongoing research and embodiment in the form of the latest in commercial tools for SEE.}
+
+Please see our reply to point 2.
+
+\noindent{\em 7) Page 6 also seems to ignore these other SEE models and tools which are quite popular.}
+
+
+Please see our reply to point 2.
+
+\noindent{\em 8) On page 10 in section 3.1, the "Ecological inference" statement seems to be in conflict with Simpson's Paradox.}
+
+Yes, it is true that effort estimation data
+has certain properties not found in distributions
+from other domains. For more on this, please see
+where we show that bias and variance is NOT altered
+in effort estimation if we move from leave-one-out to cross-val. http://www.sciencedirect.com/science/article/pii/S0164121213000538
+
+\noindent{\em 9) On page 17 in section 5.0, the threats to validity should outline the threats previously listed in this comment section.}
+
+Not clear on what text you are referring  here.
+
+\noindent{\em 10) I would like to commend the use of the Scott-Knott clustering algorithm as an improvement over other methods suffering from overlapping, to include the popular Tukey method.}
+
+Thank you for that comment
+

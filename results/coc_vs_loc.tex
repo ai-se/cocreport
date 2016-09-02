@@ -1,0 +1,85 @@
+\begin{figure}[!t]
+ 
+{\small
+{\bf NASA10 (new NASA data up to 2010):}
+
+{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & 
+%min= 20, max= 117
+\\
+  1 &      COCOMO-II &    37  &  57 & \quart{0}{57}{37}{82} \\
+ 1 &      COCONUT &    39  &  54 & \quart{0}{54}{39}{82} \\
+ 1 &       loc(3) &    47  &  93 & \quart{10}{93}{47}{82} \\
+  1 &       loc(1) &    75  &  98 & \quart{0}{98}{75}{82} \\
+\end{tabular}}
+
+% :learn 4.64 :analyze 1.69 :boots 3 effects 5 :conf 0.970299
+
+~\\
+
+{\bf COC05 (new COCOMO data up to 2005):}
+
+{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 166\\
+  1 &      COCOMO-II &    12  &  52 & \quart{0}{52}{12}{54} \\
+  \hline 2 &       loc(1) &    21  &  56 & \quart{0}{56}{21}{54} \\
+  2 &       loc(3) &    22  &  55 & \quart{0}{55}{22}{54} \\
+  2 &      COCONUT &    22  &  89 & \quart{0}{89}{22}{54} \\
+\end{tabular}}
+
+% :learn 763.316602 :analyze 6.61469 :boots 1 effects 1 :conf 0.99
+%\subsection{xyz14deTune}
+
+
+% :learn 13.41 :analyze 2.49 :boots 2 effects 2 :conf 0.9801
+
+~\\
+
+{\bf NASA93 (NASA data up to 1993):}
+
+{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & 
+%min= 15, max= 129
+\\
+  1 &      COCONUT &    12  &  48 & \quart{0}{48}{12}{74} \\
+  1 &      COCOMO-II &    15  &  50 & \quart{0}{50}{15}{74} \\
+\hline  2 &       loc(1) &    23  &  63 & \quart{0}{63}{23}{74} \\
+  2 &       loc(3) &    35  &  65 & \quart{0}{65}{35}{74} \\
+\end{tabular}}
+
+ %:learn 142.78 :analyze 10.13 :boots 3 effects 11 :conf 0.970299
+
+~\\
+
+{\bf COC81 (original data from the 1981 COCOMO book):}
+
+{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+\arrayrulecolor{darkgray}
+\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 14, max= 291
+\\
+  1 &      COCOMO-II &    3  &  21 & \quart{0}{21}{3}{31} \\
+  1 &      COCONUT &    4  &  24 & \quart{0}{24}{4}{31} \\
+\hline  2 &       loc(3) &    14  &  36 & \quart{0}{36}{14}{31} \\
+  2 &       loc(1) &    19  &  42 & \quart{0}{42}{19}{31} \\
+\end{tabular}}
+
+% :learn 63.13 :analyze 6.36 :boots 3 effects 8 :conf 0.970299
+
+
+}
+\caption{COCOMO vs just lines
+of code. SE values seen in 
+leave-one-studies, repeated ten times.
+For each of the four tables in this figure,
+{\em better} methods appear {\em higher} in the tables.
+In these tables,
+median and IQR are the 50th and the 
+(75-25)th percentiles. The IQR range is
+shown  in the right column
+with black dot at the median. Horizontal lines
+divide the ``ranks'' found by our Scott-Knott+bootstrapping+effect size tests  (shown in  left column).
+}\label{fig:loc}
+\end{figure}

@@ -74,7 +74,7 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{commath}
-\newenvironment{BLUE}{\color{blue}}{\ignorespacesafterend}
+\newenvironment{BLUE}{\color{black}}{\ignorespacesafterend}
 %\usepackage[margin=1in]{geometry}
 
 \definecolor{lightgray}{gray}{0.8}
@@ -102,6 +102,7 @@
     commentstyle=\color{red}\itshape,
     %numbers=none,
     captionpos=t,
+    xleftmargin=.17\textwidth, xrightmargin=.17\textwidth,
     numberstyle=\bfseries\color{red},
     escapeinside={\%*}{*)}
 }
@@ -122,10 +123,11 @@
 
 \newcommand{\quart}[4]{\begin{picture}(100,4)%1
 {\color{black}\put(#3,2){\circle*{4}}\put(#1,2){\line(1,0){#2}}}\end{picture}}
-\newcommand{\WHERE}[1]{page \pageref{err:#1} (see \textcolor{blue}{#1})}
+\newcommand{\WHERE}[1]{}%page \pageref{err:#1} (see \textcolor{blue}{#1})}
 
-\newcommand{\HERE}[1]{\label{err:#1}
- \reversemarginpar\marginnote{\textcolor{blue}{(#1)}}}
+\newcommand{\HERE}[1]{}
+%\label{err:#1}
+% \reversemarginpar\marginnote{\textcolor{blue}{(#1)}}}
 
 \usepackage{wrapfig}
 
@@ -243,7 +245,7 @@ better estimates than older methods.
 
 {\em Method:} {\em Firstly}, collect effort estimation methods ranging from ``classical'' COCOMO
 (parametric estimation over a pre-determined set of attributes) to ``modern'' (reasoning via analogy
-using spectral-based clustering plus instance and feature selection, and \textcolor{blue}{a recent ``baseline method'' proposed
+using spectral-based clustering plus instance and feature selection, and \textcolor{black}{a recent ``baseline method'' proposed
 in ACM Transactions on Software Engineering}).  {\em Secondly}, catalog the list of objections that lead to the development of
 post-COCOMO estimation methods. {\em Thirdly}, characterize each of those objections as a
 comparison between newer and older estimation methods. {\em Fourthly},  using four COCOMO-style
@@ -737,6 +739,7 @@ one explainable outlier, the estimates for
 the actuals, most within 15\% of the actuals.
 
 \begin{figure}[!t]
+\begin{center}
 \begin{lstlisting}
 _  = None;  Coc2tunings = [[
 #              vlow  low   nom   high  vhigh  xhigh   
@@ -779,11 +782,18 @@ def COCOMO2(project,  a = 2.94, b = 0.91, # defaults
     
   return a * ems * project[kloc] ** (b + 0.01*sfs) 
 \end{lstlisting}
+\end{center}
 \caption{COCOMO-II: effort estimates from a {\em project}.
 Here, {\em project} has  5 scale
 factors plus 17 effort multipliers plus KLOC. 
+``Xhigh'' is show for ``extremely high''.
 Each attribute except KLOC and effort is scored
-using the scale very low = 1, low=2, etc.
+using the scale very low = 1, low=2, up to
+xhigh=6.
+Note all attributes extend across the entire
+range very low to exteremely high since,
+in Boehm's modeling work, not all effects extend
+across the entire range.
 For an explanation of the attributes shown in
 green, see \fig{cparems}.}\label{fig:coc2}
 \end{figure}
@@ -994,7 +1004,7 @@ def RIG():
  for data in DATA: # e.g. data = COC81
  
      mres= {}
-     for learner in LEARNERS: # e.g. learner = COCONUT 
+     for learner in LEARNERS: #e.g. learner=COCONUT 
        for n in range(10): # ten times repeat
        
          for project in DATA: #  e.g.  one project
@@ -1098,22 +1108,19 @@ outside source such as the holdout example.
 \end{changed} 
 
 We assess  
-performance via the magnitude of the relative error; i.e.
-\begin{equation}\label{eq:mre}
-\mbox{$ \mathit{MRE}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{actual}}$}.
+performance via {\em Standardized Error}($SE$); i.e.
+% \begin{equation}\label{eq:mre}
+% \mbox{$ \mathit{MRE}=\frac{abs(\mathit{actual} - \mathit{predicted})}{\mathit{actual}}$}.
+% \end{equation}
+\begin{equation}\label{eq:se}
+\mbox{$ \mathit{SE}=\frac{\sum_{i=1}^{n}(abs(\mathit{actual_i} - \mathit{predicted_i}))/n}{\sum_{i=1}^{n}(abs(\mathit{actual_i} - \mathit{sampled}))/n}$} * 100
 \end{equation}
-Shepperd \& MacDonnell~\cite{shepperd12a} propose
+This measure is derived from {\em Standardized Accuracy}($SA$) defined by Shepperd \& MacDonnell~\cite{shepperd12a} ($SE = 1 - SA$). In Equation ~\ref{eq:se}, $actual$ represents the true value, $predicted$ represents the estimated value by the predictor and $sampled$ is a value drawn randomly from a list of random samples(with replacement) from the training data.  Shepperd and MacDonnel also propose
 another measure that reports the performance as a
 ratio of some other, much
 simpler, ``straw man'' approach (they recommend the
 mean effort value of $N>100$ random samples of the
-training data). At first, we used the Shepperd \&
-MacDonnell approach for this work but found that
-their straw man had orders of magnitude larger error
-than all the results shown here. Hence, we adopt the
-spirit, but not the letter, of their proposal and
-compare all our results against the LOC(n) ``straw
-man'' method discussed in the next section.
+training data).  
  
 
 \subsection{Choice of Learners}\label{sect:whatlearn}
@@ -1146,7 +1153,7 @@ We also baseline the COCOMO-II and COCONUT models using the \textit{Automaticall
 
 \begin{equation}
     \label{eq:atlm}
-    effort_i = \beta_0 + \beta_1.x_{1i} + \beta_2.x_{2i} + \ldots + \beta_n.x_{ni} + \epsilon_i
+    \mathit{effort}_i = \beta_0 + \beta_1.x_{1i} + \beta_2.x_{2i} + \ldots + \beta_n.x_{ni} + \epsilon_i
 \end{equation}
 
 where $effort_i$ is the quantitative response(effort) for project $i$ and $x_i$ are the independent variables of describing the project. The prediction weights $\beta_i$ are determined using a least square error estimation. Transformations are also employed on the independent variables($x_i$) based on their nature. If the variable is continuous in nature, either a logarithmic, a square root transformation or no transformation is employed such that the skewness of the independent variable in the training set is minimized. If the variable is of categorical nature, no transformation is performed on the model.
@@ -1327,18 +1334,38 @@ n=n_i+n_2;\;\mathit{estimate}=E_1\frac{n_2}{n} + E_2\frac{n_1}{n}
 The last line of our experimental rig shown in
 \fig{rig} {\em rank}s multiple methods for learning
 effort estimators.
+For this paper, those multiple methods
+are the range of $l$ treatments of size
+$\mathit{ls}=|\;l\;|$ explored within
+each research question. For example, {\em RQ1}
+studies the differences in output produced by $\mathit{ls}=4$ methods: two COCOMO variants and two others
+that just use lines of code counts.
+
 This study ranks methods using the Scott-Knott
 procedure recommended by Mittas \& Angelis in their 2013
 IEEE TSE paper~\cite{mittas13}.  This method
-sorts a list of $l$ treatments with $ls$ measurements by their median
+sorts a list of $l$ treatments with $\mathit{ls}$ measurements by their median
 score. It then
 splits $l$ into sub-lists $m,n$ in order to maximize the expected value of
  differences  in the observed performances
-before and after divisions. E.g. for lists $l,m,n$ of size $ls,ms,ns$ where $l=m\cup n$:
+before and after divisions. For example,
+for {\bf RQ1}, we would sort $\mathit{ls}=4$ 
+methods based on their median score,
+then divide them into three sub-lists of of size $\mathit{ms},\mathit{ns} \in \{(1,3), (2,2), (3,1)\}$.
+Scott-Knott would declare one of these divisions
+to be ``best'' as follows.
+For lists $l,m,n$ of size $\mathit{ls},\mathit{ms},\mathit{ns}$ where $l=m\cup n$, the ``best'' division maximizes $E(\Delta)$; i.e.
+the difference in the expected mean value
+before and after the spit: 
  \[E(\Delta)=\frac{ms}{ls}abs(m.\mu - l.\mu)^2 + \frac{ns}{ls}abs(n.\mu - l.\mu)^2\]
-Scott-Knott then applies some statistical hypothesis test $H$ to check
-if $m,n$ are significantly different. If so, Scott-Knott then recurses on each division.
-For example, consider the following data collected under different treatments {\em rx}:
+Scott-Knott then checks if that
+``best'' division is actually useful.
+To implement that check, Scott-Knott would
+apply some statistical hypothesis test $H$ to check
+if $m,n$ are significantly different. If so, Scott-Knott then recurses on each half of the ``best'' division.
+
+For a more specific example, consider the results
+from $l=5$ treatments:
 
 {\small \begin{verbatim}
         rx1 = [0.34, 0.49, 0.51, 0.6]
@@ -1410,95 +1437,6 @@ at ICSE'11~\cite{arcuri11}.
 
 
 
-\begin{figure}[!t]
- 
-{\small
-{\bf NASA10 (new NASA data up to 2010):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & 
-%min= 20, max= 117
-\\
-  1 &      COCOMO-II &    42  &  35 & \quart{4}{36}{22}{82} \\
-\hline  2 &      COCONUT &    47  &  34 & \quart{19}{35}{27}{82} \\
-\hline  3 &       loc(3) &    49  &  97 & \quart{0}{99}{29}{82} \\
-  3 &       loc(1) &    67  &  44 & \quart{12}{45}{48}{82} \\
-\end{tabular}}
-
-% :learn 4.64 :analyze 1.69 :boots 3 effects 5 :conf 0.970299
-
-~\\
-
-{\bf COC05 (new COCOMO data up to 2005):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 166\\
-  1 &      COCOMO-II &    46  &  146 & \quart{0}{99}{17}{54} \\
-  1 &       loc(1) &    55  &  114 & \quart{6}{78}{23}{54} \\
-  1 &       loc(3) &    65  &  99 & \quart{2}{67}{30}{54} \\
-  1 &      COCONUT &    65  &  34 & \quart{17}{24}{30}{54} \\
-\end{tabular}}
-
-% :learn 763.316602 :analyze 6.61469 :boots 1 effects 1 :conf 0.99
-%\subsection{xyz14deTune}
-
-
-% :learn 13.41 :analyze 2.49 :boots 2 effects 2 :conf 0.9801
-
-~\\
-
-{\bf NASA93 (NASA data up to 1993):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & 
-%min= 15, max= 129
-\\
-  1 &      COCONUT &    35  &  38 & \quart{0}{33}{17}{74} \\
-  1 &      COCOMO-II &    38  &  39 & \quart{4}{34}{20}{74} \\
-\hline  2 &       loc(1) &    62  &  54 & \quart{15}{48}{41}{74} \\
-  2 &       loc(3) &    75  &  102 & \quart{10}{89}{52}{74} \\
-\end{tabular}}
-
- %:learn 142.78 :analyze 10.13 :boots 3 effects 11 :conf 0.970299
-
-~\\
-
-{\bf COC81 (original data from the 1981 COCOMO book):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 14, max= 291
-\\
-  1 &      COCOMO-II &    33  &  35 & \quart{2}{12}{6}{31} \\
-  1 &      COCONUT &    37  &  42 & \quart{0}{15}{8}{31} \\
-\hline  2 &       loc(3) &    80  &  237 & \quart{14}{85}{23}{31} \\
-  2 &       loc(1) &    84  &  100 & \quart{16}{36}{25}{31} \\
-\end{tabular}}
-
-% :learn 63.13 :analyze 6.36 :boots 3 effects 8 :conf 0.970299
-
-
-}
-\caption{COCOMO vs just lines
-of code. MRE values seen in 
-leave-one-studies, repeated ten times.
-For each of the four tables in this figure,
-{\em better} methods appear {\em higher} in the tables.
-In these tables,
-median and IQR are the 50th and the 
-(75-25)th percentiles. The IQR range is
-shown  in the right column
-with black dot at the median. Horizontal lines
-divide the ``ranks'' found by our Scott-Knott+bootstrapping+effect size tests  (shown in  left column).
-}\label{fig:loc}
-\end{figure}
-
-
-
-
 \section{Results}
 \subsection{COCOMO vs Just Lines of Code}\label{sect:justloc}
 This section explores {\bf RQ1:
@@ -1511,10 +1449,10 @@ better than just using simple lines of code measures.
 As shown in \fig{loc}, this is not necessarily true.
 This figure is a comparative ranking for LOC(1)
 LOC(3), COCOMO-II and COCONUT.
-The rows of \fig{loc} are sorted by the median MRE figures.
+The rows of \fig{loc} are sorted by the SE figures.
 These rows are divided according to their 
  {\em rank}, shown in the left column: better methods
-have {\em lower rank} since they have {\em lower MRE} error values.
+have {\em lower rank} since they have {\em lower SE} error values.
 The right-hand-side column displays the median error (as a black dot)
 inside the inter-quartile range
 (25th to 75th percentile, show as a horizontal line).
@@ -1522,106 +1460,8 @@ inside the inter-quartile range
 The key feature of \fig{loc}
 is that  just using lines of
 code is {\em not}  better than parametric estimation.
-Also, when LOC(n) goes wrong, it goes very
-wrong indeed (see the COC81 results: LOC(3) produces 
-double the median MRE error generated by COCOMO-II).
-
-
-Another observation from \fig{loc} is that,
-measured in terms of median MRE, COCONUT's local
-calibration is not  better
-than  untuned COCOMO. In only one data set
-(NASA93) did COCONUT have a lower median MRE than
-COCOMO-II but even in that case, Scott-Knott
-declared there was no significant difference between
-the COCOMO-II and COCONUT results.
-On the other hand, sometimes the local calibration
-results exhibited far less variance than those of
-COCOMO-II. For example, in \fig{loc}'s COC05
-results, the IQR ranges for
-COCOMO-II and COCONUT were 146 and 34 respectively.
-This result (that local calibration reduces
-variance) repeats enough times in the subsequent
-experiments to make us recommend local calibration
-as a method for taming high variance in effort
-estimation.
-
-
-
-
-
-\begin{figure}[!b] 
-{\small
-
-~\\
-
-\noindent {\bf NASA10: (new NASA data up to 2010):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 24, max= 104\\
-  1 &      COCOMO-II &    42  &  35 & \quart{0}{43}{22}{94} \\
-\hline  2 &      COCONUT &    46  &  33 & \quart{19}{42}{27}{94} \\
-\hline  3 &     Knear(3) &    50  &  77 & \quart{3}{96}{32}{94} \\
-  3 &     Knear(1) &    57  &  49 & \quart{0}{61}{41}{94} \\
-  3 &         CART &    61  &  32 & \quart{21}{40}{46}{94} \\ 
-\hline 4 &          \textcolor{blue}{ATLM} &    73  &  53 & \quart{20}{55}{60}{94} \\ 
-\end{tabular}}
-~\\
-
-\noindent
-{\bf COC05: (new COCOMO data up to 2005):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 18, max= 166\\
-\\
-  1 &         CART &    42  &  61 & \quart{0}{41}{16}{55} \\
-  1 &      COCOMO-II &    46  &  146 & \quart{1}{98}{18}{55} \\
-  1 &     Knear(1) &    55  &  70 & \quart{0}{47}{24}{55} \\
-  1 &     Knear(3) &    63  &  99 & \quart{5}{67}{30}{55} \\
-  1 &      COCONUT &    66  &  34 & \quart{18}{23}{32}{55} \\ 
-\hline 2 &         \textcolor{blue}{ATLM} &    801  &  1917 & \quart{0}{100}{99}{94} \\ 
-\end{tabular}}
-
-~\\
-
-\HERE{Reviewer2e}
-
-\noindent {\bf NASA93: (NASA data up to 1993):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 15, max= 110\\
-  1 &      COCONUT &    36  &  38 & \quart{0}{39}{22}{89} \\
-  1 &      COCOMO-II &    38  &  39 & \quart{5}{41}{24}{89} \\
-\hline  2 &         CART &    40  &  55 & \quart{1}{57}{26}{89} \\ 
-\hline  3 &     Knear(3) &    54  &  66 & \quart{9}{69}{41}{89} \\
-  3 &     Knear(1) &    56  &  77 & \quart{1}{81}{43}{89} \\ 
-\hline 4 &          \textcolor{blue}{ATLM} &    101  &  270 & \quart{0}{100}{90}{94} \\
-\end{tabular}}
-
-~\\
-
-\noindent {\bf COC81: (original data from the 1981 COCOMO book):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 14, max= 306\\
-  1 &      COCOMO-II &    33  &  35 & \quart{2}{12}{6}{29} \\
-  1 &      COCONUT &    36  &  42 & \quart{0}{14}{7}{29} \\
-\hline  2 &         CART &    66  &  95 & \quart{8}{33}{17}{29} \\
-\hline  3 &     Knear(3) &    85  &  260 & \quart{10}{89}{24}{29} \\
-  3 &     Knear(1) &    87  &  236 & \quart{10}{81}{24}{29}\\ 
-\hline 4 &          \textcolor{blue}{ATLM} &    955  &  2700 & \quart{0}{100}{99}{94} \\
-\end{tabular}}}
-
-\caption{COCOMO vs more recent methods.
-Displayed as per \fig{loc}. }\label{fig:standard}
-\end{figure}
-
-
- Before going on, we show that with a little
+If the reader is surprised by this result, then we note that
+with a little
  mathematics, it is possible to show
  that the results of \fig{loc} are not surprising.
  From \eq{cocII}, recall that
@@ -1644,6 +1484,19 @@ COCOMO variables. The large value of 856 for that second component
 indicates that many factors outside of KLOC influence effort. Hence, it is hardly
 surprising that just using KLOC is a poor way to do effort estimation.
 
+
+
+
+
+\input{results/coc_vs_loc}
+
+
+\input{results/coc_vs_standard}
+
+
+
+ 
+
  
 
 \subsection{COCOMO vs Other Methods}\label{sect:othermethods}
@@ -1659,11 +1512,15 @@ standard effort estimation methods
 from the 1990s (CART and Knear(n))
 \begin{BLUE}\HERE{Reviewer2f}
   as well as  ATLM (the baseline effort estimation method
-  proposed in 2015 by Whigham et.al.~\cite{whigham15}).
+  proposed in 2015 by Whigham et.al.~\cite{whigham15} (a method defined
+  by its authors to better define effort
+  estimation experiments-- and perhaps
+  to encourage more repeatability in these
+  kinds of studies).
   \end{BLUE}
-In that comparison, nothing was ever ranked better than COCOMO-II
+In that comparison,   COCOMO-II's error is not ranked worse than any other method
 (sometimes
-CART or COCONUT had a slightly lower median MRE but that difference was small: $\le 4$\%).
+  COCONUT had a slightly lower median SE but that difference was small: $\le 2$\%).
 
 \fig{newer} compares COCOMO and COCONUT to more recent effort estimation methods (TEAK and PEEKING2). Once again,   nothing was ever ranked better than COCOMO-II or COCONUT.
 
@@ -1676,14 +1533,10 @@ their new method against older ones.
 
 
 As to COCONUT, this method
-was usually ranked equaled to COCOMO-II.  
-In several cases  COCOMO-II and COCONUT were ranked first and second but
-the median difference in their scores is very small: see
-NASA10 of \fig{standard}.
-Also,
-many other methods often had much larger variances. 
-Hence,  we can recommend some form of local calibration as a variance reduction tool
-(e.g. compare COCONUT with COCOMO-II in COC05 of \fig{standard}).
+was often ranked equaled to COCOMO-II.  
+In several cases  COCOMO-II and COCONUT were ranked first and second and
+the median difference in their scores is very small.
+ 
 
 
 From this data, we conclude that it is not
@@ -1696,84 +1549,7 @@ but also for projects completed up to a decade after
 those tunings (NASA10).
 
 
-\begin{figure}
-{\small
-{\bf NASA10 (new NASA data up to 2010):}
-
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 0, max= 185\\
-\\
-  1 &      COCONUT &    34  &  14 & \quart{14}{8}{18}{111} \\
-  1 &   COCOMO-II &    43  &  35 & \quart{13}{19}{23}{111} \\
-\hline 
-  2 &      TEAK &    73  &  80 & \quart{29}{43}{39}{111} \\
-  2 & PEEKING2 &    74  &  51 & \quart{29}{22}{39}{111}  
-\end{tabular}}
-
-~\\
-
-{\bf COC05 (new COCOMO data up to 2005):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 300\\
-  1 &      COCOMO-II &    46  &  134 & \quart{0}{41}{9}{110} \\
-  1 & COCONUT &    62  &  38 & \quart{6}{6}{15}{110} \\
-  1 &      TEAK &    84  &  110 & \quart{10}{32}{23}{110} \\
-\hline
-  2 & PEEKING2 &    87  &  140 & \quart{6}{40}{24}{110}  
-\end{tabular}}
-
-% :learn 70.71 :analyze 4.04 :boots 2 effects 2 :conf 0.9801
-
-~\\
-
-
-{\bf NASA93 (NASA data up to 1993):}
-
-
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 15, max= 250\\
-\\
-  1 &      COCONUT &    36  &  38 & \quart{0}{10}{9}{100} \\
-  1 &      COCOMO-II &    39  &  39 & \quart{3}{10}{10}{100} \\
-  1 & TEAK &    50  &  81 & \quart{0}{28}{15}{100} \\
-\hline  
-  2 & PEEKING2 &    65  &  165 & \quart{6}{64}{21}{100}  
-\end{tabular}}
-
-% :learn 548.2 :analyze 7.81 :boots 3 effects 14 :conf 0.970299
-
-
-
-% :learn 37.86 :analyze 3.84 :boots 3 effects 5 :conf 0.970299
-%\subsection{coc81}
-
-
-~\\
-
-{\bf COC81 (original data from the 1981 COCOMO book):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 12, max= 500\\
-\\
-  1 &      COCOMO-II &    32  &  33 & \quart{2}{4}{4}{100} \\
-  1 &      COCONUT &    33  &  42 & \quart{0}{6}{4}{100} \\
-\hline  2 & TEAK &    93  &  128 & \quart{9}{24}{17}{100} \\
-\hline
-  3 & PEEKING2 &    131  &  569 & \quart{9}{70}{24}{100} \ 
-\end{tabular}}
-
-% :learn 260.57 :analyze 8.89 :boots 6 effects 11 :conf 0.941480149401
-
-}
-\caption{COCOMO vs newer methods. Displayed as per \fig{loc}.}\label{fig:newer}
-\end{figure}
+\input{results/coc_vs_newer}
 
 
 
@@ -1864,106 +1640,6 @@ Note that, due to the results of \fig{loc}, LOC was excluded from column reducti
 
 
 
-\begin{figure}[!b]
-
-  ~\\
-  
-{\small
-{\bf NASA10 (new NASA data up to 2010):}
-
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 15, max= 77\\
-\\
-  1 &      COCOMO-II &    42  &  35 & \quart{14}{56}{43}{137} \\
-  1 & COCONUT:c0.5,r8 &    43  &  35 & \quart{11}{56}{45}{137} \\
-\hline 
-  2 &      COCONUT &    46  &  34 & \quart{38}{55}{49}{137} \\
-\hline  3 & COCONUT:c1,r4 &    48  &  41 & \quart{33}{66}{53}{137} \\
-  3 & COCONUT:c1,r8 &    50  &  33 & \quart{27}{53}{56}{137} \\
-  3 & COCONUT:c0.25,r8 &    51  &  35 & \quart{24}{56}{58}{137} \\
-  3 & COCONUT:c0.5,r4 &    53  &  38 & \quart{29}{61}{61}{137} \\
-  3 & COCONUT:c0.25,r4 &    57  &  41 & \quart{27}{66}{67}{137} \\
-\end{tabular}}
-
-~\\
-
-{\bf COC05 (new COCOMO data up to 2005):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 166\\
-  1 &      COCOMO-II &    46  &  146 & \quart{0}{99}{17}{54} \\
-  1 & COCONUT:c0.5,r8 &    51  &  58 & \quart{6}{39}{21}{54} \\
-  1 & COCONUT:c0.25,r8 &    61  &  56 & \quart{8}{39}{28}{54} \\
-  1 & COCONUT:c0.5,r4 &    61  &  58 & \quart{12}{40}{28}{54} \\
-  1 &      COCONUT &    68  &  34 & \quart{17}{24}{32}{54} \\
-  1 & COCONUT:c1,r4 &    64  &  60 & \quart{8}{41}{30}{54} \\
-  1 & COCONUT:c1,r8 &    74  &  45 & \quart{17}{31}{36}{54} \\
-  1 & COCONUT:c0.25,r4 &    80  &  58 & \quart{13}{40}{41}{54} \\
-\end{tabular}}
-
-% :learn 70.71 :analyze 4.04 :boots 2 effects 2 :conf 0.9801
-
-~\\
-
-
-{\bf NASA93 (NASA data up to 1993):}
-
-
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 12, max= 91\\
-\\
-  1 &      COCONUT &    36  &  38 & \quart{3}{48}{30}{111} \\
-  1 &      COCOMO-II &    38  &  39 & \quart{10}{49}{32}{111} \\
-  1 & COCONUT:c0.5,r8 &    44  &  53 & \quart{5}{67}{40}{111} \\
-  1 & COCONUT:c0.5,r4 &    49  &  61 & \quart{16}{77}{46}{111} \\
-  1 & COCONUT:c0.25,r4 &    52  &  67 & \quart{10}{84}{50}{111} \\
-\hline  2 & COCONUT:c1,r8 &    52  &  61 & \quart{8}{78}{50}{111} \\
-  2 & COCONUT:c1,r4 &    54  &  70 & \quart{11}{88}{53}{111} \\
-  2 & COCONUT:c0.25,r8 &    55  &  52 & \quart{26}{66}{54}{111} \\
-\end{tabular}}
-
-% :learn 548.2 :analyze 7.81 :boots 3 effects 14 :conf 0.970299
-
-
-
-% :learn 37.86 :analyze 3.84 :boots 3 effects 5 :conf 0.970299
-%\subsection{coc81}
-
-
-~\\
-
-{\bf COC81 (original data from the 1981 COCOMO book):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 14, max= 117\\
-\\
-  1 &      COCOMO-II &    33  &  35 & \quart{5}{34}{18}{83} \\
-  1 &      COCONUT &    37  &  42 & \quart{0}{40}{22}{83} \\
-\hline  2 & COCONUT:c1,r8 &    45  &  44 & \quart{8}{43}{30}{83} \\
-\hline  
-  3 & COCONUT:c0.5,r8 &    59  &  43 & \quart{23}{42}{43}{83} \\
-  3 & COCONUT:c0.25,r8 &    61  &  51 & \quart{19}{49}{45}{83} \\
-\hline  4 & COCONUT:c1,r4 &    76  &  60 & \quart{22}{58}{60}{83} \\
-  4 & COCONUT:c0.5,r4 &    78  &  30 & \quart{50}{29}{62}{83} \\
-  4 & COCONUT:c0.25,r4 &    82  &  65 & \quart{36}{63}{66}{83} \\
-\end{tabular}}
-
-% :learn 260.57 :analyze 8.89 :boots 6 effects 11 :conf 0.941480149401
-
-}
-\caption{COCOMO vs simpler COCOMO.  
-Displayed as per \fig{loc}.}\label{fig:fss}
-\end{figure}
-
-
-
-
 \subsubsection{Results}
 
 \fig{fss} compares results found when either
@@ -1974,17 +1650,13 @@ seen after training on eight randomly selected
 training examples reduced to {\em below, nominal,
 above}, while ignoring 50\% of the columns. 
 
-In \fig{fss}, all the {\em r4} results are ranked
-comparatively worse than the other treatments.  That
-is, these results do not condone learning from just
-four projects.
 
-On the other hand \fig{fss} suggests that it is defensible
-to learn a COCOMO model from eight projects. All the
+ \fig{fss} suggests that it is defensible
+to learn a COCOMO model from just four to eight projects. Most of the
 {\em r8} results are top-ranked with the exception
 of the COC81 results (but even there, the absolute
 difference between the top {\em r8} results and
-standard COCOMO is very small).
+standard COCOMO is very small: just 2\%).
 
 Overall, \fig{fss} suggests that the modeling
 effort associated with COCOMO-II could be reduced. Hence,
@@ -1995,28 +1667,17 @@ do not need to be specified in great detail:
 a simple three point scale will suffice:
  {\em below, nominal, above}. As to how much data is
 required for modeling, 
-the results
-from COCONUT:c0.5,r8 are ranked either the same as
-COCOMO-II or (in the case of COC81) fall very close
-to the median and IQR seen for COCOMO-II.
-That is, 
-a mere eight projects can
+a mere four to eight projects can
 suffice for calibration.
 Hence, it
 should be possible to quickly build many COCOMO-like
 models for various specialized sub-groups using just
 a three-point scale
 
-That said, some column pruning should be employed
-when working with very small training sets (e.g.
-the eight rows used in \fig{fss}. 
-Note that
-in all data sets that generated multiple rankings,
-the {\em c1} results (that used all the attributes)
-were not top-ranked. That is, in a result that might
-have been predicted by Miller or Chen et al., when
-working with just a few rows it is useful to
-reflect on what columns might be ignored.
+
+\input{results/coc_vs_pruned}
+
+
 
 
 
@@ -2186,42 +1847,42 @@ We then made a conscious decision to reverse those biases
 and explore non-parametric methods (PEEKER and TEAK) as well
 as decision-tree methods (CART).
 \ei
-\begin{BLUE}
+% \begin{BLUE}
 
-Another source of bias is the evaluation method used to assess 
-prediction error. This paper uses
-the MRE error measure defined in \eq{mre}.
-and a reviewer for this paper asked 
-what happens if that evaluation measure
-is changed to, say,
-\begin{equation}\label{eq:e2}
-\mathit{e2}=\abs{\frac{ \mathit{actual}^2 - \mathit{predicted}^2}{\mathit{actual}^2 - \mathit{average(actual)})^2}}
-\end{equation}
-We re-ran all the experiments and found that none of the answers to our research questions were changed.
-For example:
-\bi
-\item
-\fig{loc_e2} repeats \fig{loc} with 
-\eq{mre} changed to \eq{e2}. 
-\item
-\fig{loc} was used to answer the question ``is COCOMO no better than just
-using lines of code'' and , in that figure, the lines of code measures
-often had worse errors than standard COCOMO.
-\item
-\fig{loc_e2} offers the same conclusion: the loc measures were never
-as good as COCOMO.
-\ei
-The same pattern holds for all other results; i.e. changing
-the performance measure from \eq{mre} to  \eq{e2} does
-not change our conclusion. More specifically,
-despite changing from \eq{mre} to  \eq{e2}:
-\begin{quote}
-    \textbf{The COCOMO methods defined in 2000 are competitive or better than a wide range of alternate  effort estimation models.}
-\end{quote}
+% Another source of bias is the evaluation method used to assess 
+% prediction error. This paper uses
+% the SE error measure defined in \eq{se}.
+% and a reviewer for this paper asked 
+% what happens if that evaluation measure
+% is changed to, say,
+% \begin{equation}\label{eq:e2}
+% \mathit{e2}=\abs{\frac{ \mathit{actual}^2 - \mathit{predicted}^2}{\mathit{actual}^2 - \mathit{average(actual)})^2}}
+% \end{equation}
+% We re-ran all the experiments and found that none of the answers to our research questions were changed.
+% For example:
+% \bi
+% \item
+% \fig{loc_e2} repeats \fig{loc} with 
+% \eq{se} changed to \eq{e2}. 
+% \item
+% \fig{loc} was used to answer the question ``is COCOMO no better than just
+% using lines of code'' and , in that figure, the lines of code measures
+% often had worse errors than standard COCOMO.
+% \item
+% \fig{loc_e2} offers the same conclusion: the loc measures were never
+% as good as COCOMO.
+% \ei
+% The same pattern holds for all other results; i.e. changing
+% the performance measure from \eq{se} to  \eq{e2} does
+% not change our conclusion. More specifically,
+% despite changing from \eq{se} to  \eq{e2}:
+% \begin{quote}
+%     \textbf{The COCOMO methods defined in 2000 are competitive or better than a wide range of alternate  effort estimation models.}
+% \end{quote}
 
-Hence, we can report that our
-conclusion are external valid across at least two error measures.
-\end{BLUE}
+% Hence, we can report that our
+% conclusion are external valid across at least two error measures.
+% \end{BLUE}
 \begin{figure}[!t]
  \begin{BLUE}
 {\small
@@ -2284,10 +1945,10 @@ conclusion are external valid across at least two error measures.
 
 }
 \end{BLUE}
-\caption{\textcolor{blue}{Using the \eq{e2} error message, COCOMO vs just lines
+\caption{\textcolor{black}{Using the \eq{e2} error message, COCOMO vs just lines
 of code using \textit{e2} as error measure. 
 These results should be compared to \fig{loc}, which
-used \eq{mre}.}
+used \eq{se}.}
 }\label{fig:loc_e2}
 \end{figure}
 
@@ -2309,13 +1970,8 @@ of deploying those methods at a new site (see \tion{simpler});
 %\item {\bf RQ5}: Parametric estimation methods like COCOMO that assume effort is exp%onential on lines of code are {\em not} unduly
 %sensitive to errors in the LOC measure (see \tion{nonoise});.
 \ei
-Hence, we conclude that in 2016, it is still a valid and a recommended practice to {\em first} try parametric estimation. This conclusion comes with a caveat; It can sometimes be useful to augment standard COCOMO with 
-a local calibration method like COCONUT
-and   column pruner of \tion{pruner}. 
-Specifically, 
-using COCONUT (plus some column reduction), we found that adequate estimates can be generated using
-just a handful of prior projects.
-In these experiments, eight projects were enough for COCONUT (and we are exploring methods
+Hence, we conclude that in 2016, it is still a valid and a recommended practice to {\em first} try parametric estimation.
+In these experiments, four to eight projects were enough to learn good predictors (and we are exploring methods
 to reduce that even further). This is an important result since, given the rapid pace of change
 on software engineering, it is unlikely organizations will have access to dozens and dozens of prior
 relevant projects to learn from.
@@ -2488,348 +2144,8 @@ or imply its endorsement by the US Government.
 \noindent
     {\bf REPLY TO REVIEWERS}
 
-    \noindent
-{\bf Comments from the special issue editor}
-
-\begin{quote}{\em     The reviewers identify a number of strong points about your submission..}\end{quote}
-
-\noindent
-Thank you for that comment.
-
-\begin{quote}{\em ... but also a number of issues related to presentation, emphasis (i.e., more emphasis of the 'negative' result is needed) and clarification of related work. Please take these comments into account when preparing your revision.}\end{quote}
-
-\noindent We offer those those clarifications below, and several large changes:
-\be
-\item All the non-negative results in the last draft have been moved to another paper
-  (so this paper now focuses on the negative);
-\item Also removed were the experiments on errors in LOC (which is
-  not really essential for our discussion).
-  
-\item
-  At the suggestion of Reviewer\#2, we now include results from the
-  \textit{Automatically Transformed Linear Baseline Model}(ATLM) proposed by Whigham et al. \cite{whigham15}.
-\item Also, at the suggestion of Reviewer\#2, we pushed our business users to make
-  more data available. We are happy to report that this draft now contains a full listing the Nasa10
-  data set (that was unavailable to the general public at the time of writing the last draft).
-\item Further, at the suggestion of Reviewer\#2, we re-ran all our results
-  using another evalaution measure (not MRE). Those results did not change
-  the conclusions of this paper... which is an interesting result in itself
-  (different statistical measures are surprisingly blunt in the face
-  of the large variances seen in effort estimation results). That finding (of
-  equivalent conclusions despite different eval measures) is now on-line for
-  you and the reviewers to inspect (at \url{http://tiny.cc/fb_rev2})-- but it adds no information to this
-  paper (do not change any of our conclusions). We think we can write
-  that up as a seperate paper so we ask that we do not
-  present here.  Do you concur?
-  \ee
-  
-\noindent
-{\bf Comments to Reviewer\#1}
-
-\noindent
-Thank you for your details comments.  This new draft
-contains many corrections and extensions as directed by your feedback.
-
-All our changes are marked in the body of the paper in \textcolor{blue}{blue text}.
  
-
-As to your specific comments: 
- 
-\begin{quote}{\em One of the puzzling claims of the paper is "For the non-COCOMO data sets, our newer estimation methods performed better than older methods". }. \end{quote}
-
-\noindent
-We have removed
-that material.
-
-\begin{quote}{\em ...more emphasis of the 'negative' result is needed}\end{quote}
-
-\noindent
-This was another good reason to remove the
-non-COCOMO results).
-
-\begin{quote}{\em There are more software engineering papers that have published errata in the recent years (but not necessarily via the main stream venues such as conferences and journals): JungWon Byun , SungYul Rhew, ManSoo Hwang, Vijayan Sugumaran, SooYong Park, SooJin Park Erratum to: Metrics for measuring the consistencies of requirements with objectives and constraints. Requirements Engineering March 2014, Volume 19, Issue 1`}\end{quote}
-
-\noindent
-That paper, at \url{http://tiny.cc/byun},
-is an errata on the author names
-and not on technical content. Hence, unless you direct us otherwise,
-we will not reference that paper in this one.
-
-\begin{quote}{\em Failure report, negative result and report on a previously published error are not the same; the introduction somehow puts them all together and tries to explain them with the same reasons.}\end{quote}
-
-
-
-\noindent
-That is an  important clarification.
-We have fixed that, on \WHERE{Reviewer1a}.
-
-\begin{quote}{\em "Secondly, it is not standard practice in software analytics for researchers to benchmark their latest results against some supposedly simpler "straw man" method." My guess would be that in many cases no such method is available making benchmarking impossible. When the domain starts to become more mature, this kind of comparisons are bing conducted (see, e.g., code cloning or a more recent work on tag inference for Stack Overflow posts).}\end{quote}
-
-\noindent
-Good comment--- which we've added
-on \WHERE{Reviewer1b}.
-
-
-
-
-\noindent
-As to your specific comments, you write \begin{quote}{\em I'm
-  also concerned about the choice of the
-  datasets. Two of the datasets considered are
-  affiliated with COCOMO, so they can provide a
-  biased perspective on the power of the
-  results. Are there additional datasets one might
-  consider or are the COCOMO requirements so
-  restrictive that no such datasets can be found
-  unless at NASA?}. \end{quote}
- 
- \noindent It is true that NASA contributed the data sets to NASA93 and NASA10.
-  But for effects from non-NASA sources, we direct the reviewer to the 93 projects
-  in the COC05
-  results. Note that none of COC05 comes from NASA.
-
-  Also, as I'm sure the reviewer knows,
-  we have tried, most earnestly, for decades to collect
-and publish  data sets (see the 
-500+ data sets at \url{http://openscience.us}-- a web site we created and maintain for the SE community.
-Even with that resources, and even after years of work,
-these four data sets are all we can offer for this paper
-(there are more, of course, but their users have declined
-to let us use that other data).
- 
-  As to the ``NASA bias'' in the everything that is not COC05,
-  in practice, very little software comes
-``from NASA''. NASA is not
-really a development organization. Rather it is a contractor
-management site where the real work gets done by external
-contractors (e.g. Rockwell Collins or Boeing). So a ``NASA app''
-is really built by an exterior teams who delivers software
-for many other applications and many other clients. Hence we argue
-that lessons learned from data
-marked as ``NASA'' actually applies
-to a wide range of projects.
- 
-     \begin{quote}{\em The authors should have been more careful with introducing the techniques the use. It is not very clear what the "triangle function of Walkerden and Jeffery [68]" is precisely. Is it merely an idea that three variables should be combined as a weighted sum? Or is this a particular approach that can be used to derive coefficients 50, 33 and 17? I've checked the paper by Walkerden and Jeffery [68] but the triangle function is not mentioned.}\end{quote}
-
-     \noindent You are right... we were far too clever in our write up at that
-     point.
-     P140 and p141 of the [68] describe how the estimates for the k-th
-     nearest items are ranked according to the ordering of their items.
-     What we should have written was $\frac{3a + 2b + 1c}{6}$. That has been fixed now on  \WHERE{Reviewer1c}.
-
-     \begin{quote}{\em     Is $m.\mu$ the median of m (as suggested by the preceding discussion) or the mean of $m$ (as seems to follow from the paper by Mittas \& Angelis [52])?}\end{quote}
-
-\noindent No... we wrote $\mu$ and we meant mean (as recommended by Mittas     \& Angelis).
- 
-
-\begin{quote}{\em 4.4 COCOMO with Incorrect Size Estimates ``That
-  is, the parametric estimation method being
-  recommended here is not unduly affected by noise
-  where the KLOC values vary up to 50\% of their
-  original value." I wonder whether one can expect
-  estimation to be up to 50\% of the real
-  value. Laranjeira in "Software Size Estimation of
-  Object-Oriented Systems" (1990) has reported size
-  estimates that were 3-4 times higher or lower than
-  the actual system size; in two cases the estimates
-  were as bas as 6 times off. This makes me wonder
-  whether the "not unduly sensitive" in the
-  conclusion does not overstate the results.}\end{quote}
-
-\noindent Good catch- we increased the LOC estimation error study and found that
-COCOMO breaks down when LOC errors grow beyond 200\% (but still worked up
-to that point).
-
-  Now we can include that result in this paper but, in keeping with the comments
-about needing to focus the paper better, we have removed them.
-
- Please advise if you want the ``up to 200\%'' results returned to this paper.
-
-\begin{quote}{\em Minor\newline
-Section 3: reserach\newline
-Section 4.3.4: thse\newline
-Section 4.4: redundant )}\end{quote}
-
-\noindent (and thanks for pointing out those errors).
-
-
-\begin{quote}{\em The entire second half of the PDF contains the output of the LaTeX compilation. I presume that something went wrong during the submission process.}\end{quote}
-
-\noindent Yes, that was strange. Sorry you had to deal with that.
-
-\noindent
-{\bf Comments to Reviewer\#2}
-
-\noindent
-Thank you for your details comments.  This new draft
-is significantly improved thanks to your  feedback. 
-
-All our changes are marked in the body of the paper in \textcolor{blue}{blue text}.
-Several large (and confusing) parts of the previous draft have been deleted since,
-as you wrote:
-
-\begin{quote}{\em  Generally, the paper has a large number of different elements  that makes it difficult to follow. If you are interested in the value of COCOMO-II why not stick to that.
-}\end{quote}
-
-At your suggestion, to clarify and focus the paper we have removed (a)~all the non-COCOMO results;
-and (b)~all the COCOMO size error results.
-
-Also, at your suggestion, we ran more experiments (with different error measures,
-with the Whigham methods, using Effort/FP). As remarked below, those
-changes did not change our conclusions. Nevertheless, it was useful proposing
-those new experiments since it increases the external validity of this paper.
-
-As to your specific comments:
-
-\begin{quote}{\em A ``strawman" should not be something that is so
-  foolish that it is impossible not to
-  outdo. Researchers in the past have used simple
-  regression without a logarithmic transformation
-  and MMRE as an accuracy measure for comparison
-  with new estimation methods.  Kitchenham \& Mendes
-  pointed out this was not a valid approach.}\end{quote}
-
-Thank you for the reference to the ATLM method from
-the Whigham paper (Whigham, P., Owen, C., and
-Macdonell, S. A baseline model for software effort
-estimation. ACM Trans. on Softw. Eng. \&
-Methodol. 24, 3 2015). We agree that the literature
-agrees that ATLM is a suitable ``straw man''. We
-have included those results in this paper in
-\WHERE{Reviewer2c}, \WHERE{Reviewer2e} and \WHERE{Reviewer2f}.
-
-Just on the side node, thanks for pointing us to
-the  Whigham paper. It turns out that  as a baseline method,
-it performs much worse than anything else we tried. So now we have another paper
-to write after this one ``A Better Baseline for Effort Estimation''-- which would
-not be happening without your input.
-
-For now, what we can say in this paper (which is a clear negative report) is
-that nothing we've tried (including the Whigham baseline and
-all the supposedly clever implementations
-we've built in the last decade) perform any better than old fashioned COCOMO.
-
-\begin{quote}{\em RQ1 I don't think the issue was ever about "just lines of code" it was about simple regression rather than a complex  deterministic model. }\end{quote}
-
-Actually, our experience is a little different from yours on this point.
-I've been at SE conferences where Martin Shepperd  has said exactly that COCOMO
-runs no better than simple LOC.
-
-\begin{quote}{\em However,  the function point community do recommend the taking the average of the productivity (Effort/FP) then multiplying by the FP estimate of a project needing a cost estimate.}\end{quote}
-
-Thank you for that suggestion. We tried that treatment of  effort
-and found it made all our predictions much worse. For those results,
-please  see \url{http://tiny.cc/e_prod}.  
-
-
-\begin{quote}{\em 
-  This paper uses two proprietary data sets which means the results cannot be independently validated. This is not very satisfactory. We have too many data mining studies that cannot be reproduced....
-The results for NASA 10 and COC05 are hearsay.}\end{quote}
-
-We took your comment back to our business users and can report some success there (thank you for your comment).
-NASA10 is now publicly available (and included in this paper, \WHERE{Reviewer2b}).
-
-As to the remaining data set (COC05),
-we agree that it is not ideal that it remains closed source.  But
-we also think that it is not fatal to this paper. 
-Other empirical software engineering researchers publish
-results with a clear organizational bias (witness the results
-of Zimmermann and Bird from Microsoft data
-or Penix and Elbaum working from Google data). What is important, and what is done by Zimmermann, Bird,
-Penix, Elbaum and this paper is to clearly state the source of any such bias.
-
-\begin{quote}{\em Figure 2 . The Coc81 data set has 63 projects (or did you remove one of them?)}\end{quote}
-
-\noindent Our mistake. fixed.
-
-\begin{quote}{\em Jorgensen didn't talk about "Delphi-based" methods he talked about  "expert-based" estimation.}\end{quote}
-
-\noindent You are right.. ``expert'' is a better term than Delphi. We have changed all those terms here.
-
-
-\begin{quote}{\em Equation (3) You should not be using the biased
-  MRE measure. The poor behavior of MRE has been
-  well documented in leading journals (see ref [1],
-  [3] \& [4]. It doesn't matter whether you use the
-  median or mean MRE the metric is still
-  biased.
-
-  If you really want a measure between 0 and 1 to
-  assess performance, use an R-squared equivalent
-  such as the ratio of the squared difference
-  between the estimate and actual divided by the
-  squared difference between the actual and the
-  average effort.  }\end{quote}
-
-\noindent As part of a revised threats to validity section on \WHERE{Reviewer2d}, we 
-re-run all the experiments using the measure you propose $r2=\abs{\frac{a^2-e^2}{a^2 - \overline{a}^2}}$.
-A sample of those results are shown in this paper 
-In summary, the change of evaluation measure
-changed our conclusions not at all, something we commented on 
-at \WHERE{Reviewer2g}. 
-
-In the text of this paper we   include one chart comparing $e2$ to MRE
-(and the rest of those comparisons are available for
-your  inspection at \url{http://tiny.cc/fb_rev2}). 
-
-
-If you prefer,  we could add all the $r2$ to this paper.
-But since there is no conclusion change between MRE and $r2$, and since there is consensus amongst this paper's
-reviewers that the old draft had too much in it, we think we should not
-add  more experimental detail that
-only makes the same conclusions.
-
-
-\begin{quote}{\em Whigham et al.'s default model seems more
-  appropriate as a useful strawman and is certainly
-  better than lines of code.}\end{quote}
-
- We agree and 
-have included those results from the Whigham this paper at
-\WHERE{Reviewer2c}, \WHERE{Reviewer2e} and \WHERE{Reviewer2f}. And please note, as we stated
-before, how badly
-Whigham performs in \WHERE{Reviewer2e}-- thanks to your comments on this matter, we now have
-another paper to write about a better baseline for effort estimation.
-
-
-\begin{quote}{\em From your description it appears that TEAK
-  removes projects - how then do you do a fair
-  comparison with other methods ? }\end{quote}
-
-\noindent Note that TEAK and PEEKING2 only prunes the training set, not the test set so it is a fair comparison.
-We have added a note to this effect at \WHERE{Reviewer2d}.
-
-\begin{quote}{\em Since Barry Boehm is a co-author, it should be simple to confirm whether or not any of the NASA93 projects were used in the construction of COCOMO-II.}\end{quote}
-
-\noindent We double checked the raw data (KLOCs and effort)
-and can confirm that none of NASA93 was uses
-to tune COCOMO 2000 (a comment we add at 
-\WHERE{Reviewer2a}).
-
-
-\begin{quote}{\em  4.3.1 This seems like a good idea. There are too many levels (which should be treated as dummy variables) for a data-based calibration process to work well without a very large data base.}\end{quote}
-
-\noindent
-Thank you for that comment. We agree.
-
-\begin{quote}{\em 4.4 It would be useful to plot the actual size against the recalculated size. If the revised size is still correlated with the actual size you may only have demonstrated that the exponential term in the COCOMO model is close to 1.}\end{quote}
-
-\noindent
-This remark refers to material that has now been deleted from this version.
-Please see above discussion with Reviewer1 on `` 4.4 COCOMO with Incorrect Size Estimates ''.
-In order to focus the paper better,  have removed it from this draft. However, at your direction, we would gladly return it.
-
-
-\begin{quote}{\em Section 5: I am not clear why the authors felt it necessary to include Figures 13 \& 14 other than to have something positive to report. However, there does not appear to be much difference between PEEKING2 and Knear(3) at least not really sufficient to claim that PEEKING2 performed best.}\end{quote}
-
-\noindent We concur. We have removed that entire section about positive results on non-COCOMO data.
-The resulting paper is much clear, in our opinion.
-
-As a final note, thank you again for your comments. This draft is now 6 pages shorter (since it has dispensed
-with much superfluous material), contains numerous important extensions (e.g. the full inclusion of the Nasa10 data),
-as well as important comments on external validity and other matters.
-\newpage
-
+\input{reviews-round1}
 \end{document}
 
 
