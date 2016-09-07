@@ -421,7 +421,7 @@ http://openscience.us/repo or in \fig{nasa10}.
 \includegraphics[width=3.6in]{datasets1.png}
 \end{center}
 \caption{\ADD{Projects in this study. COC81 is a subset of COCOMO-II.  Note that NASA'93 and
-COC'05 and Nasa'10 have no
+COC'05 and NASA'10 have no
 overlap with the data used to define the version of COCOMO
 used in this paper. }}\label{fig:dataused}
 \end{figure} 
@@ -791,7 +791,7 @@ Each attribute except KLOC and effort is scored
 using the scale very low = 1, low=2, up to
 xhigh=6.
 Note all attributes extend across the entire
-range very low to exteremely high since,
+range very low to extremely high since,
 in Boehm's modeling work, not all effects extend
 across the entire range.
 For an explanation of the attributes shown in
@@ -1003,7 +1003,7 @@ def RIG():
  
  for data in DATA: # e.g. data = COC81
  
-     mres= {}
+     errors= {}
      for learner in LEARNERS: #e.g. learner=COCONUT 
        for n in range(10): # ten times repeat
        
@@ -1012,10 +1012,10 @@ def RIG():
            model    = learn(training)
            estimate = guess(model, project)
            actual   = effort(project)
-           mre      = abs(actual - estimate)/actual
-           mres[learner][n] = mre
+           error    = abs(actual - estimate)/actual
+           errors[learner][n] = error
            
-     print rank(mres) # some statistical tests
+     print rank(errors) # some statistical tests
 \end{lstlisting}
 \caption{The experimental rig used in this paper.}\label{fig:rig}
 \end{figure}
@@ -1115,7 +1115,7 @@ performance via {\em Standardized Error}($SE$); i.e.
 \begin{equation}\label{eq:se}
 \mbox{$ \mathit{SE}=\frac{\sum_{i=1}^{n}(abs(\mathit{actual_i} - \mathit{predicted_i}))/n}{\sum_{i=1}^{n}(abs(\mathit{actual_i} - \mathit{sampled}))/n}$} * 100
 \end{equation}
-This measure is derived from {\em Standardized Accuracy}($SA$) defined by Shepperd \& MacDonnell~\cite{shepperd12a} ($SE = 1 - SA$). In Equation ~\ref{eq:se}, $actual$ represents the true value, $predicted$ represents the estimated value by the predictor and $sampled$ is a value drawn randomly from a list of random samples(with replacement) from the training data.  Shepperd and MacDonnel also propose
+This measure is derived from {\em Standardized Accuracy}($SA$) defined by Shepperd \& MacDonnell~\cite{shepperd12a} ($SE = 1 - SA$). In Equation ~\ref{eq:se}, $actual$ represents the true value, $predicted$ represents the estimated value by the predictor and $sampled$ is a value drawn randomly from a list of random samples(with replacement) from the training data.  Shepperd and MacDonnell also propose
 another measure that reports the performance as a
 ratio of some other, much
 simpler, ``straw man'' approach (they recommend the
@@ -1844,7 +1844,7 @@ biases of the authors of this paper made us select
 a parametric modeling method (COCOMO)  as the main modeling method.
 \item
 We then made a conscious decision to reverse those biases
-and explore non-parametric methods (PEEKER and TEAK) as well
+and explore non-parametric methods (PEEKING2 and TEAK) as well
 as decision-tree methods (CART).
 \ei
 % \begin{BLUE}
@@ -1883,74 +1883,74 @@ as decision-tree methods (CART).
 % Hence, we can report that our
 % conclusion are external valid across at least two error measures.
 % \end{BLUE}
-\begin{figure}[!t]
- \begin{BLUE}
-{\small
-{\bf NASA10 (new NASA data up to 2010):}
+% \begin{figure}[!t]
+%  \begin{BLUE}
+% {\small
+% {\bf NASA10 (new NASA data up to 2010):}
 
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & 
-%min= 20, max= 117
-\\
-  1 &      COCONUT &    41  &  87 & \quart{4}{36}{22}{82} \\
-  1 &      COCOMO-II &    42  &  86 & \quart{4}{36}{23}{82} \\
-\hline  2 &       loc(1) &    84  &  97 & \quart{4}{74}{43}{82} \\
-  2 &       loc(3) &    102  &  204 & \quart{4}{90}{52}{82} \\
-\end{tabular}}
+% {\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+% \arrayrulecolor{darkgray}
+% \rowcolor[gray]{.9}  rank & treatment & median & IQR & 
+% %min= 20, max= 117
+% \\
+%   1 &      COCONUT &    41  &  87 & \quart{4}{36}{22}{82} \\
+%   1 &      COCOMO-II &    42  &  86 & \quart{4}{36}{23}{82} \\
+% \hline  2 &       loc(1) &    84  &  97 & \quart{4}{74}{43}{82} \\
+%   2 &       loc(3) &    102  &  204 & \quart{4}{90}{52}{82} \\
+% \end{tabular}}
 
-~\\
+% ~\\
 
-{\bf COC05 (new COCOMO data up to 2005):}
+% {\bf COC05 (new COCOMO data up to 2005):}
 
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 166\\
-  1 &      COCONUT &    8  &  112 & \quart{0}{75}{15}{54} \\
-  1 &      COCOMO-II &    8  &  224 & \quart{0}{100}{15}{54} \\
-\hline 2 &       loc(1) &    28  &  100 & \quart{0}{78}{30}{54} \\
-  2 &       loc(3) &    28  &  108 & \quart{0}{81}{30}{54} \\
-\end{tabular}}
+% {\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+% \arrayrulecolor{darkgray}
+% \rowcolor[gray]{.9}  rank & treatment & median & IQR & \\%min= 20, max= 166\\
+%   1 &      COCONUT &    8  &  112 & \quart{0}{75}{15}{54} \\
+%   1 &      COCOMO-II &    8  &  224 & \quart{0}{100}{15}{54} \\
+% \hline 2 &       loc(1) &    28  &  100 & \quart{0}{78}{30}{54} \\
+%   2 &       loc(3) &    28  &  108 & \quart{0}{81}{30}{54} \\
+% \end{tabular}}
 
-~\\
-\\  \HERE{Reviewer2g} \\
-{\bf NASA93 (NASA data up to 1993):}
+% ~\\
+% \\  \HERE{Reviewer2g} \\
+% {\bf NASA93 (NASA data up to 1993):}
 
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & 
-%min= 15, max= 129
-\\
-  1 &      COCONUT &    9  &  86 & \quart{0}{47}{4}{74} \\
-  1 &      COCOMO-II &    11  &  88 & \quart{0}{47}{5}{74} \\
-\hline  2 &       loc(1) &    40  &  116 & \quart{0}{55}{22}{74} \\
-  2 &       loc(3) &    56  &  155 & \quart{0}{75}{35}{74} \\
-\end{tabular}}
-
-
-~\\
-
-{\bf COC81 (original data from the 1981 COCOMO book):}
-
-{\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
-\arrayrulecolor{darkgray}
-\rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 14, max= 291
-\\
-  1 &      COCOMO-II &    1  &  37 & \quart{0}{80}{1}{31} \\
-  1 &      COCONUT &    1  &  38 & \quart{0}{80}{1}{31} \\
-\hline  2 &       loc(3) &    6  &  51 & \quart{0}{100}{25}{31} \\
-  2 &       loc(1) &    9  &  58 & \quart{0}{100}{35}{31} \\
-\end{tabular}}
+% {\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+% \arrayrulecolor{darkgray}
+% \rowcolor[gray]{.9}  rank & treatment & median & IQR & 
+% %min= 15, max= 129
+% \\
+%   1 &      COCONUT &    9  &  86 & \quart{0}{47}{4}{74} \\
+%   1 &      COCOMO-II &    11  &  88 & \quart{0}{47}{5}{74} \\
+% \hline  2 &       loc(1) &    40  &  116 & \quart{0}{55}{22}{74} \\
+%   2 &       loc(3) &    56  &  155 & \quart{0}{75}{35}{74} \\
+% \end{tabular}}
 
 
-}
-\end{BLUE}
-\caption{\textcolor{black}{Using the \eq{e2} error message, COCOMO vs just lines
-of code using \textit{e2} as error measure. 
-These results should be compared to \fig{loc}, which
-used \eq{se}.}
-}\label{fig:loc_e2}
-\end{figure}
+% ~\\
+
+% {\bf COC81 (original data from the 1981 COCOMO book):}
+
+% {\small \begin{tabular}{l@{~~~}l@{~~~}r@{~~~}r@{~~~}c}
+% \arrayrulecolor{darkgray}
+% \rowcolor[gray]{.9}  rank & treatment & median & IQR & %min= 14, max= 291
+% \\
+%   1 &      COCOMO-II &    1  &  37 & \quart{0}{80}{1}{31} \\
+%   1 &      COCONUT &    1  &  38 & \quart{0}{80}{1}{31} \\
+% \hline  2 &       loc(3) &    6  &  51 & \quart{0}{100}{25}{31} \\
+%   2 &       loc(1) &    9  &  58 & \quart{0}{100}{35}{31} \\
+% \end{tabular}}
+
+
+% }
+% \end{BLUE}
+% \caption{\textcolor{black}{Using the \eq{e2} error message, COCOMO vs just lines
+% of code using \textit{e2} as error measure. 
+% These results should be compared to \fig{loc}, which
+% used \eq{se}.}
+% }\label{fig:loc_e2}
+% \end{figure}
 
 \section{Conclusion}
 The past few decades have seen a long line of innovative  methods
@@ -1997,13 +1997,13 @@ investigate how innovative new techniques can extend
 estimation methods.  
  
 
-Having endorsed the use of parametric methods such as COCOMO, it is approprite
+Having endorsed the use of parametric methods such as COCOMO, it is appropriate
 to discuss current plans for new versions of that approach.
 Recent changes  in the software industry
 suggest  it is time  to revise COCOMO-II.
 The rise of agile methods, web
 services, cloud services, parallelized software on
-multicore chips, field-programmable-gate-array
+multi-core chips, field-programmable-gate-array
 (FPGA) software, apps, widgets, and net-centric
 systems of systems (NCSOS) have caused the COCOMO II
 developers and users to begin addressing an upgrade
@@ -2138,11 +2138,7 @@ or imply its endorsement by the US Government.
 
 \bibliography{refs,refs1}
 \balance
-\newpage
-\setcounter{page}{1}
-\pagenumbering{roman}
-\noindent
-    {\bf REPLY TO REVIEWERS}
+
 
  
 \input{reviews-round1}
